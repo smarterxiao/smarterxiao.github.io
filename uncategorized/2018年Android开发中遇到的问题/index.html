@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,问题,日记,2018年," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2018.2.26今天遇到了一个问题是在ScrollView中加载长图片，在某些手机上会显示白屏的问题报错信息是这个116:31:09.49222636OpenGLRendererBitmap too large to be uploaded into a texture (1125x4359, max=4096x4096 这个是由于开启了硬件加速之后，android openGL对图片的绘制大小">
+<meta name="keywords" content="Android,问题,日记,2018年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2018年Android开发中遇到的问题">
+<meta property="og:url" content="http://yoursite.com/uncategorized/2018年Android开发中遇到的问题/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="2018.2.26今天遇到了一个问题是在ScrollView中加载长图片，在某些手机上会显示白屏的问题报错信息是这个116:31:09.49222636OpenGLRendererBitmap too large to be uploaded into a texture (1125x4359, max=4096x4096 这个是由于开启了硬件加速之后，android openGL对图片的绘制大小">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-26T13:02:16.349Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2018年Android开发中遇到的问题">
+<meta name="twitter:description" content="2018.2.26今天遇到了一个问题是在ScrollView中加载长图片，在某些手机上会显示白屏的问题报错信息是这个116:31:09.49222636OpenGLRendererBitmap too large to be uploaded into a texture (1125x4359, max=4096x4096 这个是由于开启了硬件加速之后，android openGL对图片的绘制大小">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/uncategorized/2018年Android开发中遇到的问题/"/>
+
+
+
+
+
+  <title>2018年Android开发中遇到的问题 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/uncategorized/2018年Android开发中遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2018年Android开发中遇到的问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T21:56:17+08:00">
+                2018-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="2018-2-26"><a href="#2018-2-26" class="headerlink" title="2018.2.26"></a>2018.2.26</h2><p>今天遇到了一个问题是在ScrollView中加载长图片，在某些手机上会显示白屏的问题<br>报错信息是这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">16:31:09.49222636OpenGLRendererBitmap too large to be uploaded into a texture (1125x4359, max=4096x4096</span><br></pre></td></tr></table></figure></p>
+<p>这个是由于开启了硬件加速之后，android openGL对图片的绘制大小有要求，最大是<code>max=4096x4096</code> 所以最简单的解决办法就是关闭硬件加速<br>这里有四个级别的硬件加速，在小米4手机上面展示1000*2096分辨率的长图片会出现这个问题，或者使用短一点的图片尺寸小于 2750px</p>
+<ul>
+<li><p>Application</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:hardwareAccelerated=&quot;false&quot;</span><br><span class="line">...&gt;</span><br><span class="line">&lt;/application&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Activity</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:hardwareAccelerated=&quot;true&quot;&gt;</span><br><span class="line">    &lt;activity ... /&gt;</span><br><span class="line">    &lt;activity android:hardwareAccelerated=&quot;false&quot; /&gt;</span><br><span class="line">&lt;/application&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getWindow().setFlags(</span><br><span class="line">   WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,</span><br><span class="line">   WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>View</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2018-3-12"><a href="#2018-3-12" class="headerlink" title="2018.3.12"></a>2018.3.12</h2><ol>
+<li>今天遇到一个问题是android帧动画<br>这里是相关的stackoverflow<br><a href="https://stackoverflow.com/questions/8692328/causing-outofmemoryerror-in-frame-by-frame-animation-in-android" target="_blank" rel="noopener">https://stackoverflow.com/questions/8692328/causing-outofmemoryerror-in-frame-by-frame-animation-in-android</a></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line">public class AnimationsContainer &#123;</span><br><span class="line"></span><br><span class="line">    // single instance procedures</span><br><span class="line">    private static AnimationsContainer mInstance;</span><br><span class="line"></span><br><span class="line">    private AnimationsContainer() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">    public static AnimationsContainer getInstance() &#123;</span><br><span class="line">        if (mInstance == null)</span><br><span class="line">            mInstance = new AnimationsContainer();</span><br><span class="line">        return mInstance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // animation progress dialog frames</span><br><span class="line">    private int[] mProgressAnimFrames = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    // animation splash screen frames</span><br><span class="line">    private int[] mSplashAnimFrames = &#123;</span><br><span class="line">            R.drawable.money_get_00, R.drawable.money_get_01, R.drawable.money_get_02, R.drawable.money_get_03,</span><br><span class="line">            R.drawable.money_get_04, R.drawable.money_get_05, R.drawable.money_get_06, R.drawable.money_get_07,</span><br><span class="line">            R.drawable.money_get_08, R.drawable.money_get_09, R.drawable.money_get_10, R.drawable.money_get_11,</span><br><span class="line">            R.drawable.money_get_12, R.drawable.money_get_13, R.drawable.money_get_14, R.drawable.money_get_15,</span><br><span class="line">            R.drawable.money_get_16, R.drawable.money_get_17, R.drawable.money_get_18, R.drawable.money_get_19,</span><br><span class="line">            R.drawable.money_get_20, R.drawable.money_get_21, R.drawable.money_get_22, R.drawable.money_get_23,</span><br><span class="line">            R.drawable.money_get_24, R.drawable.money_get_25, R.drawable.money_get_26, R.drawable.money_get_27,</span><br><span class="line">            R.drawable.money_get_28, R.drawable.money_get_29, R.drawable.money_get_30, R.drawable.money_get_31,</span><br><span class="line">            R.drawable.money_get_32, R.drawable.money_get_33, R.drawable.money_get_34, R.drawable.money_get_35,</span><br><span class="line">            R.drawable.money_get_36, R.drawable.money_get_37, R.drawable.money_get_38, R.drawable.money_get_39,</span><br><span class="line">            R.drawable.money_get_40, R.drawable.money_get_41, R.drawable.money_get_42, R.drawable.money_get_43,</span><br><span class="line">            R.drawable.money_get_44, R.drawable.money_get_45, R.drawable.money_get_46, R.drawable.money_get_47,</span><br><span class="line">            R.drawable.money_get_48, R.drawable.money_get_49, R.drawable.money_get_50&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param imageView</span><br><span class="line">     * @return progress dialog animation</span><br><span class="line">     */</span><br><span class="line">    public FramesSequenceAnimation createProgressDialogAnim(ImageView imageView, OnAnimationStoppedListener listener) &#123;</span><br><span class="line">        return new FramesSequenceAnimation(imageView, mProgressAnimFrames, 30, listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @param imageView</span><br><span class="line">     * @return splash screen animation</span><br><span class="line">     */</span><br><span class="line">    public FramesSequenceAnimation createSplashAnim(ImageView imageView, OnAnimationStoppedListener listener) &#123;</span><br><span class="line">        return new FramesSequenceAnimation(imageView, mSplashAnimFrames, 30, listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * AnimationPlayer. Plays animation frames sequence in loop</span><br><span class="line">     */</span><br><span class="line">    public class FramesSequenceAnimation &#123;</span><br><span class="line">        private int[] mFrames; // animation frames</span><br><span class="line">        private int mIndex; // current frame</span><br><span class="line">        private boolean mShouldRun; // true if the animation should continue running. Used to stop the animation</span><br><span class="line">        private boolean mIsRunning; // true if the animation currently running. prevents starting the animation twice</span><br><span class="line">        private SoftReference&lt;ImageView&gt; mSoftReferenceImageView; // Used to prevent holding ImageView when it should be dead.</span><br><span class="line">        private Handler mHandler;</span><br><span class="line">        private int mDelayMillis;</span><br><span class="line">        private OnAnimationStoppedListener mOnAnimationStoppedListener;</span><br><span class="line"></span><br><span class="line">        int times = 1;</span><br><span class="line">        private Bitmap mBitmap = null;</span><br><span class="line">        private BitmapFactory.Options mBitmapOptions;</span><br><span class="line"></span><br><span class="line">        public FramesSequenceAnimation(ImageView imageView, int[] frames, int fps, OnAnimationStoppedListener listener) &#123;</span><br><span class="line">            mHandler = new Handler();</span><br><span class="line">            mFrames = frames;</span><br><span class="line">            mIndex = -1;</span><br><span class="line">            mSoftReferenceImageView = new SoftReference&lt;ImageView&gt;(imageView);</span><br><span class="line">            mShouldRun = false;</span><br><span class="line">            mIsRunning = false;</span><br><span class="line">            mDelayMillis = 1000 / fps;</span><br><span class="line">            mOnAnimationStoppedListener = listener;</span><br><span class="line">            imageView.setImageResource(mFrames[0]);</span><br><span class="line"></span><br><span class="line">            // use in place bitmap to save GC work (when animation images are the same size &amp; type)</span><br><span class="line">            if (Build.VERSION.SDK_INT &gt;= 11) &#123;</span><br><span class="line">                Bitmap bmp = ((BitmapDrawable) imageView.getDrawable()).getBitmap();</span><br><span class="line">                int width = bmp.getWidth();</span><br><span class="line">                int height = bmp.getHeight();</span><br><span class="line">                Bitmap.Config config = bmp.getConfig();</span><br><span class="line">                mBitmap = Bitmap.createBitmap(width, height, config);</span><br><span class="line">                mBitmapOptions = new BitmapFactory.Options();</span><br><span class="line">                // setup bitmap reuse options.</span><br><span class="line">                mBitmapOptions.inBitmap = mBitmap;</span><br><span class="line">                mBitmapOptions.inMutable = true;</span><br><span class="line">                mBitmapOptions.inSampleSize = 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private int getNext() &#123;</span><br><span class="line">            mIndex++;</span><br><span class="line">            if (mIndex &gt;= mFrames.length) &#123;</span><br><span class="line"></span><br><span class="line">                mIndex = 0;</span><br><span class="line">                times--;</span><br><span class="line">                if (times &lt;= 0) &#123;</span><br><span class="line">                    mShouldRun = false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return mFrames[mIndex];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * Starts the animation</span><br><span class="line">         */</span><br><span class="line">        public synchronized void start() &#123;</span><br><span class="line">            mSoftReferenceImageView.get().setVisibility(View.VISIBLE);</span><br><span class="line">            mShouldRun = true;</span><br><span class="line">            if (mIsRunning)</span><br><span class="line">                return;</span><br><span class="line"></span><br><span class="line">            Runnable runnable = new Runnable() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    ImageView imageView = mSoftReferenceImageView.get();</span><br><span class="line">                    if (!mShouldRun || imageView == null) &#123;</span><br><span class="line">                        mIsRunning = false;</span><br><span class="line">                        if (mOnAnimationStoppedListener != null) &#123;</span><br><span class="line">                            mOnAnimationStoppedListener.AnimationStopped();</span><br><span class="line">                        &#125;</span><br><span class="line">                        return;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    mIsRunning = true;</span><br><span class="line">                    mHandler.postDelayed(this, mDelayMillis);</span><br><span class="line"></span><br><span class="line">                    if (imageView.isShown()) &#123;</span><br><span class="line">                        int imageRes = getNext();</span><br><span class="line">                        if (mBitmap != null) &#123; // so Build.VERSION.SDK_INT &gt;= 11</span><br><span class="line">                            Bitmap bitmap = null;</span><br><span class="line">                            try &#123;</span><br><span class="line">                                bitmap = BitmapFactory.decodeResource(imageView.getResources(), imageRes, mBitmapOptions);</span><br><span class="line">                            &#125; catch (Exception e) &#123;</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            &#125;</span><br><span class="line">                            if (bitmap != null) &#123;</span><br><span class="line">                                imageView.setImageBitmap(bitmap);</span><br><span class="line">                            &#125; else &#123;</span><br><span class="line">                                imageView.setImageResource(imageRes);</span><br><span class="line">                                mBitmap.recycle();</span><br><span class="line">                                mBitmap = null;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            imageView.setImageResource(imageRes);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            mHandler.post(runnable);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * Stops the animation</span><br><span class="line">         */</span><br><span class="line">        public synchronized void stop() &#123;</span><br><span class="line">            mShouldRun = false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public  boolean getStatus() &#123;</span><br><span class="line">            return mShouldRun;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        public void setPlayTime(int times) &#123;</span><br><span class="line">            if (times &lt;= 0) &#123;</span><br><span class="line">                times = 1;</span><br><span class="line">            &#125;</span><br><span class="line">            this.times = times;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void playMoneyAnimator() &#123;</span><br><span class="line">    if (anim == null) &#123;</span><br><span class="line">        anim = AnimationsContainer.getInstance().createSplashAnim(imageview, new OnAnimationStoppedListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void AnimationStopped() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!anim.getStatus()) &#123;</span><br><span class="line">        anim.setPlayTime(1);</span><br><span class="line">        anim.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解决方案不用帧动画，通过对imageview内部图片进行切换来处理</p>
+<ol start="2">
+<li>这里记录一下经常会忘掉的方法<br>Gson String 转换为 list的方法不然老是忘了<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;aaa&gt; finishBeanTP = gson.fromJson(&quot;xxxxxxx&quot;, new TypeToken&lt;List&lt;aaa&gt;&gt;() &#123;&#125;.getType());</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>glide 加载GIf的方法</p>
+<p>private final String GIF_PATH = “file:///android_asset/licai_refresh_header.gif”; Glide.with(context).load(GIF_PATH).asGif().dontAnimate().centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(iv);</p>
+<h2 id="2018-3-21"><a href="#2018-3-21" class="headerlink" title="2018.3.21"></a>2018.3.21</h2><p>如果使用git报错：<br>fatal: could not read Username for ‘<a href="https://github.com&#39;" target="_blank" rel="noopener">https://github.com&#39;</a>: No such file or directo<br>不知道解决办法可以升级一下git版本看一下 ，我是这样解决的</p>
+<h2 id="2-18-5-6"><a href="#2-18-5-6" class="headerlink" title="2.18.5.6"></a>2.18.5.6</h2><p>开发这么长时间了，第一次见到系统原来自带了这种控件</p>
+<ul>
+<li>ViewFlipper<br>如何实现一个上下滚动的TextView。可以使用一下ViewFlipper。这个是Android自带的控件</li>
+<li>AdapterViewFlipper<br>也是一个类似ViewFlipper，自由播放的控件</li>
+<li>StackView<br><a href="https://blog.csdn.net/small_lee/article/details/51544975" target="_blank" rel="noopener">https://blog.csdn.net/small_lee/article/details/51544975</a><br>一个类似照片墙的控件</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/问题/" rel="tag"># 问题</a>
+          
+            <a href="/tags/日记/" rel="tag"># 日记</a>
+          
+            <a href="/tags/2018年/" rel="tag"># 2018年</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/Linux鸟哥笔记/" rel="next" title="Linux鸟哥笔记">
+                <i class="fa fa-chevron-left"></i> Linux鸟哥笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/androidDesign库学习/" rel="prev" title="androidDesign库学习">
+                androidDesign库学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-2-26"><span class="nav-number">1.</span> <span class="nav-text">2018.2.26</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-3-12"><span class="nav-number">2.</span> <span class="nav-text">2018.3.12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-3-21"><span class="nav-number">3.</span> <span class="nav-text">2018.3.21</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-18-5-6"><span class="nav-number">4.</span> <span class="nav-text">2.18.5.6</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

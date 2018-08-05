@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="进阶,Android开发艺术探索," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="window表示一个窗口的概念，这里不是windows操作系统哦！在日常开发中直接接触window的机会并不多，但是在某些特殊的时候我们需要在桌面上显示类似悬浮窗的东西，那么这个就需要使用window了。window是一个抽象类，他的具体实现是photoWindow，创建一个window是很简单的事情，只需要通过windowManager即可完成。windowManager是外界访问windo">
+<meta name="keywords" content="进阶,Android开发艺术探索">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发艺术探索 第八章 理解Windows和WindowsManager">
+<meta property="og:url" content="http://yoursite.com/android/Android开发艺术探索_第八章 理解Windows和WindowsManager/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="window表示一个窗口的概念，这里不是windows操作系统哦！在日常开发中直接接触window的机会并不多，但是在某些特殊的时候我们需要在桌面上显示类似悬浮窗的东西，那么这个就需要使用window了。window是一个抽象类，他的具体实现是photoWindow，创建一个window是很简单的事情，只需要通过windowManager即可完成。windowManager是外界访问windo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android开发艺术探索_第八章%20理解Windows和WindowsManager/device-2018-05-16-160142.png">
+<meta property="og:updated_time" content="2018-07-26T13:02:16.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发艺术探索 第八章 理解Windows和WindowsManager">
+<meta name="twitter:description" content="window表示一个窗口的概念，这里不是windows操作系统哦！在日常开发中直接接触window的机会并不多，但是在某些特殊的时候我们需要在桌面上显示类似悬浮窗的东西，那么这个就需要使用window了。window是一个抽象类，他的具体实现是photoWindow，创建一个window是很简单的事情，只需要通过windowManager即可完成。windowManager是外界访问windo">
+<meta name="twitter:image" content="http://yoursite.com/android/Android开发艺术探索_第八章%20理解Windows和WindowsManager/device-2018-05-16-160142.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android开发艺术探索_第八章 理解Windows和WindowsManager/"/>
+
+
+
+
+
+  <title>Android开发艺术探索 第八章 理解Windows和WindowsManager | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android开发艺术探索_第八章 理解Windows和WindowsManager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android开发艺术探索 第八章 理解Windows和WindowsManager</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-27T17:08:29+08:00">
+                2018-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p> window表示一个窗口的概念，这里不是windows操作系统哦！在日常开发中直接接触window的机会并不多，但是在某些特殊的时候我们需要在桌面上显示类似悬浮窗的东西，那么这个就需要使用window了。window是一个抽象类，他的具体实现是photoWindow，创建一个window是很简单的事情，只需要通过windowManager即可完成。windowManager是外界访问window的入口，window的具体实现位于windowManagerService中，windowManager和WindowManagerService的交互是一个IPC过程，android中所有的视图都是通过window来呈现的，不管是activity。dialog。还是toast，他们的视图实际上都是附加在window上面的，因此window是View的直接管理者，从第四章View的事件分发机制也可以看出来，单击事件是有window传递给decorView的，然后再有decorView传递给我们的View，就连activity的设置视图的方法setContentView在底层也是通过window来完成的。</p>
+</blockquote>
+<h1 id="window和wondowManager"><a href="#window和wondowManager" class="headerlink" title="window和wondowManager"></a>window和wondowManager</h1><p>为了分析window的工作机制，我们需要先了解如何使用windowManager添加一个window。下面的代码展示了如何通过windowManger添加window的过程，是不是很简单呢<br>如果是android8.0及以上，需要加权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>不然会报错：permission denied for window type 2010<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private View bt;</span><br><span class="line">    int OVERLAY_PERMISSION_CODE = 1000;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        bt = findViewById(R.id.bt);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onWindowFocusChanged(boolean hasFocus) &#123;</span><br><span class="line">        super.onWindowFocusChanged(hasFocus);</span><br><span class="line">        addOverlay();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void addOverlay() &#123;</span><br><span class="line">        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) &#123;</span><br><span class="line">            if (!Settings.canDrawOverlays(this)) &#123;</span><br><span class="line">                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse(&quot;package:&quot; + getPackageName()));</span><br><span class="line">                startActivityForResult(intent, OVERLAY_PERMISSION_CODE);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                Button mFloatButton = new Button(this);</span><br><span class="line">                mFloatButton.setText(&quot;button&quot;);</span><br><span class="line">                mFloatButton.setBackgroundColor(Color.RED);</span><br><span class="line">                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0, 0, PixelFormat.TRANSPARENT);</span><br><span class="line">                layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;</span><br><span class="line">                layoutParams.gravity = Gravity.LEFT | Gravity.TOP;</span><br><span class="line">                layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">                layoutParams.x = 100;</span><br><span class="line">                layoutParams.y = 100;</span><br><span class="line">                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;</span><br><span class="line">                getWindowManager().addView(mFloatButton, layoutParams);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequiresApi(api = Build.VERSION_CODES.M)</span><br><span class="line">    @Override</span><br><span class="line">    protected void onActivityResult(int requestCode, int resultCode, Intent data) &#123;</span><br><span class="line">        super.onActivityResult(requestCode, resultCode, data);</span><br><span class="line">        if (requestCode == OVERLAY_PERMISSION_CODE) &#123;</span><br><span class="line"></span><br><span class="line">            if (Settings.canDrawOverlays(this)) &#123;</span><br><span class="line">                Button mFloatButton = new Button(this);</span><br><span class="line">                mFloatButton.setText(&quot;button&quot;);</span><br><span class="line">                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0, 0, PixelFormat.TRANSPARENT);</span><br><span class="line">                layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;</span><br><span class="line">                layoutParams.gravity = Gravity.LEFT | Gravity.TOP;</span><br><span class="line">                layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">                layoutParams.x = 100;</span><br><span class="line">                layoutParams.y = 100;</span><br><span class="line">                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;</span><br><span class="line">                getWindowManager().addView(mFloatButton, layoutParams);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="device-2018-05-16-160142.png" alt="Alt text" title="红色的是添加的button"><br>这里列举一下比较常用的flags属性</p>
+<ul>
+<li>FLAT_NOT_FOCUSABLE<br>表示window不需要焦点，也不需要接收各种输入时间，此标记会同时启用FLAG_NOT_TOUCH_MODAL，最终会将事件直接传递给下层具有焦点的window</li>
+<li>FLAG_NOT_TOUCH_MODAL<br>此模式下，系统会将当前window区域以外的单机事件传递给底层的window，当前window区域以内的单击事件则自己处理，这个标记很重要，一般来说都需要开启，否则其他window无法接收到单击事件</li>
+<li>FLAG_SHOW_WHEN_LOCKED<br>开启此模式可以让window显示在锁屏桌面上</li>
+</ul>
+<p>Type参数表示window的类型，window有三种类型，分别是应用window，子window和系统window。应用类window对应着一个activity，子window不能单独存在，他需要衣服在特定的父window中，比如常见的一些dialog就是一个子window。系统window是需要声明权限才能创建的window，比如toast和系统状态栏都是系统window。<br>window是分层的，每个window都有对应的z-ordered，层级大的会覆盖在层级晓得window的上面，这个和html的z-index的概念是完全一致的。在三类window中，应用window的层级范围是1-99，子window的层级范围是1000-9999，系统window的层级范围是2000-2999，这些层级范围对应着windowManager.layoutParams的type参数，如果想要window位于所有window的最顶层，那么采用较大的层数即可，很显然系统window的层级是最大的，而且系统层级有很多只，一般我们选用 TYPE_SYSTEM_OVERLAY或者TYPE_SYSTEM_ERROR,如果采用TYPE_SYSTEM_ERROR，只需要为type之地当这个层级就可以mLayoutParams.type=layoutParams.TYPE_SYSTEM_ERROR，同时声明权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>因为系统类型的window是需要权限检查的，如果不在AndroidManifest中添加权限，会提示申请权限失败<br>windowManager所提供的功能很简单，常用的只有三个方法，即添加View、更新View和删除View。这三个方法定义在Viewmanager中，而WindowManager继承ViewManager<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public interface ViewManager</span><br><span class="line">&#123;</span><br><span class="line">    /**</span><br><span class="line">     * Assign the passed LayoutParams to the passed View and add the view to the window.</span><br><span class="line">     * &lt;p&gt;Throws &#123;@link android.view.WindowManager.BadTokenException&#125; for certain programming</span><br><span class="line">     * errors, such as adding a second view to a window without removing the first view.</span><br><span class="line">     * &lt;p&gt;Throws &#123;@link android.view.WindowManager.InvalidDisplayException&#125; if the window is on a</span><br><span class="line">     * secondary &#123;@link Display&#125; and the specified display can&apos;t be found</span><br><span class="line">     * (see &#123;@link android.app.Presentation&#125;).</span><br><span class="line">     * @param view The view to be added to this window.</span><br><span class="line">     * @param params The LayoutParams to assign to view.</span><br><span class="line">     */</span><br><span class="line">    public void addView(View view, ViewGroup.LayoutParams params);</span><br><span class="line">    public void updateViewLayout(View view, ViewGroup.LayoutParams params);</span><br><span class="line">    public void removeView(View view);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于开发者来说，windowManager常用的就这三个功能而已，但是这三个功能已经足够我们使用了，他可以创建一个window并向其添加View，还可以更新window中的View，如果想要删除一个window，只需要删除他里面的View就可以。由此看来，windowManager操作window过程更像是在操作window中的view。我们时常见到那种可以拖动的window效果，其实是很好实现的，只需要根据手机的位置来指定layoutParams中的x和y就可以改变window的位置，首先给View设置onTouchListener，在ontouch中不断更新就可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">final Button mFloatButton = new Button(this);</span><br><span class="line">              mFloatButton.setText(&quot;button&quot;);</span><br><span class="line">              mFloatButton.setBackgroundColor(Color.RED);</span><br><span class="line">              final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0, 0, PixelFormat.TRANSPARENT);</span><br><span class="line">              layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;</span><br><span class="line">              layoutParams.gravity = Gravity.LEFT | Gravity.TOP;</span><br><span class="line">              layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">              layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;</span><br><span class="line">              layoutParams.x = 100;</span><br><span class="line">              layoutParams.y = 100;</span><br><span class="line">              layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;</span><br><span class="line"></span><br><span class="line">              mFloatButton.setOnTouchListener(new View.OnTouchListener() &#123;</span><br><span class="line">                  @Override</span><br><span class="line">                  public boolean onTouch(View v, MotionEvent event) &#123;</span><br><span class="line">                      float rawX = event.getRawX();</span><br><span class="line">                      float rawY = event.getRawY();</span><br><span class="line">                      switch (event.getAction()) &#123;</span><br><span class="line">                          case MotionEvent.ACTION_MOVE:</span><br><span class="line">                              layoutParams.x= (int) rawX;</span><br><span class="line">                              layoutParams.y= (int) rawY;</span><br><span class="line">                              getWindowManager().updateViewLayout(mFloatButton, layoutParams);</span><br><span class="line">                              break;</span><br><span class="line">                      &#125;</span><br><span class="line">                      return false;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;);</span><br><span class="line">              getWindowManager().addView(mFloatButton, layoutParams);</span><br></pre></td></tr></table></figure></p>
+<h1 id="window的内部机制"><a href="#window的内部机制" class="headerlink" title="window的内部机制"></a>window的内部机制</h1><p>window是一个抽象的概念，每一个window都对应着一个view和一个ViewRootImpl，window和View通过ViewRootImpl来建立联系，因此window并不是实际存在的，他是以View的形式存在的，这一点从windowManager的定义可以看出来，他提供了三个方法addview，updateViewLayout和removeView都是针对View的，这说明View是window存在的尸体。在实际使用过程中无法访问window，对window的访问过程必须公国windowmanager。为了分析window的颞部机制，这里从window的添加，删除以及更新说起</p>
+<h2 id="window的添加过程"><a href="#window的添加过程" class="headerlink" title="window的添加过程"></a>window的添加过程</h2><p>window的添加过程需要通过windowManager的addView来实现，windowManager是一个接口，他的真正实现是windowManagerImpl类，在windowManagerInpl中window的三大操作如下:这里移除了一些代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public final class WindowManagerImpl implements WindowManager &#123;</span><br><span class="line">    private final WindowManagerGlobal mGlobal = WindowManagerGlobal.getInstance();</span><br><span class="line">    private final Context mContext;</span><br><span class="line">    private final Window mParentWindow;</span><br><span class="line">    @Override</span><br><span class="line">    public void addView(@NonNull View view, @NonNull ViewGroup.LayoutParams params) &#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        mGlobal.addView(view, params, mContext.getDisplay(), mParentWindow);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void updateViewLayout(@NonNull View view, @NonNull ViewGroup.LayoutParams params) &#123;</span><br><span class="line">        applyDefaultToken(params);</span><br><span class="line">        mGlobal.updateViewLayout(view, params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void removeView(View view) &#123;</span><br><span class="line">        mGlobal.removeView(view, false);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从这里可以看出windowMangerImpl并没有直接实现window的三大操作，而是全部交给了WindowManagerGlobal，WindowManagerGlobal用工厂方法向外界提供自己的实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">public void addView(View view, ViewGroup.LayoutParams params,</span><br><span class="line">          Display display, Window parentWindow) &#123;</span><br><span class="line"></span><br><span class="line">      //检查参数是否合法，如果是子window，那么还要调整一下布局</span><br><span class="line">      if (view == null) &#123;</span><br><span class="line">          throw new IllegalArgumentException(&quot;view must not be null&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (display == null) &#123;</span><br><span class="line">          throw new IllegalArgumentException(&quot;display must not be null&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (!(params instanceof WindowManager.LayoutParams)) &#123;</span><br><span class="line">          throw new IllegalArgumentException(&quot;Params must be WindowManager.LayoutParams&quot;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      final WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">      if (parentWindow != null) &#123;</span><br><span class="line">          parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">          // If there&apos;s no parent, then hardware acceleration for this view is</span><br><span class="line">          // set from the application&apos;s hardware acceleration setting.</span><br><span class="line">          final Context context = view.getContext();</span><br><span class="line">          if (context != null</span><br><span class="line">                  &amp;&amp; (context.getApplicationInfo().flags</span><br><span class="line">                          &amp; ApplicationInfo.FLAG_HARDWARE_ACCELERATED) != 0) &#123;</span><br><span class="line">              wparams.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      ViewRootImpl root;</span><br><span class="line">      View panelParentView = null;</span><br><span class="line"></span><br><span class="line">      synchronized (mLock) &#123;</span><br><span class="line">          // Start watching for system property changes.</span><br><span class="line">          if (mSystemPropertyUpdater == null) &#123;</span><br><span class="line">              mSystemPropertyUpdater = new Runnable() &#123;</span><br><span class="line">                  @Override public void run() &#123;</span><br><span class="line">                      synchronized (mLock) &#123;</span><br><span class="line">                          for (int i = mRoots.size() - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">                              mRoots.get(i).loadSystemProperties();</span><br><span class="line">                          &#125;</span><br><span class="line">                      &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;;</span><br><span class="line">              SystemProperties.addChangeCallback(mSystemPropertyUpdater);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          int index = findViewLocked(view, false);</span><br><span class="line">          if (index &gt;= 0) &#123;</span><br><span class="line">              if (mDyingViews.contains(view)) &#123;</span><br><span class="line">                  // Don&apos;t wait for MSG_DIE to make it&apos;s way through root&apos;s queue.</span><br><span class="line">                  mRoots.get(index).doDie();</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  throw new IllegalStateException(&quot;View &quot; + view</span><br><span class="line">                          + &quot; has already been added to the window manager.&quot;);</span><br><span class="line">              &#125;</span><br><span class="line">              // The previous removeView() had not completed executing. Now it has.</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          // If this is a panel window, then find the window it is being</span><br><span class="line">          // attached to for future reference.</span><br><span class="line">          if (wparams.type &gt;= WindowManager.LayoutParams.FIRST_SUB_WINDOW &amp;&amp;</span><br><span class="line">                  wparams.type &lt;= WindowManager.LayoutParams.LAST_SUB_WINDOW) &#123;</span><br><span class="line">              final int count = mViews.size();</span><br><span class="line">              for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">                  if (mRoots.get(i).mWindow.asBinder() == wparams.token) &#123;</span><br><span class="line">                      panelParentView = mViews.get(i);</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          root = new ViewRootImpl(view.getContext(), display);</span><br><span class="line"></span><br><span class="line">          view.setLayoutParams(wparams);</span><br><span class="line"></span><br><span class="line">          mViews.add(view);</span><br><span class="line">          mRoots.add(root);</span><br><span class="line">          mParams.add(wparams);</span><br><span class="line"></span><br><span class="line">          // do this last because it fires off messages to start doing things</span><br><span class="line">          try &#123;</span><br><span class="line">              root.setView(view, wparams, panelParentView);</span><br><span class="line">          &#125; catch (RuntimeException e) &#123;</span><br><span class="line">              // BadTokenException or InvalidDisplayException, clean up.</span><br><span class="line">              if (index &gt;= 0) &#123;</span><br><span class="line">                  removeViewLocked(index, true);</span><br><span class="line">              &#125;</span><br><span class="line">              throw e;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>一些比较重要的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">private final ArrayList&lt;View&gt; mViews = new ArrayList&lt;View&gt;();</span><br><span class="line">  private final ArrayList&lt;ViewRootImpl&gt; mRoots = new ArrayList&lt;ViewRootImpl&gt;();</span><br><span class="line">  private final ArrayList&lt;WindowManager.LayoutParams&gt; mParams =</span><br><span class="line">          new ArrayList&lt;WindowManager.LayoutParams&gt;();</span><br><span class="line">  private final ArraySet&lt;View&gt; mDyingViews = new ArraySet&lt;View&gt;();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码声明了mViews存储的是所有window所对应的View，mRoots存储的是所有window岁对应的ViewRootImol，mparams存储的是所有window所对应的布局参数，而mDyingView存储的是那些正在被删除的View对象，但是还没有完成删除的window对象，add通过如下方式将window的一系列对象添加到列表中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">root = new ViewRootImpl(view.getContext(), display);</span><br><span class="line">view.setLayoutParams(wparams);</span><br><span class="line">mViews.add(view);</span><br><span class="line">mRoots.add(root);</span><br><span class="line">mParams.add(wparams);</span><br></pre></td></tr></table></figure></p>
+<p>通过ViewRootImpl来更新界面并完成window的添加过程<br>这个不愁由ViewRootImol的setView方法来完成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root.setView(view, wparams, panelParentView);</span><br></pre></td></tr></table></figure></p>
+<p>在setView的内部会通过requestLayout来完成异步刷新请求。在下面的代码中，scheduleTraversals实际是View的绘制入口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> public void requestLayout() &#123;</span><br><span class="line">     if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">         checkThread();</span><br><span class="line">         mLayoutRequested = true;</span><br><span class="line">         scheduleTraversals();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>接着会通过windowsession最终完成windoow的添加过程。在下面代码中mWindowSession的类型是IWindowSession，他是一个Binder对象，真正的实现类是Session，也就是说window的添加过程其实是一次ipc调用<br>setView中的一行代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res = mWindowSession.addToDisplay(mWindow, mSeq, mWindowAttributes,</span><br><span class="line">                       getHostVisibility(), mDisplay.getDisplayId(),</span><br><span class="line">                       mAttachInfo.mContentInsets, mAttachInfo.mStableInsets,</span><br><span class="line">                       mAttachInfo.mOutsets, mInputChannel);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static IWindowSession getWindowSession() &#123;</span><br><span class="line">    synchronized (WindowManagerGlobal.class) &#123;</span><br><span class="line">        if (sWindowSession == null) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                InputMethodManager imm = InputMethodManager.getInstance();</span><br><span class="line">                IWindowManager windowManager = getWindowManagerService();</span><br><span class="line">                sWindowSession = windowManager.openSession(</span><br><span class="line">                        new IWindowSessionCallback.Stub() &#123;</span><br><span class="line">                            @Override</span><br><span class="line">                            public void onAnimatorScaleChanged(float scale) &#123;</span><br><span class="line">                                ValueAnimator.setDurationScale(scale);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        imm.getClient(), imm.getInputContext());</span><br><span class="line">            &#125; catch (RemoteException e) &#123;</span><br><span class="line">                throw e.rethrowFromSystemServer();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return sWindowSession;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>session是这个包下面的package com.android.server.wm;</p>
+<p>在session内部会通过windowManagerService来实现window的添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> public int addToDisplay(IWindow window, int seq, WindowManager.LayoutParams attrs,</span><br><span class="line">         int viewVisibility, int displayId, Rect outContentInsets, Rect outStableInsets,</span><br><span class="line">         Rect outOutsets, InputChannel outInputChannel) &#123;</span><br><span class="line">     return mService.addWindow(this, window, seq, attrs, viewVisibility, displayId,</span><br><span class="line">             outContentInsets, outStableInsets, outOutsets, outInputChannel);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样addwindow就交给windowManagerservice去处理了</p>
+<h2 id="window的删除过程"><a href="#window的删除过程" class="headerlink" title="window的删除过程"></a>window的删除过程</h2><p>window的删除过程和添加过程是类似的，都是先通过windowmanagerImpl后在进一步通过windowManagerGlobal来实现，下面是windowManagerImpl来实现。下面是windowManagerGlobal的removeView的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public void removeView(View view, boolean immediate) &#123;</span><br><span class="line">    if (view == null) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;view must not be null&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    synchronized (mLock) &#123;</span><br><span class="line">        int index = findViewLocked(view, true);</span><br><span class="line">        View curView = mRoots.get(index).getView();</span><br><span class="line">        removeViewLocked(index, immediate);</span><br><span class="line">        if (curView == view) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        throw new IllegalStateException(&quot;Calling with view &quot; + view</span><br><span class="line">                + &quot; but the ViewAncestor is attached to &quot; + curView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>removeView的逻辑很清晰，首先通过findViewLocked来查找待删除的View的索引，这个查找过程就是建立的数据遍历，然后在调用removeViewLocked来做进一步删除操作，如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private void removeViewLocked(int index, boolean immediate) &#123;</span><br><span class="line">    ViewRootImpl root = mRoots.get(index);</span><br><span class="line">    View view = root.getView();</span><br><span class="line"></span><br><span class="line">    if (view != null) &#123;</span><br><span class="line">        InputMethodManager imm = InputMethodManager.getInstance();</span><br><span class="line">        if (imm != null) &#123;</span><br><span class="line">            imm.windowDismissed(mViews.get(index).getWindowToken());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    boolean deferred = root.die(immediate);</span><br><span class="line">    if (view != null) &#123;</span><br><span class="line">        view.assignParent(null);</span><br><span class="line">        if (deferred) &#123;</span><br><span class="line">            mDyingViews.add(view);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>removeViewLocked是通过ViewRootImpl来完成删除操作的，在windowManager中提供了两种删除接口<code>removeView</code>和<code>removeViewImmediate</code>，他们分别表示异步删除和同步删除，其中removeViewImmediate使用起来需要特别注意，一般来说不需要使用此方法来删除window以避免意外的错误发生，这里主要说一下异步删除的情况，据图的操作由ViewRootImol的die方法来完成，在异步删除的情况下，die方法只是发送一个请求删除的消息后就立刻返回了，这个时候View并没有完成删除操作，所以最后会将其添加到mDyingViews中，mDyingViews表示待删除的View列表，ViewRootImpl的die方法如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">boolean die(boolean immediate) &#123;</span><br><span class="line">    // Make sure we do execute immediately if we are in the middle of a traversal or the damage</span><br><span class="line">    // done by dispatchDetachedFromWindow will cause havoc on return.</span><br><span class="line">    if (immediate &amp;&amp; !mIsInTraversal) &#123;</span><br><span class="line">        doDie();</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!mIsDrawing) &#123;</span><br><span class="line">        destroyHardwareRenderer();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        Log.e(mTag, &quot;Attempting to destroy the window while drawing!\n&quot; +</span><br><span class="line">                &quot;  window=&quot; + this + &quot;, title=&quot; + mWindowAttributes.getTitle());</span><br><span class="line">    &#125;</span><br><span class="line">    mHandler.sendEmptyMessage(MSG_DIE);</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在爹方法内部只是做了简单的判断，如果是异步操作，那么久发送一个MSG_DIE的消息，ViewRootImpl中的handler会处理此消息并调用doDie方法，如果是同步删除（立即删除），那么久不需要发送消息，直接调用doDie方法，这就是这两种删除方式的区别，在dodie内部会调用dispatchDetachedFromWindow方法，真正删除View的逻辑在dispatchDetachedFromWindow方法内部实现，dispatchDetachedFromWindow方法主要做四件事</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">void dispatchDetachedFromWindow() &#123;</span><br><span class="line">       if (mView != null &amp;&amp; mView.mAttachInfo != null) &#123;</span><br><span class="line">           mAttachInfo.mTreeObserver.dispatchOnWindowAttachedChange(false);</span><br><span class="line">           mView.dispatchDetachedFromWindow();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       mAccessibilityInteractionConnectionManager.ensureNoConnection();</span><br><span class="line">       mAccessibilityManager.removeAccessibilityStateChangeListener(</span><br><span class="line">               mAccessibilityInteractionConnectionManager);</span><br><span class="line">       mAccessibilityManager.removeHighTextContrastStateChangeListener(</span><br><span class="line">               mHighContrastTextManager);</span><br><span class="line">       removeSendWindowContentChangedCallback();</span><br><span class="line"></span><br><span class="line">       destroyHardwareRenderer();</span><br><span class="line"></span><br><span class="line">       setAccessibilityFocus(null, null);</span><br><span class="line"></span><br><span class="line">       mView.assignParent(null);</span><br><span class="line">       mView = null;</span><br><span class="line">       mAttachInfo.mRootView = null;</span><br><span class="line"></span><br><span class="line">       mSurface.release();</span><br><span class="line"></span><br><span class="line">       if (mInputQueueCallback != null &amp;&amp; mInputQueue != null) &#123;</span><br><span class="line">           mInputQueueCallback.onInputQueueDestroyed(mInputQueue);</span><br><span class="line">           mInputQueue.dispose();</span><br><span class="line">           mInputQueueCallback = null;</span><br><span class="line">           mInputQueue = null;</span><br><span class="line">       &#125;</span><br><span class="line">       if (mInputEventReceiver != null) &#123;</span><br><span class="line">           mInputEventReceiver.dispose();</span><br><span class="line">           mInputEventReceiver = null;</span><br><span class="line">       &#125;</span><br><span class="line">       try &#123;</span><br><span class="line">           mWindowSession.remove(mWindow);</span><br><span class="line">       &#125; catch (RemoteException e) &#123;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // Dispose the input channel after removing the window so the Window Manager</span><br><span class="line">       // doesn&apos;t interpret the input channel being closed as an abnormal termination.</span><br><span class="line">       if (mInputChannel != null) &#123;</span><br><span class="line">           mInputChannel.dispose();</span><br><span class="line">           mInputChannel = null;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       mDisplayManager.unregisterDisplayListener(mDisplayListener);</span><br><span class="line"></span><br><span class="line">       unscheduleTraversals();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>垃圾回收相关工作，比如清除数据和消息，移除回调</li>
+<li>通过Session的remove方法删除Window：mWindowSession.remove(mWindow)，这同样是一个IPC过程，最终会调用WindowManagerService的removeWindow方法</li>
+<li>调用View的DispatchDetachedFromWindow方法，在内部会调用View的onDetachedFromWindow()以及onDetachedFromWindowInternal()。对于onDetachedFromWindow（）方法大家一定不陌生，当View从window上面移除的时候，这个方法就会被调用，这个方法内部做一些资源回收的工作，比如终止动画，停止线程等</li>
+<li>调用WindowmanagerGlobal的doRemoveView方法刷新数据，包括mRoots，mParams以及mDyingViews，需要将当前Window所关联的这三个对象从列表中删除</li>
+</ol>
+<h2 id="window的更新过程"><a href="#window的更新过程" class="headerlink" title="window的更新过程"></a>window的更新过程</h2><p>到这里，Window的产出过程已经分析完毕，现在来分析一下更新过程，还是要看WindowManagerGlobal的updateViewLayout方法，如下所示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public void updateViewLayout(View view, ViewGroup.LayoutParams params) &#123;</span><br><span class="line">      if (view == null) &#123;</span><br><span class="line">          throw new IllegalArgumentException(&quot;view must not be null&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      if (!(params instanceof WindowManager.LayoutParams)) &#123;</span><br><span class="line">          throw new IllegalArgumentException(&quot;Params must be WindowManager.LayoutParams&quot;);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      final WindowManager.LayoutParams wparams = (WindowManager.LayoutParams)params;</span><br><span class="line"></span><br><span class="line">      view.setLayoutParams(wparams);</span><br><span class="line"></span><br><span class="line">      synchronized (mLock) &#123;</span><br><span class="line">          int index = findViewLocked(view, true);</span><br><span class="line">          ViewRootImpl root = mRoots.get(index);</span><br><span class="line">          mParams.remove(index);</span><br><span class="line">          mParams.add(index, wparams);</span><br><span class="line">          root.setLayoutParams(wparams, false);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>updateViewlayout方法做的事情就比较简单了，首先他需要更新View的LayoutParams并替换掉老的LayoutParams，接着在更新ViewRootImol中的LayoutParams，这一步是通过ViewRootImpl的setlayoutParams方法来实现的，在ViewRootImpl中会通过scheduleTraversals方法来对View重新布局，包括测量、布局、重绘这三个过程。除了View本身的重绘以外，ViewRootImol还会通过WindowSession来更新Window的视图，这个过程最终是由WindowManagerService的relayoutWindow来实现的，同样他是一个IPC过程</p>
+<h1 id="window的创建过程"><a href="#window的创建过程" class="headerlink" title="window的创建过程"></a>window的创建过程</h1><p>通过上面的分析可以看出，View是Android中视图的呈现方式，但是View并不能单独存在，他必须附着在Window这个抽象的概念上面，因此有视图的地方就有window。那些地方有视图呢？这个读者都比较清楚，Android中刻印提供视图的地方有Activity，dialog，toast初次之外，还有一些依托window而实现的视图，比如PopUpWIndow，菜单，他们也是视图，有视图的地方就有window，因此Activity、dialog、Toast等视图都对应着一个window。本节将分析的地方就有window的 创建过程，通过这个过程加深对window的进一步理解。</p>
+<h2 id="Activity的window创建过程"><a href="#Activity的window创建过程" class="headerlink" title="Activity的window创建过程"></a>Activity的window创建过程</h2><p>要分析activitty中的window的创建过程就必须了解activity的启动过程，详细的过程会在下一章介绍，这里先介绍一个大概过程，先有点印象。Activity的启动过程很复杂，最终会由ActivityThread中的performLaunchActivity来完成整个启动过程，在这个方法内部会通过类加载器创建activity的实例，并调用attach方法为其关联运行中所依赖的一系列上下文环境变量，代码如下所示<br>activityThread<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">private Activity performLaunchActivity(ActivityClientRecord r, Intent customIntent) &#123;</span><br><span class="line">    // System.out.println(&quot;##### [&quot; + System.currentTimeMillis() + &quot;] ActivityThread.performLaunchActivity(&quot; + r + &quot;)&quot;);</span><br><span class="line"></span><br><span class="line">    ActivityInfo aInfo = r.activityInfo;</span><br><span class="line">    if (r.packageInfo == null) &#123;</span><br><span class="line">        r.packageInfo = getPackageInfo(aInfo.applicationInfo, r.compatInfo,</span><br><span class="line">                Context.CONTEXT_INCLUDE_CODE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ComponentName component = r.intent.getComponent();</span><br><span class="line">    if (component == null) &#123;</span><br><span class="line">        component = r.intent.resolveActivity(</span><br><span class="line">            mInitialApplication.getPackageManager());</span><br><span class="line">        r.intent.setComponent(component);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (r.activityInfo.targetActivity != null) &#123;</span><br><span class="line">        component = new ComponentName(r.activityInfo.packageName,</span><br><span class="line">                r.activityInfo.targetActivity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ContextImpl appContext = createBaseContextForActivity(r);</span><br><span class="line">    Activity activity = null;</span><br><span class="line">    try &#123;</span><br><span class="line">        java.lang.ClassLoader cl = appContext.getClassLoader();</span><br><span class="line">        activity = mInstrumentation.newActivity(</span><br><span class="line">                cl, component.getClassName(), r.intent);</span><br><span class="line">        StrictMode.incrementExpectedActivityCount(activity.getClass());</span><br><span class="line">        r.intent.setExtrasClassLoader(cl);</span><br><span class="line">        r.intent.prepareToEnterProcess();</span><br><span class="line">        if (r.state != null) &#123;</span><br><span class="line">            r.state.setClassLoader(cl);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        if (!mInstrumentation.onException(activity, e)) &#123;</span><br><span class="line">            throw new RuntimeException(</span><br><span class="line">                &quot;Unable to instantiate activity &quot; + component</span><br><span class="line">                + &quot;: &quot; + e.toString(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        Application app = r.packageInfo.makeApplication(false, mInstrumentation);</span><br><span class="line"></span><br><span class="line">        if (localLOGV) Slog.v(TAG, &quot;Performing launch of &quot; + r);</span><br><span class="line">        if (localLOGV) Slog.v(</span><br><span class="line">                TAG, r + &quot;: app=&quot; + app</span><br><span class="line">                + &quot;, appName=&quot; + app.getPackageName()</span><br><span class="line">                + &quot;, pkg=&quot; + r.packageInfo.getPackageName()</span><br><span class="line">                + &quot;, comp=&quot; + r.intent.getComponent().toShortString()</span><br><span class="line">                + &quot;, dir=&quot; + r.packageInfo.getAppDir());</span><br><span class="line"></span><br><span class="line">        if (activity != null) &#123;</span><br><span class="line">            CharSequence title = r.activityInfo.loadLabel(appContext.getPackageManager());</span><br><span class="line">            Configuration config = new Configuration(mCompatConfiguration);</span><br><span class="line">            if (r.overrideConfig != null) &#123;</span><br><span class="line">                config.updateFrom(r.overrideConfig);</span><br><span class="line">            &#125;</span><br><span class="line">            if (DEBUG_CONFIGURATION) Slog.v(TAG, &quot;Launching activity &quot;</span><br><span class="line">                    + r.activityInfo.name + &quot; with config &quot; + config);</span><br><span class="line">            Window window = null;</span><br><span class="line">            if (r.mPendingRemoveWindow != null &amp;&amp; r.mPreserveWindow) &#123;</span><br><span class="line">                window = r.mPendingRemoveWindow;</span><br><span class="line">                r.mPendingRemoveWindow = null;</span><br><span class="line">                r.mPendingRemoveWindowManager = null;</span><br><span class="line">            &#125;</span><br><span class="line">            appContext.setOuterContext(activity);</span><br><span class="line">            activity.attach(appContext, this, getInstrumentation(), r.token,</span><br><span class="line">                    r.ident, app, r.intent, r.activityInfo, title, r.parent,</span><br><span class="line">                    r.embeddedID, r.lastNonConfigurationInstances, config,</span><br><span class="line">                    r.referrer, r.voiceInteractor, window, r.configCallback);</span><br><span class="line"></span><br><span class="line">            if (customIntent != null) &#123;</span><br><span class="line">                activity.mIntent = customIntent;</span><br><span class="line">            &#125;</span><br><span class="line">            r.lastNonConfigurationInstances = null;</span><br><span class="line">            checkAndBlockForNetworkAccess();</span><br><span class="line">            activity.mStartedActivity = false;</span><br><span class="line">            int theme = r.activityInfo.getThemeResource();</span><br><span class="line">            if (theme != 0) &#123;</span><br><span class="line">                activity.setTheme(theme);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            activity.mCalled = false;</span><br><span class="line">            if (r.isPersistable()) &#123;</span><br><span class="line">                mInstrumentation.callActivityOnCreate(activity, r.state, r.persistentState);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                mInstrumentation.callActivityOnCreate(activity, r.state);</span><br><span class="line">            &#125;</span><br><span class="line">            if (!activity.mCalled) &#123;</span><br><span class="line">                throw new SuperNotCalledException(</span><br><span class="line">                    &quot;Activity &quot; + r.intent.getComponent().toShortString() +</span><br><span class="line">                    &quot; did not call through to super.onCreate()&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            r.activity = activity;</span><br><span class="line">            r.stopped = true;</span><br><span class="line">            if (!r.activity.mFinished) &#123;</span><br><span class="line">                activity.performStart();</span><br><span class="line">                r.stopped = false;</span><br><span class="line">            &#125;</span><br><span class="line">            if (!r.activity.mFinished) &#123;</span><br><span class="line">                if (r.isPersistable()) &#123;</span><br><span class="line">                    if (r.state != null || r.persistentState != null) &#123;</span><br><span class="line">                        mInstrumentation.callActivityOnRestoreInstanceState(activity, r.state,</span><br><span class="line">                                r.persistentState);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else if (r.state != null) &#123;</span><br><span class="line">                    mInstrumentation.callActivityOnRestoreInstanceState(activity, r.state);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (!r.activity.mFinished) &#123;</span><br><span class="line">                activity.mCalled = false;</span><br><span class="line">                if (r.isPersistable()) &#123;</span><br><span class="line">                    mInstrumentation.callActivityOnPostCreate(activity, r.state,</span><br><span class="line">                            r.persistentState);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    mInstrumentation.callActivityOnPostCreate(activity, r.state);</span><br><span class="line">                &#125;</span><br><span class="line">                if (!activity.mCalled) &#123;</span><br><span class="line">                    throw new SuperNotCalledException(</span><br><span class="line">                        &quot;Activity &quot; + r.intent.getComponent().toShortString() +</span><br><span class="line">                        &quot; did not call through to super.onPostCreate()&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        r.paused = true;</span><br><span class="line"></span><br><span class="line">        mActivities.put(r.token, r);</span><br><span class="line"></span><br><span class="line">    &#125; catch (SuperNotCalledException e) &#123;</span><br><span class="line">        throw e;</span><br><span class="line"></span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">        if (!mInstrumentation.onException(activity, e)) &#123;</span><br><span class="line">            throw new RuntimeException(</span><br><span class="line">                &quot;Unable to start activity &quot; + component</span><br><span class="line">                + &quot;: &quot; + e.toString(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return activity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>activity的attach方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">final void attach(Context context, ActivityThread aThread,</span><br><span class="line">           Instrumentation instr, IBinder token, int ident,</span><br><span class="line">           Application application, Intent intent, ActivityInfo info,</span><br><span class="line">           CharSequence title, Activity parent, String id,</span><br><span class="line">           NonConfigurationInstances lastNonConfigurationInstances,</span><br><span class="line">           Configuration config, String referrer, IVoiceInteractor voiceInteractor,</span><br><span class="line">           Window window, ActivityConfigCallback activityConfigCallback) &#123;</span><br><span class="line">       attachBaseContext(context);</span><br><span class="line"></span><br><span class="line">       mFragments.attachHost(null /*parent*/);</span><br><span class="line"></span><br><span class="line">       mWindow = new PhoneWindow(this, window, activityConfigCallback);</span><br><span class="line">       mWindow.setWindowControllerCallback(this);</span><br><span class="line">       mWindow.setCallback(this);</span><br><span class="line">       mWindow.setOnWindowDismissedCallback(this);</span><br><span class="line">       mWindow.getLayoutInflater().setPrivateFactory(this);</span><br><span class="line">       if (info.softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED) &#123;</span><br><span class="line">           mWindow.setSoftInputMode(info.softInputMode);</span><br><span class="line">       &#125;</span><br><span class="line">       if (info.uiOptions != 0) &#123;</span><br><span class="line">           mWindow.setUiOptions(info.uiOptions);</span><br><span class="line">       &#125;</span><br><span class="line">       mUiThread = Thread.currentThread();</span><br><span class="line"></span><br><span class="line">       mMainThread = aThread;</span><br><span class="line">       mInstrumentation = instr;</span><br><span class="line">       mToken = token;</span><br><span class="line">       mIdent = ident;</span><br><span class="line">       mApplication = application;</span><br><span class="line">       mIntent = intent;</span><br><span class="line">       mReferrer = referrer;</span><br><span class="line">       mComponent = intent.getComponent();</span><br><span class="line">       mActivityInfo = info;</span><br><span class="line">       mTitle = title;</span><br><span class="line">       mParent = parent;</span><br><span class="line">       mEmbeddedID = id;</span><br><span class="line">       mLastNonConfigurationInstances = lastNonConfigurationInstances;</span><br><span class="line">       if (voiceInteractor != null) &#123;</span><br><span class="line">           if (lastNonConfigurationInstances != null) &#123;</span><br><span class="line">               mVoiceInteractor = lastNonConfigurationInstances.voiceInteractor;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               mVoiceInteractor = new VoiceInteractor(voiceInteractor, this, this,</span><br><span class="line">                       Looper.myLooper());</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       mWindow.setWindowManager(</span><br><span class="line">               (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),</span><br><span class="line">               mToken, mComponent.flattenToString(),</span><br><span class="line">               (info.flags &amp; ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);</span><br><span class="line">       if (mParent != null) &#123;</span><br><span class="line">           mWindow.setContainer(mParent.getWindow());</span><br><span class="line">       &#125;</span><br><span class="line">       mWindowManager = mWindow.getWindowManager();</span><br><span class="line">       mCurrentConfig = config;</span><br><span class="line"></span><br><span class="line">       mWindow.setColorMode(info.colorMode);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Activity的attach方法里面，系统会创建activity所属的window对象并未其设置回调接口，window对象的创建是PhoneWindow。由于activity实现了window的callback接口，因此，当window接收到外界状态改变时会回调activity的方法，Callback接口中方法很多，但是有几个确实我们非常熟悉的，比如onAttachToWindow、onDetachedFromWindow、dispatchTouchEvent等等，代码如下所示</p>
+<p>从activityy的setContentView的实现可以看出，Activity将具体实现交给了Window来处理，而Window的具体实现是phoneWindow，所以只需要看phonewindow的关联逻辑即可，PhoneWindow的setContentView方法大致遵循如下几个步骤</p>
+<ol>
+<li>如果没有decorView就创建他<br>DecorView是一个FrameLayout。他是Activity中顶级的View，一般来说他包含内部标题栏和内部蓝，但是这个会随着主题的变化而改变，不管怎么样，内容栏是一定要存在的，并且内容栏固定具体的id，就是content，那么他完整的id是android.R.content。decorView的创建过程由installDecor方法来完成，在方法内部会通过generateDecor方法来直接创建DecorView，这个时候DecorView还是一个空白的FramLayout</li>
+</ol>
+<p>看一下DecorView的构造方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">DecorView(Context context, int featureId, PhoneWindow window,</span><br><span class="line">          WindowManager.LayoutParams params) &#123;</span><br><span class="line">      super(context);</span><br><span class="line">      mFeatureId = featureId;</span><br><span class="line"></span><br><span class="line">      mShowInterpolator = AnimationUtils.loadInterpolator(context,</span><br><span class="line">              android.R.interpolator.linear_out_slow_in);</span><br><span class="line">      mHideInterpolator = AnimationUtils.loadInterpolator(context,</span><br><span class="line">              android.R.interpolator.fast_out_linear_in);</span><br><span class="line"></span><br><span class="line">      mBarEnterExitDuration = context.getResources().getInteger(</span><br><span class="line">              R.integer.dock_enter_exit_duration);</span><br><span class="line">      mForceWindowDrawsStatusBarBackground = context.getResources().getBoolean(</span><br><span class="line">              R.bool.config_forceWindowDrawsStatusBarBackground)</span><br><span class="line">              &amp;&amp; context.getApplicationInfo().targetSdkVersion &gt;= N;</span><br><span class="line">      mSemiTransparentStatusBarColor = context.getResources().getColor(</span><br><span class="line">              R.color.system_bar_background_semi_transparent, null /* theme */);</span><br><span class="line"></span><br><span class="line">      updateAvailableWidth();</span><br><span class="line"></span><br><span class="line">      setWindow(window);</span><br><span class="line"></span><br><span class="line">      updateLogTag(params);</span><br><span class="line"></span><br><span class="line">      mResizeShadowSize = context.getResources().getDimensionPixelSize(</span><br><span class="line">              R.dimen.resize_shadow_size);</span><br><span class="line">      initResizingPaints();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>看一下phonewindow的setContentView这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public void setContentView(int layoutResID) &#123;</span><br><span class="line">        // Note: FEATURE_CONTENT_TRANSITIONS may be set in the process of installing the window</span><br><span class="line">        // decor, when theme attributes and the like are crystalized. Do not check the feature</span><br><span class="line">        // before this happens.</span><br><span class="line">        if (mContentParent == null) &#123;</span><br><span class="line">            installDecor();</span><br><span class="line">        &#125; else if (!hasFeature(FEATURE_CONTENT_TRANSITIONS)) &#123;</span><br><span class="line">            mContentParent.removeAllViews();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (hasFeature(FEATURE_CONTENT_TRANSITIONS)) &#123;</span><br><span class="line">            final Scene newScene = Scene.getSceneForLayout(mContentParent, layoutResID,</span><br><span class="line">                    getContext());</span><br><span class="line">            transitionTo(newScene);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            mLayoutInflater.inflate(layoutResID, mContentParent);</span><br><span class="line">        &#125;</span><br><span class="line">        mContentParent.requestApplyInsets();</span><br><span class="line">        final Callback cb = getCallback();</span><br><span class="line">        if (cb != null &amp;&amp; !isDestroyed()) &#123;</span><br><span class="line">            cb.onContentChanged();</span><br><span class="line">        &#125;</span><br><span class="line">        mContentParentExplicitlySet = true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>看一下他的generateLayout方法和installDecor方法</p>
+<p>decorView的结构和系统版本以及主题都有关系</p>
+<h2 id="将View添加到decoordView的mContentParent中"><a href="#将View添加到decoordView的mContentParent中" class="headerlink" title="将View添加到decoordView的mContentParent中"></a>将View添加到decoordView的mContentParent中</h2><p>这里setContentView方法会inflate，这个时候activity的布局就加载到decorView中了,他只是添加到mContentParent中，因此叫做setContentView</p>
+<h2 id="回调Activity的onContentChanged方法通知Activity视图已经发生改变"><a href="#回调Activity的onContentChanged方法通知Activity视图已经发生改变" class="headerlink" title="回调Activity的onContentChanged方法通知Activity视图已经发生改变"></a>回调Activity的onContentChanged方法通知Activity视图已经发生改变</h2><p>这个过程就更简单了，由于Activity实现了Window的Callback接口，这里表示Activity的布局已经被添加到DecorView的mContentParent中了，使其可以做相应的处理。Activity的onContentChanged方法是个空的实现，我们可以在子Activity中处理这个回调<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">final Callback cb = getCallback();</span><br><span class="line">if (cb != null &amp;&amp; !isDestroyed()) &#123;</span><br><span class="line">    cb.onContentChanged();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经过了上面的三个步骤，到这里为止，decorView已经被创建并初始化完毕，activity的布局文件已经成功添加到了DecorView的mContentParent中，但是这个时候DecorView还没有被WindowManager正式添加到Window，这里需要正确的理解window的抽象概念，window跟多表示一种抽象功能的集合，虽然说早在Activity的attach方法中window就已经被创建了，但是这个时候由于decorView没有被windowManager识别，所以这个时候window无法提供具体的功能，因为他还无法识别外界传出的输入信息，。在activityThread的handleResumeActivity方法中，首先会调用activity的onResume，接着会调用activity的makeVisible，正是在makeVisible方法，decorView真正完成了添加和显示的过程，到这里，Activitty视图才能被用户看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void makeVisible() &#123;</span><br><span class="line">       if (!mWindowAdded) &#123;</span><br><span class="line">           ViewManager wm = getWindowManager();</span><br><span class="line">           wm.addView(mDecor, getWindow().getAttributes());</span><br><span class="line">           mWindowAdded = true;</span><br><span class="line">       &#125;</span><br><span class="line">       mDecor.setVisibility(View.VISIBLE);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="dialog的window创建过程"><a href="#dialog的window创建过程" class="headerlink" title="dialog的window创建过程"></a>dialog的window创建过程</h2><p>dialog的window的创建过程和activity类似，有如下几个步骤</p>
+<ol>
+<li>创建window<br>dialog中window的创建同样通过policyManager的makeNewWindow方法来完成，创建后的对象实际就是phoneWindow，这个过程和activity的window创建过程一致，这里就不详细说明了</li>
+<li>初始化decorView并将dialog视图添加到decorView中<br>初始化dialog，这个过程和activity类似</li>
+<li>将decorView添加到window中并显示<br>在dialog的show方法中，会通过windowmanager将decorView添加到window中显示</li>
+</ol>
+<p>从上面三个步骤可以发现，dialog的window创建和activity的window创建过程很类似，二者几乎没有什么区别，当dialog被关闭是，他会通过windowmanager来移除decorView<br>普通的dialog有一个特殊之处就是必须采用activity的context，如果采用application的context，那么就会报错<br>提示如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">token null is not for an application</span><br></pre></td></tr></table></figure></p>
+<p>这里信息很明确，是没有应用token所导致的，而应用token一般只有activity拥有，所以这里只需要activity作为context来显示对话框，另外，系统window比较特殊，他可以不需要token，因此在上面的例子，只需要指定对话框的window为系统类型就可以正常弹出对话框，在本章一开始就讲到，windowmanager。layoutParams中的type表示window的类型，而系统window的层级范围是2000-2999，这些成绩范围就对应着type参数，系统window的层级有很多值3，对于本利来说，可以选用TYPE_SYSTEM_OVERLAY来指定对话框的类型为系统window类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Dialog dialog</span><br><span class="line">             =new Dialog(this.getApplicationContext());</span><br><span class="line">     dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);</span><br></pre></td></tr></table></figure>
+<p>然后别忘忘记了在androidManifest中声明权限从而可以使用系统window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Toast的window创建过程"><a href="#Toast的window创建过程" class="headerlink" title="Toast的window创建过程"></a>Toast的window创建过程</h2><p>toast和dialog不同，他的工作过程就稍微复杂一点，首先toast也是基于window来实现的，但是由于toast具有定时取消这一个功能，所以系统采用handler。在toast的内部由拉令中IPC过程，第一类是Toast访问NotificationManagerService，第二类是NotifacationManagerService回调Toast的TN接口，关于IPC的一些知识，可以参照之前的内容，这里将NotificationManagerService简称为NMS</p>
+<p>Toast属于系统window，他的内部视图由两种方式指定，一种是系统默认样式，一种是通过setView方法来指定一个自定义View，不管怎么样，他们都对应Toast的一个View类型的内部成员mNextView。Toast提供了show和cancel方法分别用于显示和影藏Toast，他们的内部是一个IPC过程，show方法和cancel方法实现如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public void show() &#123;</span><br><span class="line">       if (mNextView == null) &#123;</span><br><span class="line">           throw new RuntimeException(&quot;setView must have been called&quot;);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       INotificationManager service = getService();</span><br><span class="line">       String pkg = mContext.getOpPackageName();</span><br><span class="line">       TN tn = mTN;</span><br><span class="line">       tn.mNextView = mNextView;</span><br><span class="line"></span><br><span class="line">       try &#123;</span><br><span class="line">           service.enqueueToast(pkg, tn, mDuration);</span><br><span class="line">       &#125; catch (RemoteException e) &#123;</span><br><span class="line">           // Empty</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   static private INotificationManager getService() &#123;</span><br><span class="line">        if (sService != null) &#123;</span><br><span class="line">            return sService;</span><br><span class="line">        &#125;</span><br><span class="line">        sService = INotificationManager.Stub.asInterface(ServiceManager.getService(&quot;notification&quot;));</span><br><span class="line">        return sService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   public void cancel() &#123;</span><br><span class="line">       mTN.cancel();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看到，显示和隐藏都是通过NMS来实现的，由于NMS运行在系统进程中，所以只能通过远程调用来显示和隐藏Toast,看一下<code>getService</code>这个方法。需要注意的是TN这个类，他是一个Binder类，在Toast和NMS进行IPC过程中，当NMS处理TOast的显示或者隐藏的过程都会回调TN中的方法，这个时候由于TN运行在Binder线程池中，所以需要通过Handler将其切换到当前线程中，这里的当前线程是指发送Toast请求所在的线程。注意，由于这里使用handler，所以这意味着Toast无法在没有Looper的线程中弹出，这是因为Handler需要使用looper才能完成线程的切换功能，关于handler和looper的具体介绍可以看后面的内容</p>
+<p>首先看一下Toast的显示过程，他调用了NMS的enqueueToast</p>
+<p>可以看到在show的时候调用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public void show() &#123;</span><br><span class="line">       if (mNextView == null) &#123;</span><br><span class="line">           throw new RuntimeException(&quot;setView must have been called&quot;);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       INotificationManager service = getService();</span><br><span class="line">       String pkg = mContext.getOpPackageName();</span><br><span class="line">       TN tn = mTN;</span><br><span class="line">       tn.mNextView = mNextView;</span><br><span class="line"></span><br><span class="line">       try &#123;</span><br><span class="line">           service.enqueueToast(pkg, tn, mDuration);  调用了enqueueToast方法</span><br><span class="line">       &#125; catch (RemoteException e) &#123;</span><br><span class="line">           // Empty</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>NMS的enqueueToast方法的第一个参数表示当前应用的包名，第二个参数tn表示远程回调，第三个表示Toast显示的时长。enqueueToast首先将Toast请求封装为ToastRecord对象并将其添加到一个mToastQueue的队列中。mToastQueue其实是一个ArrayList。对于非系统应用来说，mToastQueue最多同时存在50个ToastRecord，这样所示为了防止DOS(Denial of Service)。如果不这么做，事项一下，如果我们通过大量循环去接连弹出Toast，那么其他应用就没有机会弹出Toast，那么对于其他应用的Toast请求，系统的行为就是拒绝服务，这就是拒绝服务攻击的含义，这种手段常用于网络攻击中。这里对每一个应用都进行了判断，每一个应用最多有50个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">        public void enqueueToast(String pkg, ITransientNotification callback, int duration)</span><br><span class="line">        &#123;</span><br><span class="line">            if (DBG) &#123;</span><br><span class="line">                Slog.i(TAG, &quot;enqueueToast pkg=&quot; + pkg + &quot; callback=&quot; + callback</span><br><span class="line">                        + &quot; duration=&quot; + duration);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (pkg == null || callback == null) &#123;</span><br><span class="line">                Slog.e(TAG, &quot;Not doing toast. pkg=&quot; + pkg + &quot; callback=&quot; + callback);</span><br><span class="line">                return ;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            final boolean isSystemToast = isCallerSystemOrPhone() || (&quot;android&quot;.equals(pkg));</span><br><span class="line">            final boolean isPackageSuspended =</span><br><span class="line">                    isPackageSuspendedForUser(pkg, Binder.getCallingUid());</span><br><span class="line"></span><br><span class="line">            if (ENABLE_BLOCKED_TOASTS &amp;&amp; !isSystemToast &amp;&amp;</span><br><span class="line">                    (!areNotificationsEnabledForPackage(pkg, Binder.getCallingUid())</span><br><span class="line">                            || isPackageSuspended)) &#123;</span><br><span class="line">                Slog.e(TAG, &quot;Suppressing toast from package &quot; + pkg</span><br><span class="line">                        + (isPackageSuspended</span><br><span class="line">                                ? &quot; due to package suspended by administrator.&quot;</span><br><span class="line">                                : &quot; by user request.&quot;));</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            synchronized (mToastQueue) &#123;</span><br><span class="line">                int callingPid = Binder.getCallingPid();</span><br><span class="line">                long callingId = Binder.clearCallingIdentity();</span><br><span class="line">                try &#123;</span><br><span class="line">                    ToastRecord record;</span><br><span class="line">                    int index = indexOfToastLocked(pkg, callback);</span><br><span class="line">                    // If it&apos;s already in the queue, we update it in place, we don&apos;t</span><br><span class="line">                    // move it to the end of the queue.</span><br><span class="line">                    if (index &gt;= 0) &#123;</span><br><span class="line">                        record = mToastQueue.get(index);</span><br><span class="line">                        record.update(duration);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        //就是这里</span><br><span class="line">                        // Limit the number of toasts that any given package except the android</span><br><span class="line">                        // package can enqueue.  Prevents DOS attacks and deals with leaks.</span><br><span class="line">                        if (!isSystemToast) &#123;</span><br><span class="line">                            int count = 0;</span><br><span class="line">                            final int N = mToastQueue.size();</span><br><span class="line">                            for (int i=0; i&lt;N; i++) &#123;</span><br><span class="line">                                 final ToastRecord r = mToastQueue.get(i);</span><br><span class="line">                                 if (r.pkg.equals(pkg)) &#123;</span><br><span class="line">                                     count++;</span><br><span class="line">                                     if (count &gt;= MAX_PACKAGE_NOTIFICATIONS) &#123;// 判断是否大于50个</span><br><span class="line">                                         Slog.e(TAG, &quot;Package has already posted &quot; + count</span><br><span class="line">                                                + &quot; toasts. Not showing more. Package=&quot; + pkg);</span><br><span class="line">                                         return;</span><br><span class="line">                                     &#125;</span><br><span class="line">                                 &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        Binder token = new Binder();</span><br><span class="line">                        mWindowManagerInternal.addWindowToken(token, TYPE_TOAST, DEFAULT_DISPLAY);</span><br><span class="line">                        record = new ToastRecord(callingPid, pkg, callback, duration, token);</span><br><span class="line">                        mToastQueue.add(record);</span><br><span class="line">                        index = mToastQueue.size() - 1;</span><br><span class="line">                        keepProcessAliveIfNeededLocked(callingPid);</span><br><span class="line">                    &#125;</span><br><span class="line">                    // If it&apos;s at index 0, it&apos;s the current toast.  It doesn&apos;t matter if it&apos;s</span><br><span class="line">                    // new or just been updated.  Call back and tell it to show itself.</span><br><span class="line">                    // If the callback fails, this will remove it from the list, so don&apos;t</span><br><span class="line">                    // assume that it&apos;s valid after this.</span><br><span class="line">                    if (index == 0) &#123;</span><br><span class="line">                        showNextToastLocked();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; finally &#123;</span><br><span class="line">                    Binder.restoreCallingIdentity(callingId);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>正常情况下，一个应用不可能达到上限，当ToastRecord被添加到mToastQueue中后，NMS就会通过shwoNextToastLocked方法来显示当前的toast。下面的代码很好理解，需要注意的是，Toast的显示时由ToastRecord的Callback来完成的，这个callback实际上就是Toast中的TN对象的远程Binder，通过callBack来访问TN中的方法是需要跨进程来完成的，最终被调用的TN中的方法会运行在发起Toast请求的应用的Binder线程池中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">void showNextToastLocked() &#123;</span><br><span class="line">        ToastRecord record = mToastQueue.get(0);</span><br><span class="line">        while (record != null) &#123;</span><br><span class="line">            if (DBG) Slog.d(TAG, &quot;Show pkg=&quot; + record.pkg + &quot; callback=&quot; + record.callback);</span><br><span class="line">            try &#123;</span><br><span class="line">                record.callback.show(record.token);</span><br><span class="line">                // 这里是发送一条延时消息</span><br><span class="line">                scheduleTimeoutLocked(record);</span><br><span class="line">                return;</span><br><span class="line">            &#125; catch (RemoteException e) &#123;</span><br><span class="line">                Slog.w(TAG, &quot;Object died trying to show notification &quot; + record.callback</span><br><span class="line">                        + &quot; in package &quot; + record.pkg);</span><br><span class="line">                // remove it from the list and let the process die</span><br><span class="line">                int index = mToastQueue.indexOf(record);</span><br><span class="line">                if (index &gt;= 0) &#123;</span><br><span class="line">                    mToastQueue.remove(index);</span><br><span class="line">                &#125;</span><br><span class="line">                keepProcessAliveIfNeededLocked(record.pid);</span><br><span class="line">                if (mToastQueue.size() &gt; 0) &#123;</span><br><span class="line">                    record = mToastQueue.get(0);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    record = null;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>延时消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@GuardedBy(&quot;mToastQueue&quot;)</span><br><span class="line">    private void scheduleTimeoutLocked(ToastRecord r)</span><br><span class="line">    &#123;</span><br><span class="line">        mHandler.removeCallbacksAndMessages(r);</span><br><span class="line">        Message m = Message.obtain(mHandler, MESSAGE_TIMEOUT, r);</span><br><span class="line">        long delay = r.duration == Toast.LENGTH_LONG ? LONG_DELAY : SHORT_DELAY;</span><br><span class="line">        mHandler.sendMessageDelayed(m, delay);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的LONG_DELAY是3.5s，而SHORT_DELAY是2s。延迟相应的时间后，NMS会通过cancelToastLocked方法来隐藏Toast并将其从mToastQueue中移除，这个时候如果mToastQueue还有其他Toast，那么NMS就继续显示其他的Toast。<br>Toast的隐藏也是通过ToastRecord的callback来完成的，这同样越是一次IPC过程，他的工作方式和TOast的显示过程类似，如下所示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@GuardedBy(&quot;mToastQueue&quot;)</span><br><span class="line"> void cancelToastLocked(int index) &#123;</span><br><span class="line">     ToastRecord record = mToastQueue.get(index);</span><br><span class="line">     try &#123;</span><br><span class="line">         record.callback.hide();</span><br><span class="line">     &#125; catch (RemoteException e) &#123;</span><br><span class="line">         Slog.w(TAG, &quot;Object died trying to hide notification &quot; + record.callback</span><br><span class="line">                 + &quot; in package &quot; + record.pkg);</span><br><span class="line">         // don&apos;t worry about this, we&apos;re about to remove it from</span><br><span class="line">         // the list anyway</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     ToastRecord lastToast = mToastQueue.remove(index);</span><br><span class="line">     mWindowManagerInternal.removeWindowToken(lastToast.token, true, DEFAULT_DISPLAY);</span><br><span class="line"></span><br><span class="line">     keepProcessAliveIfNeededLocked(record.pid);</span><br><span class="line">     if (mToastQueue.size() &gt; 0) &#123;</span><br><span class="line">         // Show the next one. If the callback fails, this will remove</span><br><span class="line">         // it from the list, so don&apos;t assume that the list hasn&apos;t changed</span><br><span class="line">         // after this point.</span><br><span class="line">         showNextToastLocked();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上面的分析可以知道，Toast的显示和隐藏过程其实是通过Toast中的TN这个类来实现的，他有两个方法show和hide，分别对应Toast的显示与隐藏。这两个方法是被NMS以跨进程的方式调用的，因此他们运行在Binder线程池中，为了将执行环境切换到Tooast所在请求所在的线程，在他们内部使用了handler,TN是Toast的一个内部类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mHandler = new Handler(looper, null) &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void handleMessage(Message msg) &#123;</span><br><span class="line">                switch (msg.what) &#123;</span><br><span class="line">                    case SHOW: &#123;</span><br><span class="line">                        IBinder token = (IBinder) msg.obj;</span><br><span class="line">                        handleShow(token);</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    case HIDE: &#123;</span><br><span class="line">                        handleHide();</span><br><span class="line">                        // Don&apos;t do this in handleHide() because it is also invoked by</span><br><span class="line">                        // handleShow()</span><br><span class="line">                        mNextView = null;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    case CANCEL: &#123;</span><br><span class="line">                        handleHide();</span><br><span class="line">                        // Don&apos;t do this in handleHide() because it is also invoked by</span><br><span class="line">                        // handleShow()</span><br><span class="line">                        mNextView = null;</span><br><span class="line">                        try &#123;</span><br><span class="line">                            getService().cancelToast(mPackageName, TN.this);</span><br><span class="line">                        &#125; catch (RemoteException e) &#123;</span><br><span class="line">                        &#125;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">    public void show(IBinder windowToken) &#123;</span><br><span class="line">        if (localLOGV) Log.v(TAG, &quot;SHOW: &quot; + this);</span><br><span class="line">        mHandler.obtainMessage(SHOW, windowToken).sendToTarget();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * schedule handleHide into the right thread</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void hide() &#123;</span><br><span class="line">        if (localLOGV) Log.v(TAG, &quot;HIDE: &quot; + this);</span><br><span class="line">        mHandler.obtainMessage(HIDE).sendToTarget();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里内部调用了handleShow和handleHide这里才是真正影藏和显示Toast的地方<br>添加handleShow会调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWM.addView(mView, mParams);</span><br></pre></td></tr></table></figure></p>
+<p>添加handleHide会调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWM.removeViewImmediate(mView);</span><br></pre></td></tr></table></figure></p>
+<p>这里Toast的Window的创建过程分析已经完成了。任何View都是依赖一个Window的，是附着在Window上面显示的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/进阶/" rel="tag"># 进阶</a>
+          
+            <a href="/tags/Android开发艺术探索/" rel="tag"># Android开发艺术探索</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android开发艺术探索_第七章 Android 动画深入分析/" rel="next" title="Android开发艺术探索 第七章 Android 动画深入分析">
+                <i class="fa fa-chevron-left"></i> Android开发艺术探索 第七章 Android 动画深入分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android开发艺术探索_第九章 四大组件的工作流程/" rel="prev" title="Android开发艺术探索 第九章 四大组件的工作流程">
+                Android开发艺术探索 第九章 四大组件的工作流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#window和wondowManager"><span class="nav-number">1.</span> <span class="nav-text">window和wondowManager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#window的内部机制"><span class="nav-number">2.</span> <span class="nav-text">window的内部机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#window的添加过程"><span class="nav-number">2.1.</span> <span class="nav-text">window的添加过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window的删除过程"><span class="nav-number">2.2.</span> <span class="nav-text">window的删除过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window的更新过程"><span class="nav-number">2.3.</span> <span class="nav-text">window的更新过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#window的创建过程"><span class="nav-number">3.</span> <span class="nav-text">window的创建过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的window创建过程"><span class="nav-number">3.1.</span> <span class="nav-text">Activity的window创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将View添加到decoordView的mContentParent中"><span class="nav-number">3.2.</span> <span class="nav-text">将View添加到decoordView的mContentParent中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调Activity的onContentChanged方法通知Activity视图已经发生改变"><span class="nav-number">3.3.</span> <span class="nav-text">回调Activity的onContentChanged方法通知Activity视图已经发生改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dialog的window创建过程"><span class="nav-number">3.4.</span> <span class="nav-text">dialog的window创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Toast的window创建过程"><span class="nav-number">3.5.</span> <span class="nav-text">Toast的window创建过程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

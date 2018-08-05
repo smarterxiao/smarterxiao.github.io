@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础,Android群英传," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="屏幕的信息屏幕大小单位是英寸，是手机对角线的长度。我们说的苹果是4.5英寸的屏幕是指的是对角线长度 分辨率是手机像素的个数，eg：720*1280 这个说明宽有720个像素，高有1280个像素 PPI屏幕对角线的密度，屏幕对角线像素个数/对角线长度计算方法  w：屏幕宽分辨率  h：屏幕高分辨率  s：屏幕对角线长度(单位是英寸)    系统屏幕密度   密度 ldpi mdpi hdpi xdp">
+<meta name="keywords" content="基础,Android群英传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传 第六章 Android图形机制与处理技">
+<meta property="og:url" content="http://yoursite.com/android/Android群英传_第六章 Android图形机制与处理技/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="屏幕的信息屏幕大小单位是英寸，是手机对角线的长度。我们说的苹果是4.5英寸的屏幕是指的是对角线长度 分辨率是手机像素的个数，eg：720*1280 这个说明宽有720个像素，高有1280个像素 PPI屏幕对角线的密度，屏幕对角线像素个数/对角线长度计算方法  w：屏幕宽分辨率  h：屏幕高分辨率  s：屏幕对角线长度(单位是英寸)    系统屏幕密度   密度 ldpi mdpi hdpi xdp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511094759.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511103351.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511104169.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511104031.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/bg2015090104.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/bg2015090105.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511276003.png.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/pg_11111111111.jpg">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/gif_0.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/gif_1.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/gif_2.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/gif_3.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/djfkdskfl2.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/sldkfldkajflks.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/pg_11111111111.jpg">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/huiduxiaoguo.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-04-231328.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-04-231739.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-04-232141.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-04-232508.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-05-232020.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-05-232351.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2017-12-05-233233.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1512488459.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1515509868.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1515510116.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1515510352.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/错切.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-11-215812.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-11-220301.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-11-220845.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-11-221212.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-11-221335.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/dongdong.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/2041548-d964105abf4be5d9.jpg">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-212001.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/guaguaka.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-220130.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/1510156433278.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-220943.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-222421.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-223034.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-223502.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-231137.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-232423.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/device-2018-01-14-233455.png">
+<meta property="og:updated_time" content="2018-07-26T13:02:17.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传 第六章 Android图形机制与处理技">
+<meta name="twitter:description" content="屏幕的信息屏幕大小单位是英寸，是手机对角线的长度。我们说的苹果是4.5英寸的屏幕是指的是对角线长度 分辨率是手机像素的个数，eg：720*1280 这个说明宽有720个像素，高有1280个像素 PPI屏幕对角线的密度，屏幕对角线像素个数/对角线长度计算方法  w：屏幕宽分辨率  h：屏幕高分辨率  s：屏幕对角线长度(单位是英寸)    系统屏幕密度   密度 ldpi mdpi hdpi xdp">
+<meta name="twitter:image" content="http://yoursite.com/android/Android群英传_第六章%20Android图形机制与处理技/图像1511094759.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android群英传_第六章 Android图形机制与处理技/"/>
+
+
+
+
+
+  <title>Android群英传 第六章 Android图形机制与处理技 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android群英传_第六章 Android图形机制与处理技/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android群英传 第六章 Android图形机制与处理技</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T22:17:06+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="屏幕的信息"><a href="#屏幕的信息" class="headerlink" title="屏幕的信息"></a>屏幕的信息</h1><h2 id="屏幕大小"><a href="#屏幕大小" class="headerlink" title="屏幕大小"></a>屏幕大小</h2><p>单位是英寸，是手机对角线的长度。我们说的苹果是4.5英寸的屏幕是指的是对角线长度</p>
+<h2 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h2><p>是手机像素的个数，eg：720*1280 这个说明宽有720个像素，高有1280个像素</p>
+<h2 id="PPI"><a href="#PPI" class="headerlink" title="PPI"></a>PPI</h2><p>屏幕对角线的密度，屏幕对角线像素个数/对角线长度<br>计算方法<br>  w：屏幕宽分辨率  h：屏幕高分辨率  s：屏幕对角线长度(单位是英寸)  </p>
+<p><img src="图像1511094759.png" alt="Alt text" title="结果就是ppi"></p>
+<h2 id="系统屏幕密度"><a href="#系统屏幕密度" class="headerlink" title="系统屏幕密度"></a>系统屏幕密度</h2><table>
+<thead>
+<tr>
+<th>密度</th>
+<th style="text-align:center">ldpi</th>
+<th style="text-align:right">mdpi</th>
+<th style="text-align:right">hdpi</th>
+<th style="text-align:right">xdpi</th>
+<th style="text-align:right">xxhdpi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>密度值</td>
+<td style="text-align:center">120</td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">240</td>
+<td style="text-align:right">320</td>
+<td style="text-align:right">480</td>
+</tr>
+<tr>
+<td>分辨率</td>
+<td style="text-align:center">240*320</td>
+<td style="text-align:right">320*160</td>
+<td style="text-align:right">480*800</td>
+<td style="text-align:right">720*1280</td>
+<td style="text-align:right">1080*1920</td>
+</tr>
+</tbody>
+</table>
+<p>现在开发如果要求不高一般使用xdpi的就可以了，其他的可以放下</p>
+<h2 id="单位转换"><a href="#单位转换" class="headerlink" title="单位转换"></a>单位转换</h2><p>sp和dp的区别是sp是针对字体的，会随着系统字体的调整而变化，dp是不会的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">public class DisplayUtils &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将px值转换为dpi或者dp</span><br><span class="line">     *</span><br><span class="line">     * @param context 建议Application</span><br><span class="line">     * @param pxValue px值</span><br><span class="line">     * @return 结果  px----&gt;dp</span><br><span class="line">     */</span><br><span class="line">    public static int px2dpi(@NonNull Context context, float pxValue) &#123;</span><br><span class="line"></span><br><span class="line">        final float scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line"></span><br><span class="line">        return (int) (pxValue / scale + 0.5);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将dp值转换为px</span><br><span class="line">     *</span><br><span class="line">     * @param context  建议Application</span><br><span class="line">     * @param dipValue dp值</span><br><span class="line">     * @return 结果 dp----&gt;px</span><br><span class="line">     */</span><br><span class="line">    public static int dpi2px(@NonNull Context context, float dipValue) &#123;</span><br><span class="line">        final float scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        return (int) (dipValue * scale + 0.5f);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将px值转换为sp</span><br><span class="line">     *</span><br><span class="line">     * @param context 建议Application</span><br><span class="line">     * @param pxValue px值</span><br><span class="line">     * @return 结果  px----&gt;sp</span><br><span class="line">     */</span><br><span class="line">    public static int px2sp(@NonNull Context context, float pxValue) &#123;</span><br><span class="line"></span><br><span class="line">        final float scale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line"></span><br><span class="line">        return (int) (pxValue / scale + 0.5);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 将sp值转换为px</span><br><span class="line">     *</span><br><span class="line">     * @param context 建议Application</span><br><span class="line">     * @param spValue sp值</span><br><span class="line">     * @return 结果  sp----&gt;px</span><br><span class="line">     */</span><br><span class="line">    public static int sp2px(@NonNull Context context, float spValue) &#123;</span><br><span class="line">        final float scale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        return (int) (spValue * scale + 0.5f);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     *  使用系统api将dp转换为px</span><br><span class="line">     * @param context  建议Application</span><br><span class="line">     * @param dp  dp值</span><br><span class="line">     * @return  dp----&gt;px</span><br><span class="line">     */</span><br><span class="line">    public static int  dp2px(@NonNull Context context ,int dp)&#123;</span><br><span class="line">        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,context.getResources().getDisplayMetrics());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 使用系统api将sp转换为px</span><br><span class="line">     * @param context  建议Application</span><br><span class="line">     * @param sp  dp值</span><br><span class="line">     * @return  sp----&gt;px</span><br><span class="line">     */</span><br><span class="line">    public static int  sp2px(@NonNull Context context ,int sp)&#123;</span><br><span class="line">        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,sp,context.getResources().getDisplayMetrics());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2D绘图的基础"><a href="#2D绘图的基础" class="headerlink" title="2D绘图的基础"></a>2D绘图的基础</h1><p> 画笔和画布的一些用法，还有很多这里就不列举了，可以查看api<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    Paint mPaint=new Paint();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        mPaint.setAntiAlias(true);//设置时候抗锯齿</span><br><span class="line">        mPaint.setColor(456);//设置颜色</span><br><span class="line">        mPaint.setARGB(1,1,1,1);//设置argb颜色</span><br><span class="line">        mPaint.setAlpha(456);//设置透明度</span><br><span class="line">        mPaint.setTextSize(456);//设置字体大小</span><br><span class="line">        mPaint.setStyle(Paint.Style.STROKE);//设置是空心还是实心</span><br><span class="line">        mPaint.setStrokeWidth(456);//设置空心边框的长度</span><br><span class="line"></span><br><span class="line">        //画点</span><br><span class="line">        canvas.drawPoint(1,1,mPaint);</span><br><span class="line">        //画线</span><br><span class="line">        canvas.drawLine(1,1,40,40,mPaint);</span><br><span class="line">        float[] pts=&#123;1,1,2,2,56,67,77,909&#125;;</span><br><span class="line">        canvas.drawLines(pts,mPaint);</span><br><span class="line">        //画矩形</span><br><span class="line">        canvas.drawRect(0,0,1,1,mPaint);</span><br><span class="line">        //画圆角矩形</span><br><span class="line">        canvas.drawRoundRect(1,1,1,1,,1,1,mPaint);</span><br><span class="line">        //画圆</span><br><span class="line">        canvas.drawCircle(1,1,10,mPaint);</span><br><span class="line"></span><br><span class="line">        //画圆弧： Paint.Style.STROKE+userCenter（true） 空心扇形   Paint.Style.STROKE+userCenter（false） 空心弧形</span><br><span class="line">        // Paint.Style.FILL+userCenter（true） 实心扇形   Paint.Style.FILL+userCenter（false） 实心弧形</span><br><span class="line">        canvas.drawArc(1,1,1,1,1,1,true,mPaint);</span><br><span class="line">        //画椭圆</span><br><span class="line">        canvas.drawOval(1,1,1,1,mPaint);</span><br><span class="line"></span><br><span class="line">        //画文字</span><br><span class="line">        canvas.drawText(&quot;王八坨子&quot;,1,1,mPaint);</span><br><span class="line"></span><br><span class="line">        float[] ptss=&#123;1,1,2,2,56,67,77,909&#125;;</span><br><span class="line">        //在指定位置画文字  已经过时</span><br><span class="line">        canvas.drawPosText(&quot;王八坨子&quot;,ptss,mPaint);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //画路径</span><br><span class="line">        Path path=new Path();</span><br><span class="line">        path.moveTo(200,200);//将起点移动到200,200</span><br><span class="line">        path.lineTo(500,500);//连接500,500</span><br><span class="line">        path.lineTo(777,500);//连接777,500</span><br><span class="line">        canvas.drawPath(path,mPaint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="XML绘图"><a href="#XML绘图" class="headerlink" title="XML绘图"></a>XML绘图</h1><h2 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h2><p>可以将图片转换为bitmap<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;bitmap xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:src=&quot;@drawable/ic_launcher_background&quot;&gt;</span><br><span class="line">&lt;/bitmap&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="shape"><a href="#shape" class="headerlink" title="shape"></a>shape</h2><p>这个比较简单，这个可以使用渐变，如果有渐变一般是美工给一张图片解决… 一般实现不了UI的效果   </p>
+<h2 id="layer"><a href="#layer" class="headerlink" title="layer"></a>layer</h2><p>多个shape的集合 类似图层叠加效果</p>
+<h2 id="selector"><a href="#selector" class="headerlink" title="selector"></a>selector</h2><p>多个shape的集合，可以实现不同状态的效果显示</p>
+<h1 id="Android-绘图技巧"><a href="#Android-绘图技巧" class="headerlink" title="Android 绘图技巧"></a>Android 绘图技巧</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">canvas.save();  保存画布当前状态</span><br><span class="line"> canvas.restore();还原之前保存的画布状态，比如sava之后调用translate，之后还原到之前的位置</span><br><span class="line"> canvas.translate(100,100);</span><br><span class="line"> canvas.rotate(100);</span><br></pre></td></tr></table></figure>
+<h4 id="画一个时钟"><a href="#画一个时钟" class="headerlink" title="画一个时钟"></a>画一个时钟</h4><p><img src="图像1511103351.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void init() &#123;</span><br><span class="line"></span><br><span class="line">        Paint mPaint=new Paint();</span><br><span class="line"></span><br><span class="line">        mPaint.setStyle(Paint.Style.STROKE);</span><br><span class="line">        mPaint.setAntiAlias(true);</span><br><span class="line">        mPaint.setStrokeWidth(5);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        Paint mPaint=new Paint();</span><br><span class="line"></span><br><span class="line">        mPaint.setStyle(Paint.Style.STROKE);</span><br><span class="line">        mPaint.setAntiAlias(true);</span><br><span class="line">        mPaint.setStrokeWidth(5);</span><br><span class="line">        canvas.drawCircle(getWidth()/2,getHeight()/2,getWidth()/2,mPaint);</span><br><span class="line"></span><br><span class="line">        Paint painDegree=new Paint();</span><br><span class="line"></span><br><span class="line">        painDegree.setStrokeWidth(3);</span><br><span class="line">        for (int i = 0; i &lt; 24; i++) &#123;</span><br><span class="line">            if(i==0||i==6||i==12||i==18)&#123;</span><br><span class="line">                painDegree.setStrokeWidth(6);</span><br><span class="line">                painDegree.setTextSize(30);</span><br><span class="line">                这个是画的  |  这种线 就是第一个画的是12点的位置，旋转之后再画12点的位置</span><br><span class="line">                canvas.drawLine(getWidth()/2,getHeight()/2-getWidth()/2,getWidth()/2,getHeight()/2-getWidth()/2+60,painDegree);</span><br><span class="line">                String degree=String.valueOf(i);</span><br><span class="line">                canvas.drawText(degree,getWidth()/2-painDegree.measureText(degree)/2,getHeight()/2-getWidth()/2+90,painDegree);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                painDegree.setStrokeWidth(3);</span><br><span class="line">                painDegree.setTextSize(15);</span><br><span class="line">                canvas.drawLine(getWidth()/2,getHeight()/2-getWidth()/2,getWidth()/2,getHeight()/2-getWidth()/2+30,painDegree);</span><br><span class="line">                String degree=String.valueOf(i);</span><br><span class="line">                canvas.drawText(degree,getWidth()/2-painDegree.measureText(degree)/2,getHeight()/2-getWidth()/2+60,painDegree);</span><br><span class="line">            &#125;</span><br><span class="line">            //画完一笔旋转，刚好旋转360度不用保存</span><br><span class="line">            canvas.rotate(15,getWidth()/2,getHeight()/2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Paint paintHour=new Paint();</span><br><span class="line">        paintHour.setStrokeWidth(20);</span><br><span class="line">        Paint paintMinute=new Paint();</span><br><span class="line">        paintMinute.setStrokeWidth(10);</span><br><span class="line"></span><br><span class="line">        canvas.save();</span><br><span class="line">        canvas.translate(getWidth()/2,getHeight()/2);</span><br><span class="line">        canvas.drawLine(0,0,100,100,paintHour);</span><br><span class="line">        canvas.drawLine(0,0,200,200,paintMinute);</span><br><span class="line"></span><br><span class="line">        canvas.restore();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Layer图层"><a href="#Layer图层" class="headerlink" title="Layer图层"></a>Layer图层</h4><p><img src="图像1511104169.png" alt="Alt text" title="关闭图层的效果"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        Paint mPaint=new Paint();</span><br><span class="line">        canvas.drawColor(Color.WHITE);</span><br><span class="line">        mPaint.setColor(Color.BLUE);</span><br><span class="line">        canvas.drawCircle(150,150,100,mPaint);</span><br><span class="line">//        canvas.saveLayerAlpha(0,0,400,400,127);</span><br><span class="line">        mPaint.setColor(Color.RED);</span><br><span class="line">        canvas.drawCircle(200,200,100,mPaint);</span><br><span class="line">//        canvas.restore();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="图像1511104031.png" alt="Alt text" title="开启图层效果"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        Paint mPaint=new Paint();</span><br><span class="line">        canvas.drawColor(Color.WHITE);</span><br><span class="line">        mPaint.setColor(Color.BLUE);</span><br><span class="line">        canvas.drawCircle(150,150,100,mPaint);</span><br><span class="line">        //将下一个图层的透明度变化为127 就是50%</span><br><span class="line">        canvas.saveLayerAlpha(0,0,400,400,127);</span><br><span class="line">        mPaint.setColor(Color.RED);</span><br><span class="line">        canvas.drawCircle(200,200,100,mPaint);</span><br><span class="line">        canvas.restore();//这个是还原save的操作</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Android图像处理值色彩特效处理"><a href="#Android图像处理值色彩特效处理" class="headerlink" title="Android图像处理值色彩特效处理"></a>Android图像处理值色彩特效处理</h1><h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>看这个之前先来看一下矩阵，第一个矩阵第一行*第二个矩阵第一列 就是结果的第一个元素</p>
+<p><img src="bg2015090104.png" alt="Alt text" title="矩阵乘法"></p>
+<p>（2,1）* (1,1) =3  </p>
+<p><img src="bg2015090105.png" alt="Alt text" title="矩阵乘法"></p>
+<p><img src="图像1511276003.png.png" alt="Alt text" title="矩阵乘法"><br>如果想要变红色  一般会修改a1或者e1的值  b1,c1,d1 就为0  修改a1就是给原来色值乘上a1，修改e1就是给原来色值加上一个偏移</p>
+<p>想看的可以看一下这个视频<br><a href="http://open.163.com/special/opencourse/daishu.html" target="_blank" rel="noopener">http://open.163.com/special/opencourse/daishu.html</a><br>或者不想看可以看一下这个阮一峰的博客<br><a href="http://www.ruanyifeng.com/blog/2015/09/matrix-multiplication.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/09/matrix-multiplication.html</a></p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>图像从三个维度来描述</p>
+<ul>
+<li>色调</li>
+<li>饱和度</li>
+<li>亮度<br>Android使用<code>ColorMatrix</code>帮助我们封装了矩阵，来实现对矩阵的操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//设置色调</span><br><span class="line">ColorMatrix colorMatrix=new ColorMatrix();</span><br><span class="line">colorMatrix.setRotate(0,1);</span><br><span class="line">colorMatrix.setRotate(1,1);</span><br><span class="line">colorMatrix.setRotate(2,1);</span><br><span class="line"></span><br><span class="line">//设置饱和度 如果值为0  就是灰色的图像，老照片的效果</span><br><span class="line">ColorMatrix colorMatrix1=new ColorMatrix();</span><br><span class="line">colorMatrix1.setSaturation(0);</span><br><span class="line"></span><br><span class="line">//设置亮度 如果都是0 就变成黑色了</span><br><span class="line">ColorMatrix colorMatrix2=new ColorMatrix();</span><br><span class="line">colorMatrix2.setScale(0,0,0,0);</span><br><span class="line">//混合上面三种矩阵</span><br><span class="line">ColorMatrix colorMatrix3=new ColorMatrix();</span><br><span class="line">colorMatrix.postConcat(colorMatrix);</span><br><span class="line">colorMatrix.postConcat(colorMatrix1);</span><br><span class="line">colorMatrix.postConcat(colorMatrix2);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><p>这个是原图<br><img src="pg_11111111111.jpg" alt="Alt text" title="两个美女"><br>看一下效果</p>
+<p>改变<code>ColorMatrix</code>的<code>setRotate</code>，从-1到1</p>
+<p><img src="gif_0.gif" alt="Alt text" title="改变0"></p>
+<p><img src="gif_1.gif" alt="Alt text" title="改变1"></p>
+<p><img src="gif_2.gif" alt="Alt text" title="改变2"></p>
+<p><img src="gif_3.gif" alt="Alt text" title="3个都改变"></p>
+<p><code>setSaturation</code>  范围 0-2<br><img src="djfkdskfl2.gif" alt="Alt text" title="改变饱和度"><br><code>setScale</code>   范围 0-2<br><img src="sldkfldkajflks.gif" alt="Alt text" title="改变亮度"></p>
+<p>代码</p>
+<p>进度条<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line"></span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">        android:orientation=&quot;vertical&quot;</span><br><span class="line">        tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;LinearLayout</span><br><span class="line">            android:orientation=&quot;horizontal&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;106dp&quot;&gt;</span><br><span class="line">        &lt;ImageView</span><br><span class="line">            android:id=&quot;@+id/iv_test&quot;</span><br><span class="line">            android:layout_width=&quot;160dp&quot;</span><br><span class="line">            android:layout_height=&quot;106dp&quot;</span><br><span class="line">            android:src=&quot;@mipmap/pg_11111111111&quot; /&gt;</span><br><span class="line">            &lt;ImageView</span><br><span class="line">                android:id=&quot;@+id/iv_test1&quot;</span><br><span class="line">                android:layout_width=&quot;160dp&quot;</span><br><span class="line">                android:layout_height=&quot;106dp&quot;</span><br><span class="line">                 /&gt;</span><br><span class="line">        &lt;/LinearLayout&gt;</span><br><span class="line">        &lt;SeekBar</span><br><span class="line">            android:id=&quot;@+id/bar_red&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:max=&quot;100&quot;</span><br><span class="line">            android:progress=&quot;0&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;色调&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;SeekBar</span><br><span class="line">            android:id=&quot;@+id/bar_green&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:max=&quot;100&quot;</span><br><span class="line">            android:progress=&quot;50&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;饱和度&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;SeekBar</span><br><span class="line">            android:id=&quot;@+id/bar_blue&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:max=&quot;100&quot;</span><br><span class="line">            android:progress=&quot;0&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;TextView&quot;</span><br><span class="line">            tools:text=&quot;亮度&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private SeekBar bar_red;</span><br><span class="line">    private SeekBar bar_green;</span><br><span class="line">    private SeekBar bar_blue;</span><br><span class="line"></span><br><span class="line">    int MID_VALUE = 50;</span><br><span class="line">    private float mHue;</span><br><span class="line">    private float mStauration;</span><br><span class="line">    private float mLum;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line">        bar_red = findViewById(R.id.bar_red);</span><br><span class="line">        bar_green = findViewById(R.id.bar_green);</span><br><span class="line">        bar_blue = findViewById(R.id.bar_blue);</span><br><span class="line">        bar_red.setOnSeekBarChangeListener(this);</span><br><span class="line">        bar_green.setOnSeekBarChangeListener(this);</span><br><span class="line">        bar_blue.setOnSeekBarChangeListener(this);</span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) &#123;</span><br><span class="line">        switch (seekBar.getId()) &#123;</span><br><span class="line">            case R.id.bar_red:</span><br><span class="line">                mHue = (progress-MID_VALUE*1.0f)/MID_VALUE*180;</span><br><span class="line">                break;</span><br><span class="line">            case R.id.bar_green:</span><br><span class="line">                mStauration = progress * 1.0f / MID_VALUE;</span><br><span class="line">                break;</span><br><span class="line">            case R.id.bar_blue:</span><br><span class="line">                mLum = progress * 1.0f / MID_VALUE;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        iv_test1.setImageBitmap(handleImageEffect(bitmap,mHue,mStauration,mLum));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onStartTrackingTouch(SeekBar seekBar) &#123;</span><br><span class="line">        switch (seekBar.getId()) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onStopTrackingTouch(SeekBar seekBar) &#123;</span><br><span class="line">        switch (seekBar.getId()) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public  static Bitmap handleImageEffect(Bitmap bm,float hue,float saturation,float lum)&#123;</span><br><span class="line">        Bitmap bmp=Bitmap.createBitmap(bm.getWidth(),bm.getHeight(), Bitmap.Config.ARGB_8888);</span><br><span class="line">        Canvas canvas=new Canvas(bmp);</span><br><span class="line">        Paint paint=new Paint();</span><br><span class="line">        //色调</span><br><span class="line">        ColorMatrix hueMarix=new ColorMatrix();</span><br><span class="line">        hueMarix.setRotate(0,  hue);</span><br><span class="line">        hueMarix.setRotate(1,  hue);</span><br><span class="line">        hueMarix.setRotate(2,hue);</span><br><span class="line">        //饱和度</span><br><span class="line">        ColorMatrix saturationMarix=new ColorMatrix();</span><br><span class="line">        saturationMarix.setSaturation(saturation);</span><br><span class="line">        //亮度</span><br><span class="line">        ColorMatrix lumMarix=new ColorMatrix();</span><br><span class="line">        lumMarix.setScale(lum,lum,lum,1);</span><br><span class="line"></span><br><span class="line">        ColorMatrix imageMatrix=new ColorMatrix();</span><br><span class="line">//下面这三个要分开调用 每次解开一个 这个是书里面的一个坑 不然会一直显示黑色的</span><br><span class="line">//        imageMatrix.postConcat(hueMarix);</span><br><span class="line">//        imageMatrix.postConcat(saturationMarix);</span><br><span class="line">//        imageMatrix.postConcat(lumMarix);</span><br><span class="line"></span><br><span class="line">        //设置画笔颜色过滤器</span><br><span class="line">        paint.setColorFilter(new ColorMatrixColorFilter(imageMatrix));</span><br><span class="line">        canvas.drawBitmap(bm,0,0,paint);</span><br><span class="line">        return bmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面来看一下<code>ColorMatrix</code> 这个东西到底是什么，点击进入源码 <code>ctrl+b</code>，这里就分析一下比较正要的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">ColorMatrix &#123;</span><br><span class="line"> private final float[] mArray = new float[20];//这是一个四行五列的矩阵，在这里面没有矩阵这种数据结构，用数组替代</span><br><span class="line"> public void setRotate(int axis, float degrees) &#123;</span><br><span class="line">     reset();</span><br><span class="line">     double radians = degrees * Math.PI / 180d;</span><br><span class="line">     float cosine = (float) Math.cos(radians);</span><br><span class="line">     float sine = (float) Math.sin(radians);</span><br><span class="line">     switch (axis) &#123;</span><br><span class="line">     // Rotation around the red color</span><br><span class="line">     case 0:</span><br><span class="line">        //</span><br><span class="line">        //   double radians = degrees * Math.PI / 180d;</span><br><span class="line">        //   float cosine = (float) Math.cos(radians);</span><br><span class="line">        //  float sine = (float) Math.sin(radians);</span><br><span class="line">        //x 代表原来的值，然后改变色调就是改变红绿蓝的比例，可以看一下上面的矩阵的乘法</span><br><span class="line">        //     x      x        x     x    x</span><br><span class="line">        //     x      cosine  sine   x    x</span><br><span class="line">        //     x    -sine   cosine   x    x</span><br><span class="line">        //     x      x        x     x    x</span><br><span class="line">        //</span><br><span class="line">         mArray[6] = mArray[12] = cosine;</span><br><span class="line">         mArray[7] = sine;</span><br><span class="line">         mArray[11] = -sine;</span><br><span class="line">         break;</span><br><span class="line">     // Rotation around the green color</span><br><span class="line">     case 1:</span><br><span class="line">         mArray[0] = mArray[12] = cosine;</span><br><span class="line">         mArray[2] = -sine;</span><br><span class="line">         mArray[10] = sine;</span><br><span class="line">         break;</span><br><span class="line">     // Rotation around the blue color</span><br><span class="line">     case 2:</span><br><span class="line">         mArray[0] = mArray[6] = cosine;</span><br><span class="line">         mArray[1] = sine;</span><br><span class="line">         mArray[5] = -sine;</span><br><span class="line">         break;</span><br><span class="line">     default:</span><br><span class="line">         throw new RuntimeException();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">//改变饱和度也是改变这个色彩矩阵</span><br><span class="line"> public void setSaturation(float sat) &#123;</span><br><span class="line">    reset();</span><br><span class="line">    float[] m = mArray;//矩阵</span><br><span class="line"></span><br><span class="line">    final float invSat = 1 - sat;</span><br><span class="line">    final float R = 0.213f * invSat;</span><br><span class="line">    final float G = 0.715f * invSat;</span><br><span class="line">    final float B = 0.072f * invSat;</span><br><span class="line"></span><br><span class="line">    m[0] = R + sat; m[1] = G;       m[2] = B;</span><br><span class="line">    m[5] = R;       m[6] = G + sat; m[7] = B;</span><br><span class="line">    m[10] = R;      m[11] = G;      m[12] = B + sat;</span><br><span class="line">&#125;</span><br><span class="line">//改变亮度也是改变这个色彩矩阵</span><br><span class="line">public void setScale(float rScale, float gScale, float bScale,</span><br><span class="line">                       float aScale) &#123;</span><br><span class="line">      final float[] a = mArray;//矩阵</span><br><span class="line"></span><br><span class="line">      for (int i = 19; i &gt; 0; --i) &#123;</span><br><span class="line">          a[i] = 0;</span><br><span class="line">      &#125;</span><br><span class="line">      a[0] = rScale;</span><br><span class="line">      a[6] = gScale;</span><br><span class="line">      a[12] = bScale;</span><br><span class="line">      a[18] = aScale;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以发现改变饱和度，色调，亮度就是改变红绿蓝的数值</p>
+</blockquote>
+<h4 id="一个更加明显的例子，之前书上是黑白的，不是很明显"><a href="#一个更加明显的例子，之前书上是黑白的，不是很明显" class="headerlink" title="一个更加明显的例子，之前书上是黑白的，不是很明显"></a>一个更加明显的例子，之前书上是黑白的，不是很明显</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/iv_test&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:src=&quot;@mipmap/pg_11111111111&quot; /&gt;</span><br><span class="line">    &lt;GridLayout</span><br><span class="line">        android:id=&quot;@+id/gl&quot;</span><br><span class="line">        android:columnCount=&quot;5&quot;</span><br><span class="line">        android:rowCount=&quot;4&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;0dp&quot;</span><br><span class="line">        android:layout_weight=&quot;1&quot; /&gt;</span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:orientation=&quot;horizontal&quot;&gt;</span><br><span class="line">        &lt;Button</span><br><span class="line">            android:id=&quot;@+id/bt1&quot;</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;改变&quot; /&gt;</span><br><span class="line">        &lt;Button</span><br><span class="line">            android:id=&quot;@+id/bt2&quot;</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;重置&quot; /&gt;</span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private int mHeight;</span><br><span class="line">    private int mWidth;</span><br><span class="line">    private GridLayout gridLayout;</span><br><span class="line">    float[] mColorMatrix = new float[20];</span><br><span class="line">    private Button bt1;</span><br><span class="line">    private Button bt2;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        bt1 = findViewById(R.id.bt1);</span><br><span class="line">        bt2 = findViewById(R.id.bt2);</span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        gridLayout = findViewById(R.id.gl);</span><br><span class="line">        gridLayout.post(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                mWidth = gridLayout.getWidth() / 5;</span><br><span class="line">                mHeight = gridLayout.getHeight() / 4;</span><br><span class="line">                addEts();</span><br><span class="line">                initMatrix();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        bt1.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                btnChange(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        bt2.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                btnReset(v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    private void initMatrix() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 20; i++) &#123;</span><br><span class="line">            if (i % 6 == 0) &#123;</span><br><span class="line">                ets[i].setText(String.valueOf(1));</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                ets[i].setText(String.valueOf(0));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    EditText[] ets = new EditText[20];</span><br><span class="line">    private void addEts() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 20; i++) &#123;</span><br><span class="line">            EditText et = new EditText(MainActivity.this);</span><br><span class="line">            ets[i] = et;</span><br><span class="line">            gridLayout.addView(et, mWidth, mHeight);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private void getMatrix() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 20; i++) &#123;</span><br><span class="line">            mColorMatrix[i] = Float.valueOf(ets[i].getText().toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private void setBitmapMatrix() &#123;</span><br><span class="line">        Bitmap bmp = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);</span><br><span class="line">        ColorMatrix colorMatrix = new ColorMatrix();</span><br><span class="line"></span><br><span class="line">        colorMatrix.set(mColorMatrix);</span><br><span class="line">        Canvas canvas = new Canvas(bmp);</span><br><span class="line">        Paint paint = new Paint();</span><br><span class="line">        //将变换的效果设置到画笔</span><br><span class="line">        paint.setColorFilter(new ColorMatrixColorFilter(mColorMatrix));</span><br><span class="line">        //画一个bitMap</span><br><span class="line">        canvas.drawBitmap(bitmap, 0, 0, paint);</span><br><span class="line">        iv_test.setImageBitmap(bmp);</span><br><span class="line">    &#125;</span><br><span class="line">    public void btnChange(View view) &#123;</span><br><span class="line">        getMatrix();</span><br><span class="line">        setBitmapMatrix();</span><br><span class="line">    &#125;</span><br><span class="line">    public void btnReset(View view) &#123;</span><br><span class="line">        initMatrix();</span><br><span class="line">        getMatrix();</span><br><span class="line">        setBitmapMatrix();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个是原图<br><img src="pg_11111111111.jpg" alt="Alt text" title="两个美女"></p>
+<ul>
+<li>灰度效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.33f</td>
+<td style="text-align:center">0.59f</td>
+<td style="text-align:right">0.11f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0.33f</td>
+<td style="text-align:center">0.59f</td>
+<td style="text-align:right">0.11f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0.33f</td>
+<td style="text-align:center">0.59f</td>
+<td style="text-align:right">0.11f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="huiduxiaoguo.png" alt="Alt text" title="灰度效果"></p>
+<ul>
+<li>反转效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">-1</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="device-2017-12-04-231328.png" alt="Alt text" title="反转效果"></p>
+<ul>
+<li>怀旧效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.393f</td>
+<td style="text-align:center">0.769f</td>
+<td style="text-align:right">0.189f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0.349f</td>
+<td style="text-align:center">0.686f</td>
+<td style="text-align:right">0.168f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0.272f</td>
+<td style="text-align:center">0.534f</td>
+<td style="text-align:right">0.131f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="device-2017-12-04-231739.png" alt="Alt text" title="怀旧效果"></p>
+<ul>
+<li>去色效果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.5f</td>
+<td style="text-align:center">1.5f</td>
+<td style="text-align:right">1.5f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td>1.5f</td>
+<td style="text-align:center">1.5f</td>
+<td style="text-align:right">1.5f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td>1.5f</td>
+<td style="text-align:center">1.5f</td>
+<td style="text-align:right">1.5f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">-1</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="device-2017-12-04-232141.png" alt="Alt text" title="去色效果"></p>
+<ul>
+<li>高饱和度</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.438f</td>
+<td style="text-align:center">-0.122f</td>
+<td style="text-align:right">-0.016f</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.03f</td>
+</tr>
+<tr>
+<td>-0.062f</td>
+<td style="text-align:center">1.378f</td>
+<td style="text-align:right">-0.016ff</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">0.05f</td>
+</tr>
+<tr>
+<td>-0.062f</td>
+<td style="text-align:center">-0.122f</td>
+<td style="text-align:right">1.438f</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="device-2017-12-04-232508.png" alt="Alt text" title="高饱和度"></p>
+<h4 id="像素点分析"><a href="#像素点分析" class="headerlink" title="像素点分析"></a>像素点分析</h4><p>我们可以更加详细的处理每一个像素点，通过API<code>BitMap.getPiexs</code>获取每一个像素点，之后通过计算每一个颜色值，来达到我们想要的效果。</p>
+<p>一个简单的流程，不能直接修改原来图片的<code>Piexs</code> 只能复制出来创建一个新的图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">private ImageView iv_test;</span><br><span class="line">private Bitmap bitmap;</span><br><span class="line">@Override</span><br><span class="line">protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">    super.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">    iv_test = findViewById(R.id.iv_test);</span><br><span class="line"></span><br><span class="line">    bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">    int width = bitmap.getWidth();</span><br><span class="line">    int height = bitmap.getHeight();</span><br><span class="line">    Bitmap bit = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);</span><br><span class="line">    int[] old = new int[width * height];//旧的颜色集合</span><br><span class="line">    int[] newColors = new int[width * height];//旧的新的集合</span><br><span class="line">    /**</span><br><span class="line">     * @param pixels   获取的矩阵</span><br><span class="line">     * @param offset   偏移</span><br><span class="line">     * @param stride.  宽度，就是每一行有多少个像素</span><br><span class="line">     * @param x        起始位置</span><br><span class="line">     * @param y        结束位置</span><br><span class="line">     * @param width    宽度</span><br><span class="line">     * @param height   高度</span><br><span class="line">     */</span><br><span class="line">    bitmap.getPixels(old, 0, width, 0, 0, width, height);</span><br><span class="line">    int color = old[10]; //获取第十一个像素点的颜色  一个具体的像素点</span><br><span class="line">    //解析这个颜色值，分离出 ARGB</span><br><span class="line">    int red = Color.red(color);</span><br><span class="line">    int green = Color.green(color);</span><br><span class="line">    int blue = Color.blue(color);</span><br><span class="line">    int alpha = Color.alpha(color);</span><br><span class="line"></span><br><span class="line">    //对颜色值进行处理</span><br><span class="line">    red=2*red;</span><br><span class="line">    green=2*green;</span><br><span class="line">    blue=2*blue;</span><br><span class="line">    alpha=2*alpha;</span><br><span class="line">    //制作颜色</span><br><span class="line">    newColors[10]=Color.argb(alpha,red,green,blue);</span><br><span class="line">    //设置颜色矩阵</span><br><span class="line">    bit.setPixels(newColors, 0, width, 0, 0, width, height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="处理像素点的例子"><a href="#处理像素点的例子" class="headerlink" title="处理像素点的例子"></a>处理像素点的例子</h4><p>代码大部分都是相同的，可以重点关注一下<code>对颜色值进行处理,这里就是ov大厂处理图片的地方</code>注释之间的代码</p>
+<ul>
+<li>反色效果<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        //两个imageview</span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line"></span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line"></span><br><span class="line">        int width = bitmap.getWidth();</span><br><span class="line">        int height = bitmap.getHeight();</span><br><span class="line">        Bitmap bit = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);</span><br><span class="line">        int[] old = new int[width * height];//旧的颜色集合</span><br><span class="line">        int[] newColors = new int[width * height];//旧的新的集合</span><br><span class="line">        /**</span><br><span class="line">         * @param pixels   获取的矩阵</span><br><span class="line">         * @param offset   偏移</span><br><span class="line">         * @param stride.  宽度，就是每一行有多少个像素</span><br><span class="line">         * @param x        起始位置</span><br><span class="line">         * @param y        结束位置</span><br><span class="line">         * @param width    宽度</span><br><span class="line">         * @param height   高度</span><br><span class="line">         */</span><br><span class="line">        bitmap.getPixels(old, 0, width, 0, 0, width, height);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; width * height; i++) &#123;</span><br><span class="line">            int color = old[i]; //获取第i个像素点的颜色</span><br><span class="line">            //解析这个颜色值，分离出 ARGB</span><br><span class="line">            int red = Color.red(color);</span><br><span class="line">            int green = Color.green(color);</span><br><span class="line">            int blue = Color.blue(color);</span><br><span class="line">            int alpha = Color.alpha(color);</span><br><span class="line"></span><br><span class="line">            int red1;</span><br><span class="line">            int green1;</span><br><span class="line">            int blue1;</span><br><span class="line">            int alpha1;</span><br><span class="line"></span><br><span class="line">            //对颜色值进行处理,这里就是ov大厂处理图片的地方</span><br><span class="line">            red1=255-red;//处理红色</span><br><span class="line">            green1=255-green;//处理绿色</span><br><span class="line">            blue1=255-blue;//处理蓝色</span><br><span class="line">            alpha1=alpha;//处理透明度</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //边界判断</span><br><span class="line">            if(red1&gt;255)&#123;</span><br><span class="line">                red1=255;</span><br><span class="line">            &#125;else if(red1&lt;0)&#123;</span><br><span class="line">                red1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(green1&gt;255)&#123;</span><br><span class="line">                green1=255;</span><br><span class="line">            &#125;else if(green1&lt;0)&#123;</span><br><span class="line">                green1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            if(blue1&gt;255)&#123;</span><br><span class="line">                blue1=255;</span><br><span class="line">            &#125;else if(blue1&lt;0)&#123;</span><br><span class="line">                blue1=0;</span><br><span class="line">            &#125;</span><br><span class="line">            if(alpha1&gt;255)&#123;</span><br><span class="line">                alpha1=255;</span><br><span class="line">            &#125;else if(alpha1&lt;0)&#123;</span><br><span class="line">                alpha1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //制作颜色</span><br><span class="line">            newColors[i]=Color.argb(alpha1,red1,green1,blue1);</span><br><span class="line">        &#125;</span><br><span class="line">        //设置颜色矩阵</span><br><span class="line">        bit.setPixels(newColors, 0, width, 0, 0, width, height);</span><br><span class="line">        iv_test1.setImageBitmap(bit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="device-2017-12-05-232020.png" alt="Alt text" title="反色效果"></p>
+<ul>
+<li>老照片</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        //两个imageview</span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line"></span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line"></span><br><span class="line">        int width = bitmap.getWidth();</span><br><span class="line">        int height = bitmap.getHeight();</span><br><span class="line">        Bitmap bit = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);</span><br><span class="line">        int[] old = new int[width * height];//旧的颜色集合</span><br><span class="line">        int[] newColors = new int[width * height];//旧的新的集合</span><br><span class="line">        /**</span><br><span class="line">         * @param pixels   获取的矩阵</span><br><span class="line">         * @param offset   偏移</span><br><span class="line">         * @param stride.  宽度，就是每一行有多少个像素</span><br><span class="line">         * @param x        起始位置</span><br><span class="line">         * @param y        结束位置</span><br><span class="line">         * @param width    宽度</span><br><span class="line">         * @param height   高度</span><br><span class="line">         */</span><br><span class="line">        bitmap.getPixels(old, 0, width, 0, 0, width, height);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; width * height; i++) &#123;</span><br><span class="line">            int color = old[i]; //获取第i个像素点的颜色</span><br><span class="line">            //解析这个颜色值，分离出 ARGB</span><br><span class="line">            int red = Color.red(color);</span><br><span class="line">            int green = Color.green(color);</span><br><span class="line">            int blue = Color.blue(color);</span><br><span class="line">            int alpha = Color.alpha(color);</span><br><span class="line"></span><br><span class="line">            int red1;</span><br><span class="line">            int green1;</span><br><span class="line">            int blue1;</span><br><span class="line">            int alpha1;</span><br><span class="line"></span><br><span class="line">            //对颜色值进行处理,这里就是ov大厂处理图片的地方</span><br><span class="line">            red1= (int) (0.393*red+0.769*green+0.189*blue);//处理红色</span><br><span class="line">            green1=(int) (0.349*red+0.686*green+0.186*blue);//处理绿色</span><br><span class="line">            blue1=(int) (0.272*red+0.534*green+0.131*blue);//处理蓝色</span><br><span class="line">            alpha1=alpha;//处理透明度</span><br><span class="line"></span><br><span class="line">            //边界判断</span><br><span class="line">            if(red1&gt;255)&#123;</span><br><span class="line">                red1=255;</span><br><span class="line">            &#125;else if(red1&lt;0)&#123;</span><br><span class="line">                red1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(green1&gt;255)&#123;</span><br><span class="line">                green1=255;</span><br><span class="line">            &#125;else if(green1&lt;0)&#123;</span><br><span class="line">                green1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            if(blue1&gt;255)&#123;</span><br><span class="line">                blue1=255;</span><br><span class="line">            &#125;else if(blue1&lt;0)&#123;</span><br><span class="line">                blue1=0;</span><br><span class="line">            &#125;</span><br><span class="line">            if(alpha1&gt;255)&#123;</span><br><span class="line">                alpha1=255;</span><br><span class="line">            &#125;else if(alpha1&lt;0)&#123;</span><br><span class="line">                alpha1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //制作颜色</span><br><span class="line">            newColors[i]=Color.argb(alpha1,red1,green1,blue1);</span><br><span class="line">        &#125;</span><br><span class="line">        //设置颜色矩阵</span><br><span class="line">        bit.setPixels(newColors, 0, width, 0, 0, width, height);</span><br><span class="line">        iv_test1.setImageBitmap(bit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2017-12-05-232351.png" alt="Alt text" title="老照片"></p>
+<ul>
+<li>浮雕效果：这个感觉有点不对<blockquote>
+<p>算法 有ABC三个点，对B进行浮雕算法<br>B.red=C.red-B.red+127;<br>B.green=C.green-B.green+127;<br>B.blue=C.blue-B.blue+127;</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">//两个imageview</span><br><span class="line">        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line"></span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line"></span><br><span class="line">        int width = bitmap.getWidth();</span><br><span class="line">        int height = bitmap.getHeight();</span><br><span class="line">        Bitmap bit = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);</span><br><span class="line">        int[] old = new int[width * height];//旧的颜色集合</span><br><span class="line">        int[] newColors = new int[width * height];//旧的新的集合</span><br><span class="line">        /**</span><br><span class="line">         * @param pixels   获取的矩阵</span><br><span class="line">         * @param offset   偏移</span><br><span class="line">         * @param stride.  宽度，就是每一行有多少个像素</span><br><span class="line">         * @param x        起始位置</span><br><span class="line">         * @param y        结束位置</span><br><span class="line">         * @param width    宽度</span><br><span class="line">         * @param height   高度</span><br><span class="line">         */</span><br><span class="line">        bitmap.getPixels(old, 0, width, 0, 0, width, height);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; width * height; i++) &#123;</span><br><span class="line">            int color = old[i]; //获取第i个像素点的颜色</span><br><span class="line"></span><br><span class="line">            int color2 = old[i+1&gt;255?255:i+1];</span><br><span class="line">            //解析这个颜色值，分离出 ARGB</span><br><span class="line">            int red = Color.red(color);</span><br><span class="line">            int green = Color.green(color);</span><br><span class="line">            int blue = Color.blue(color);</span><br><span class="line">            int alpha = Color.alpha(color);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            int red2 = Color.red(color2);</span><br><span class="line">            int green2 = Color.green(color2);</span><br><span class="line">            int blue2 = Color.blue(color2);</span><br><span class="line">            int alpha2 = Color.alpha(color2);</span><br><span class="line"></span><br><span class="line">            int red1;</span><br><span class="line">            int green1;</span><br><span class="line">            int blue1;</span><br><span class="line">            int alpha1;</span><br><span class="line"></span><br><span class="line">            //对颜色值进行处理,这里就是ov大厂处理图片的地方</span><br><span class="line">            red1= red2-red+127;//处理红色</span><br><span class="line">            green1= green2-green+127;//处理绿色</span><br><span class="line">            blue1= blue2-blue+127;//处理蓝色</span><br><span class="line">            alpha1=alpha;//处理透明度</span><br><span class="line"></span><br><span class="line">            //边界判断</span><br><span class="line">            if(red1&gt;255)&#123;</span><br><span class="line">                red1=255;</span><br><span class="line">            &#125;else if(red1&lt;0)&#123;</span><br><span class="line">                red1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(green1&gt;255)&#123;</span><br><span class="line">                green1=255;</span><br><span class="line">            &#125;else if(green1&lt;0)&#123;</span><br><span class="line">                green1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            if(blue1&gt;255)&#123;</span><br><span class="line">                blue1=255;</span><br><span class="line">            &#125;else if(blue1&lt;0)&#123;</span><br><span class="line">                blue1=0;</span><br><span class="line">            &#125;</span><br><span class="line">            if(alpha1&gt;255)&#123;</span><br><span class="line">                alpha1=255;</span><br><span class="line">            &#125;else if(alpha1&lt;0)&#123;</span><br><span class="line">                alpha1=0;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //制作颜色</span><br><span class="line">            newColors[i]=Color.argb(alpha1,red1,green1,blue1);</span><br><span class="line">        &#125;</span><br><span class="line">        //设置颜色矩阵</span><br><span class="line">        bit.setPixels(newColors, 0, width, 0, 0, width, height);</span><br><span class="line">        iv_test1.setImageBitmap(bit);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2017-12-05-233233.png" alt="Alt text" title="浮雕效果"></p>
+<h1 id="Android图像处理之图形特效处理"><a href="#Android图像处理之图形特效处理" class="headerlink" title="Android图像处理之图形特效处理"></a>Android图像处理之图形特效处理</h1><blockquote>
+<p>上面看完了<code>ColorMatrix</code>对颜色的处理，现在看一下<code>Matrix</code>对图形变换的处理，本质是一致的，都是通过矩阵计算<br>只不过从<code>argb</code>变成了<code>xy</code></p>
+</blockquote>
+<p><img src="图像1512488459.png" alt="Alt text" title="简单的一个矩阵算法"></p>
+<p>正常情况会让 g=h=0 i=1 这样1=g<em>X+h</em>Y+i 始终成立</p>
+<h4 id="原始变换矩阵"><a href="#原始变换矩阵" class="headerlink" title="原始变换矩阵"></a>原始变换矩阵</h4><table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p>####平移变换</p>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">dx</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:right">dy</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p><img src="图像1515509868.png" alt="Alt text" title="平移"></p>
+<p><img src="图像1515510116.png" alt="Alt text" title="平移 "></p>
+<h4 id="旋转变换"><a href="#旋转变换" class="headerlink" title="旋转变换"></a>旋转变换</h4><p>a 顺时针旋转的角度</p>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cos(a)</td>
+<td style="text-align:center">-sin(a)</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>sin(a)</td>
+<td style="text-align:center">cos(a)</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p><img src="图像1515510352.png" alt="Alt text" title="旋转 "></p>
+<h4 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h4><table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">k2</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p>就是乘以不同的系数</p>
+<h4 id="错切变换"><a href="#错切变换" class="headerlink" title="错切变换"></a>错切变换</h4><table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">k1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>k2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<p><img src="错切.png" alt="Alt text" title="旋转 "></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>把前面4种变化</p>
+<table>
+<thead>
+<tr>
+<th>—-</th>
+<th style="text-align:center">—-</th>
+<th style="text-align:right">—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td style="text-align:center">B</td>
+<td style="text-align:right">C</td>
+</tr>
+<tr>
+<td>D</td>
+<td style="text-align:center">E</td>
+<td style="text-align:right">F</td>
+</tr>
+<tr>
+<td>0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:right">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A和E控制：缩放变换</li>
+<li>B和D控制：错切变换</li>
+<li>C和F控制：平移变换</li>
+<li>A、B、D、E控制：旋转变换</li>
+</ul>
+<h4 id="效果展示和代码"><a href="#效果展示和代码" class="headerlink" title="效果展示和代码"></a>效果展示和代码</h4><h5 id="平移变换"><a href="#平移变换" class="headerlink" title="平移变换"></a>平移变换</h5><p>效果<br><img src="device-2018-01-11-215812.png" alt="Alt text" title="平移，看下面那张图片"></p>
+<p><img src="device-2018-01-11-220301.png" alt="Alt text" title="缩放，看下面那张图片"></p>
+<p><img src="device-2018-01-11-220845.png" alt="Alt text" title="旋转45，看下面那张图片"></p>
+<p><img src="device-2018-01-11-221212.png" alt="Alt text" title="错切x，看下面那张图片"></p>
+<p><img src="device-2018-01-11-221335.png" alt="Alt text" title="错切y，看下面那张图片"></p>
+<p>布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.smart.myapplication.TesView</span><br><span class="line">android:layout_width=&quot;1000dp&quot;</span><br><span class="line">android:layout_height=&quot;1000dp&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        canvas.drawBitmap(bitmap,0,0,new Paint());</span><br><span class="line">        //绘制的时候进行平移100像素</span><br><span class="line">        float[] mImageMatrix=new float[]&#123;1,0,100,0,1,100,0,0,1&#125;;</span><br><span class="line">        //绘制的时候进行放大1.2倍</span><br><span class="line">        float[] mImageMatrix=new float[]&#123;1.2f,0,0,0,1.2f,0,0,0,1&#125;;</span><br><span class="line">        //绘制的时候进行旋转45度</span><br><span class="line">        float[] mImageMatrix=new float[]&#123;0.5f,-0.5f,0,0.5f,0.5f,0,0,0,1&#125;;</span><br><span class="line">        //绘制的时候进行x轴错切</span><br><span class="line">        float[] mImageMatrix=new float[]&#123;1,0.5f,0,0,1,0,0,0,1&#125;;</span><br><span class="line">        //绘制的时候进行y轴错切</span><br><span class="line">        float[] mImageMatrix=new float[]&#123;1,0,0,0.5f,1,0,0,0,1&#125;;</span><br><span class="line">        Matrix matrix=new Matrix();</span><br><span class="line">        matrix.setValues(mImageMatrix);</span><br><span class="line">        canvas.drawBitmap(bitmap,matrix,null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="api提供的方法一样可以"><a href="#api提供的方法一样可以" class="headerlink" title="api提供的方法一样可以"></a>api提供的方法一样可以</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        canvas.drawBitmap(bitmap,0,0,new Paint());</span><br><span class="line">        Matrix matrix=new Matrix();</span><br><span class="line">        matrix.setRotate();//旋转</span><br><span class="line">        matrix.setTranslate();//平移</span><br><span class="line">        matrix.setScale();//缩放</span><br><span class="line">        matrix.setSkew();//错切</span><br><span class="line">        matrix.postxxx();//后乘运算</span><br><span class="line">        matrix.prexxx();//前乘运算</span><br><span class="line">        matrix.setValues(mImageMatrix);</span><br><span class="line">        canvas.drawBitmap(bitmap,matrix,null);</span><br></pre></td></tr></table></figure>
+<h4 id="像素块分析"><a href="#像素块分析" class="headerlink" title="像素块分析"></a>像素块分析</h4><p>就是把一个图片分为一个一个不同的像素组，对这个像素组进行计算,类似一个拼图，把一张图片给拆开，不过没有凹凸</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line"></span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private int height;</span><br><span class="line">    private int width;</span><br><span class="line">    private int HEIGHT;</span><br><span class="line">    private int WIDTH;</span><br><span class="line">    private float[] orig;</span><br><span class="line">    private float[] verts;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void init() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        width = bitmap.getWidth();</span><br><span class="line">        height = bitmap.getHeight();</span><br><span class="line">        orig = new float[width*height/2];</span><br><span class="line">        verts = new float[width*height/2];</span><br><span class="line">        int index = 0;</span><br><span class="line">        HEIGHT = 100;</span><br><span class="line">        WIDTH = 100;</span><br><span class="line">        for (int y = 0; y &lt;= HEIGHT; y++) &#123;</span><br><span class="line">            float fy = height * y / HEIGHT;</span><br><span class="line">            for (int i = 0; i &lt;= WIDTH; i++) &#123;</span><br><span class="line">                float fx = width * i / WIDTH;</span><br><span class="line">                orig[index * 2 ] = verts[index * 2] = fx;</span><br><span class="line">                orig[index * 2 + 1] = verts[index * 2 + 1] = fy ;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void flagWave() &#123;</span><br><span class="line">        for (int j = 0; j &lt;= HEIGHT; j++) &#123;</span><br><span class="line">            for (int i1 = 0; i1 &lt;= WIDTH; i1++) &#123;</span><br><span class="line">                verts[(j * (WIDTH + 1) + i1) * 2 + 0] += 0;</span><br><span class="line">                float offsetY = (float) Math.sin((float) i1 / WIDTH * 2 * Math.PI + Math.PI * k);</span><br><span class="line">                //这个5是系数 ，就是滚动的距离</span><br><span class="line">                verts[(j * (WIDTH + 1) + i1) * 2 + 1] = orig[(j * WIDTH + i1) * 2 + 1] + offsetY*5 ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    float k = 0f;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        flagWave();</span><br><span class="line">        k += 0.1;// 这样可以扭动起来</span><br><span class="line">        canvas.drawBitmapMesh(bitmap, WIDTH, HEIGHT, verts, 0, null, 0, null);</span><br><span class="line">        invalidate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="dongdong.gif" alt="Alt text" title="效果"></p>
+<h1 id="Android-图像处理之画笔特效处理"><a href="#Android-图像处理之画笔特效处理" class="headerlink" title="Android 图像处理之画笔特效处理"></a>Android 图像处理之画笔特效处理</h1><h5 id="圆角图片"><a href="#圆角图片" class="headerlink" title="圆角图片"></a>圆角图片</h5><p><img src="2041548-d964105abf4be5d9.jpg" alt="Alt text" title="Google的官方图片"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class guaguakaView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public guaguakaView(@NonNull Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public guaguakaView(@NonNull Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public guaguakaView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line"></span><br><span class="line">        Bitmap mOut=Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(),Bitmap.Config.ARGB_8888);</span><br><span class="line">        Canvas mCanvas=new Canvas(mOut);</span><br><span class="line">        Paint paint=new Paint();</span><br><span class="line">        paint.setAntiAlias(true);</span><br><span class="line">        mCanvas.drawRoundRect(0,0,bitmap.getWidth(),bitmap.getHeight(),80,80,paint);</span><br><span class="line">        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));</span><br><span class="line">        mCanvas.drawBitmap(bitmap,0,0,paint);</span><br><span class="line">        canvas.drawBitmap(mOut,0,0,new Paint());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-212001.png" alt="Alt text" title="圆角图片"></p>
+<h5 id="刮刮卡"><a href="#刮刮卡" class="headerlink" title="刮刮卡"></a>刮刮卡</h5><p><img src="guaguaka.png" alt="Alt text" title="刮刮卡效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">public class TesView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line"></span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private int height;</span><br><span class="line">    private int width;</span><br><span class="line">    private int HEIGHT;</span><br><span class="line">    private int WIDTH;</span><br><span class="line">    private float[] orig;</span><br><span class="line">    private float[] verts;</span><br><span class="line"></span><br><span class="line">    public TesView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    private void init() &#123;</span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        width = bitmap.getWidth();</span><br><span class="line">        height = bitmap.getHeight();</span><br><span class="line">        orig = new float[width*height/2];</span><br><span class="line">        verts = new float[width*height/2];</span><br><span class="line">        int index = 0;</span><br><span class="line">        HEIGHT = 100;</span><br><span class="line">        WIDTH = 100;</span><br><span class="line">        for (int y = 0; y &lt;= HEIGHT; y++) &#123;</span><br><span class="line">            float fy = height * y / HEIGHT;</span><br><span class="line">            for (int i = 0; i &lt;= WIDTH; i++) &#123;</span><br><span class="line">                float fx = width * i / WIDTH;</span><br><span class="line">                orig[index * 2 ] = verts[index * 2] = fx;</span><br><span class="line">                orig[index * 2 + 1] = verts[index * 2 + 1] = fy ;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public TesView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    private void flagWave() &#123;</span><br><span class="line">        for (int j = 0; j &lt;= HEIGHT; j++) &#123;</span><br><span class="line">            for (int i1 = 0; i1 &lt;= WIDTH; i1++) &#123;</span><br><span class="line">                verts[(j * (WIDTH + 1) + i1) * 2 + 0] += 0;</span><br><span class="line">                float offsetY = (float) Math.sin((float) i1 / WIDTH * 2 * Math.PI + Math.PI * k);</span><br><span class="line">                verts[(j * (WIDTH + 1) + i1) * 2 + 1] = orig[(j * WIDTH + i1) * 2 + 1] + offsetY*5 ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    float k = 0f;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        flagWave();</span><br><span class="line">        k += 0.1;</span><br><span class="line">        canvas.drawBitmapMesh(bitmap, WIDTH, HEIGHT, verts, 0, null, 0, null);</span><br><span class="line">        invalidate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Shader-着色器"><a href="#Shader-着色器" class="headerlink" title="Shader  着色器"></a>Shader  着色器</h4><p>分类</p>
+<ul>
+<li>BitmapShader  //图片Shader</li>
+<li>LinearGradient  //线性Shader</li>
+<li>RadialGradient    //光束SHader</li>
+<li>SweepGradient     //梯度  Shader</li>
+<li>ComposeShader    //混合  Shader</li>
+</ul>
+<p>模式</p>
+<ul>
+<li>CLAMP  拉伸，最后那个像素不断重复</li>
+<li>REPEAT 重复</li>
+<li>MIRROR 镜像</li>
+</ul>
+<p><img src="device-2018-01-14-220130.png" alt="Alt text" title="圆形头像效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class RoundView extends View &#123;</span><br><span class="line">    public RoundView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public RoundView(Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public RoundView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">      //头像要比较大 不然显示有问题，这个是一个demo，下面会有原因</span><br><span class="line">        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);</span><br><span class="line">        Paint mPaint = new Paint();</span><br><span class="line">        mPaint.setShader(bitmapShader);</span><br><span class="line">        canvas.drawCircle(500, 250, 200, mPaint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不同的显示模式的效果</p>
+<p><img src="1510156433278.png" alt="Alt text" title="原图"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">     super.onDraw(canvas);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line"></span><br><span class="line">     BitmapShader bitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);</span><br><span class="line">     Paint mPaint = new Paint();</span><br><span class="line">     mPaint.setShader(bitmapShader);</span><br><span class="line">     canvas.drawCircle(500, 500, 500, mPaint);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="device-2018-01-14-220943.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line">LinearGradient bitmapShader = new LinearGradient(0, 0, 400,400, Color.BLUE,Color.YELLOW,Shader.TileMode.REPEAT);</span><br><span class="line">Paint mPaint = new Paint();mPaint.setShader(bitmapShader);</span><br><span class="line">canvas.drawCircle(500, 500, 500, mPaint);</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-222421.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line">RadialGradient radialGradient=new RadialGradient(10,10,100,Color.BLUE,Color.BLACK,Shader.TileMode.REPEAT);</span><br><span class="line">Paint mPaint = new Paint();</span><br><span class="line">mPaint.setShader(radialGradient);</span><br><span class="line">canvas.drawCircle(500, 500, 500, mPaint);</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-223034.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line">SweepGradient radialGradient=new SweepGradient(100,100,Color.BLUE,Color.BLACK);</span><br><span class="line">Paint mPaint = new Paint();</span><br><span class="line">mPaint.setShader(radialGradient);</span><br><span class="line">canvas.drawCircle(500, 500, 500, mPaint);</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-223502.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class ReflectView extends View &#123;</span><br><span class="line"></span><br><span class="line">    private Paint mPaint;</span><br><span class="line">    private PorterDuffXfermode mCfermode;</span><br><span class="line">    private PorterDuffXfermode porterDuffXfermode;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private Bitmap otherBitmap;</span><br><span class="line">    private Paint paint;</span><br><span class="line"></span><br><span class="line">    public ReflectView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        initRes(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ReflectView(Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        initRes(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public ReflectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        initRes(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void initRes(Context context) &#123;</span><br><span class="line">        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pg_11111111111);</span><br><span class="line">        Matrix matrix=new Matrix();</span><br><span class="line">        //缩放 如果是负值，就会倒立</span><br><span class="line">        matrix.setScale(1f,-1f);</span><br><span class="line">        otherBitmap = bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);</span><br><span class="line">        paint = new Paint();</span><br><span class="line">        paint.setShader(new LinearGradient(0, bitmap.getHeight(),0, bitmap.getWidth()+ bitmap.getHeight()/4,0xDD000000,0x10000000, Shader.TileMode.CLAMP));</span><br><span class="line">        porterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        canvas.drawColor(Color.BLACK);</span><br><span class="line">        canvas.drawBitmap(bitmap,0,0,null);</span><br><span class="line">        canvas.drawBitmap(otherBitmap,0,bitmap.getHeight(),null);</span><br><span class="line">        paint.setXfermode(porterDuffXfermode);</span><br><span class="line">        //设置渐变</span><br><span class="line">        canvas.drawRect(0,bitmap.getHeight(),bitmap.getWidth(),bitmap.getHeight()*2,paint);</span><br><span class="line">        paint.setXfermode(null);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-231137.png" alt="Alt text" title="效果图"></p>
+<h5 id="PathEffect-不同的笔绘制的特效"><a href="#PathEffect-不同的笔绘制的特效" class="headerlink" title="PathEffect 不同的笔绘制的特效"></a>PathEffect 不同的笔绘制的特效</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class EffectView extends View &#123;</span><br><span class="line"></span><br><span class="line">    public EffectView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public EffectView(Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public EffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        Path path=new Path();</span><br><span class="line">        path.moveTo(0,0);</span><br><span class="line">        for (int i = 0; i &lt; 30; i++) &#123;</span><br><span class="line">            path.lineTo(i*35,(float)(Math.random()*100));</span><br><span class="line">        &#125;</span><br><span class="line">        canvas.drawPath(path,new Paint());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-232423.png" alt="Alt text" title="效果图"></p>
+<h5 id="PathEffect-不同的笔绘制的特效-系统api"><a href="#PathEffect-不同的笔绘制的特效-系统api" class="headerlink" title="PathEffect 不同的笔绘制的特效 系统api"></a>PathEffect 不同的笔绘制的特效 系统api</h5><ul>
+<li>CornerPathEffect 拐角处变得圆滑</li>
+<li>DiscretePathEffect 线段上面产生咋点</li>
+<li>DashPathEffect 绘制虚线</li>
+<li>PathDashPathEffect 画方形或者圆形的虚线</li>
+<li>ComposePathEffect 组合效果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class EffectView extends View &#123;</span><br><span class="line"></span><br><span class="line">    public EffectView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public EffectView(Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public EffectView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">//        Path path=new Path();</span><br><span class="line">//        canvas.drawPath(path,new Paint());</span><br><span class="line">        PathEffect[] pathEffects=new PathEffect[6];</span><br><span class="line">        pathEffects[0]=null;</span><br><span class="line">        pathEffects[1]=new CornerPathEffect(30);</span><br><span class="line">        pathEffects[2]=new DiscretePathEffect(3.0f,3.0f);</span><br><span class="line">        pathEffects[3]=new DashPathEffect(new float[]&#123;20,10,5,10&#125;,0);</span><br><span class="line">        Path path=new Path();</span><br><span class="line">        path.moveTo(0,0);</span><br><span class="line">        for (int i = 0; i &lt; 30; i++) &#123;</span><br><span class="line">            path.lineTo(i*35,(float)(Math.random()*100));</span><br><span class="line">        &#125;</span><br><span class="line">        path.addRect(0,0,8,8,Path.Direction.CCW);</span><br><span class="line">        pathEffects[4]=new PathDashPathEffect(path,12,0,PathDashPathEffect.Style.ROTATE);</span><br><span class="line">        pathEffects[5]=new ComposePathEffect(pathEffects[3],pathEffects[1]);</span><br><span class="line">        Paint paint=new Paint();</span><br><span class="line">        for (PathEffect pathEffect : pathEffects) &#123;</span><br><span class="line">            paint.setPathEffect(pathEffect);</span><br><span class="line">            canvas.drawPath(path,paint);</span><br><span class="line">            canvas.translate(0,200);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="device-2018-01-14-233455.png" alt="Alt text" title="效果图"></p>
+<h1 id="View的兄弟-SurfaceView"><a href="#View的兄弟-SurfaceView" class="headerlink" title="View的兄弟 SurfaceView"></a>View的兄弟 SurfaceView</h1><p>Android是可以在子线程更新UI的，SurfaceView就是要在子线程更新UI。他有双缓冲机制，这个后面讲，用的很少</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/Android群英传/" rel="tag"># Android群英传</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android群英传_第五章 Android  Scroll分析/" rel="next" title="Android群英传 第五章 Android  Scroll分析">
+                <i class="fa fa-chevron-left"></i> Android群英传 第五章 Android  Scroll分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android群英传_第七章 Android 动画机制与使用技巧/" rel="prev" title="Android群英传 第七章 Android 动画机制与使用技巧">
+                Android群英传 第七章 Android 动画机制与使用技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#屏幕的信息"><span class="nav-number">1.</span> <span class="nav-text">屏幕的信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕大小"><span class="nav-number">1.1.</span> <span class="nav-text">屏幕大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分辨率"><span class="nav-number">1.2.</span> <span class="nav-text">分辨率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPI"><span class="nav-number">1.3.</span> <span class="nav-text">PPI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统屏幕密度"><span class="nav-number">1.4.</span> <span class="nav-text">系统屏幕密度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位转换"><span class="nav-number">1.5.</span> <span class="nav-text">单位转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2D绘图的基础"><span class="nav-number">2.</span> <span class="nav-text">2D绘图的基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML绘图"><span class="nav-number">3.</span> <span class="nav-text">XML绘图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bitmap"><span class="nav-number">3.1.</span> <span class="nav-text">bitmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shape"><span class="nav-number">3.2.</span> <span class="nav-text">shape</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layer"><span class="nav-number">3.3.</span> <span class="nav-text">layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selector"><span class="nav-number">3.4.</span> <span class="nav-text">selector</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-绘图技巧"><span class="nav-number">4.</span> <span class="nav-text">Android 绘图技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#画一个时钟"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">画一个时钟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Layer图层"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">Layer图层</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android图像处理值色彩特效处理"><span class="nav-number">5.</span> <span class="nav-text">Android图像处理值色彩特效处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个例子"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个更加明显的例子，之前书上是黑白的，不是很明显"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">一个更加明显的例子，之前书上是黑白的，不是很明显</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#像素点分析"><span class="nav-number">5.0.0.5.</span> <span class="nav-text">像素点分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理像素点的例子"><span class="nav-number">5.0.0.6.</span> <span class="nav-text">处理像素点的例子</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android图像处理之图形特效处理"><span class="nav-number">6.</span> <span class="nav-text">Android图像处理之图形特效处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原始变换矩阵"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">原始变换矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旋转变换"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">旋转变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缩放"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">缩放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#错切变换"><span class="nav-number">6.0.0.4.</span> <span class="nav-text">错切变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">6.0.0.5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#效果展示和代码"><span class="nav-number">6.0.0.6.</span> <span class="nav-text">效果展示和代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#平移变换"><span class="nav-number">6.0.0.6.1.</span> <span class="nav-text">平移变换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#api提供的方法一样可以"><span class="nav-number">6.0.0.7.</span> <span class="nav-text">api提供的方法一样可以</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#像素块分析"><span class="nav-number">6.0.0.8.</span> <span class="nav-text">像素块分析</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-图像处理之画笔特效处理"><span class="nav-number">7.</span> <span class="nav-text">Android 图像处理之画笔特效处理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#圆角图片"><span class="nav-number">7.0.0.0.1.</span> <span class="nav-text">圆角图片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#刮刮卡"><span class="nav-number">7.0.0.0.2.</span> <span class="nav-text">刮刮卡</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shader-着色器"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">Shader  着色器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PathEffect-不同的笔绘制的特效"><span class="nav-number">7.0.0.1.1.</span> <span class="nav-text">PathEffect 不同的笔绘制的特效</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PathEffect-不同的笔绘制的特效-系统api"><span class="nav-number">7.0.0.1.2.</span> <span class="nav-text">PathEffect 不同的笔绘制的特效 系统api</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#View的兄弟-SurfaceView"><span class="nav-number">8.</span> <span class="nav-text">View的兄弟 SurfaceView</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础,Android群英传," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="布局优化Android UI渲染机制人眼感觉流畅的画面大概是40帧每秒到60帧每秒，而且 他是16ms会绘制一次，如果一次绘制在20ms，就会在16ms的时候发出VSYNC信号，就无法绘制，该帧就会被丢弃，导致丢帧在开发者选项中，可以 选择 PROFILE GPU Rendering(GPU 呈现模式分析) 并选中 OnScreen as bars 就会在屏幕上出现一些条线图，尽量让所有的条形图都">
+<meta name="keywords" content="基础,Android群英传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传 第十章 Android 性能优化入门">
+<meta property="og:url" content="http://yoursite.com/android/Android群英传_第十章 Android 性能优化入门/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="布局优化Android UI渲染机制人眼感觉流畅的画面大概是40帧每秒到60帧每秒，而且 他是16ms会绘制一次，如果一次绘制在20ms，就会在16ms的时候发出VSYNC信号，就无法绘制，该帧就会被丢弃，导致丢帧在开发者选项中，可以 选择 PROFILE GPU Rendering(GPU 呈现模式分析) 并选中 OnScreen as bars 就会在屏幕上出现一些条线图，尽量让所有的条形图都">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516719324.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/rrrrrrr.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516802863.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516802989.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516803153.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516803752.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516804054.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516804298.png">
+<meta property="og:updated_time" content="2018-07-26T13:02:18.030Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传 第十章 Android 性能优化入门">
+<meta name="twitter:description" content="布局优化Android UI渲染机制人眼感觉流畅的画面大概是40帧每秒到60帧每秒，而且 他是16ms会绘制一次，如果一次绘制在20ms，就会在16ms的时候发出VSYNC信号，就无法绘制，该帧就会被丢弃，导致丢帧在开发者选项中，可以 选择 PROFILE GPU Rendering(GPU 呈现模式分析) 并选中 OnScreen as bars 就会在屏幕上出现一些条线图，尽量让所有的条形图都">
+<meta name="twitter:image" content="http://yoursite.com/android/Android群英传_第十章%20Android%20性能优化入门/图像1516719324.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android群英传_第十章 Android 性能优化入门/"/>
+
+
+
+
+
+  <title>Android群英传 第十章 Android 性能优化入门 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android群英传_第十章 Android 性能优化入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android群英传 第十章 Android 性能优化入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T22:17:10+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="布局优化"><a href="#布局优化" class="headerlink" title="布局优化"></a>布局优化</h1><h2 id="Android-UI渲染机制"><a href="#Android-UI渲染机制" class="headerlink" title="Android UI渲染机制"></a>Android UI渲染机制</h2><p>人眼感觉流畅的画面大概是40帧每秒到60帧每秒，而且 他是16ms会绘制一次，如果一次绘制在20ms，就会在16ms的时候发出VSYNC信号，就无法绘制，该帧就会被丢弃，导致丢帧<br>在开发者选项中，可以 选择 PROFILE GPU Rendering(GPU 呈现模式分析) 并选中 OnScreen as bars 就会在屏幕上出现一些条线图，尽量让所有的条形图都在这个绿线一下</p>
+<h2 id="避免-OverDraw"><a href="#避免-OverDraw" class="headerlink" title="避免 OverDraw"></a>避免 OverDraw</h2><p>在开发者选项中，选择 Enable GPU Overdraw(调试 GPU 过度绘制) 可以查看绘制的次数，蓝色区域是绘制比较少的，红色是绘制多的，尽量减少红色区域</p>
+<h2 id="优化布局层级"><a href="#优化布局层级" class="headerlink" title="优化布局层级"></a>优化布局层级</h2><ol>
+<li>Google建议嵌套的布局层数不要超过10层，如果超过10层就会出现绘制性能下降明显的情况，Android是通过对树的遍历遍历整个xml的，所以布局最好控制在5层以内</li>
+<li>避免嵌套过多无用布局</li>
+<li>使用<include> 复用Layout，如果这个布局已经创建过了，在第二次创建的时候速度会快很多的，但是要适度，产品更改的比较频繁就尽量少用，不然会导致这个布局过于复杂</include></li>
+<li>使用ViewStub延时加载，就是第一次加载的时候不出现，在调用setVisibility（View.VISIBLE）的时候放到布局树上面，如果使用setVisibility（View.GONE） 只是不显示，但是还是会放在布局树上面<h2 id="Hierarchy-Viewer-这个应该在优化布局里面的，但是比较复杂和重要就拿出来了"><a href="#Hierarchy-Viewer-这个应该在优化布局里面的，但是比较复杂和重要就拿出来了" class="headerlink" title="Hierarchy Viewer 这个应该在优化布局里面的，但是比较复杂和重要就拿出来了"></a>Hierarchy Viewer 这个应该在优化布局里面的，但是比较复杂和重要就拿出来了</h2>建议使用模拟器，不然可能会失败的，使用Android Studio 步骤：<br>Tool   –&gt;    Android –&gt; Android Device Monitor  –&gt;</li>
+</ol>
+<p><img src="图像1516719324.png" alt="Alt text" title="生命周期图"><br>这样就可以很方便的找到冗余的布局了</p>
+<h1 id="内存优化"><a href="#内存优化" class="headerlink" title="内存优化"></a>内存优化</h1><h2 id="什么是内存"><a href="#什么是内存" class="headerlink" title="什么是内存"></a>什么是内存</h2><ul>
+<li>寄存器 ：这个无法控制</li>
+<li>栈(Stack):存放基本数据类型和对象的引用，但是对象本身不在栈中，而是放在堆中</li>
+<li>堆(Heap) ： 存放new出来的对象和数组，有GC来管理</li>
+<li>静态存储区域(Static Field): 程序运行的过程中一直存在的数据，比如static修饰的变量</li>
+<li>常量池(Constant Pool) 存放常量</li>
+</ul>
+<p>在进行分配的时候 new 一个对象 这个对象在栈中有一个引用，在堆中存储，当该变量的作用域结束后，栈中的内存会回收，但是堆中的内存不会立即回收，等待GC来回收</p>
+<h2 id="获取Android-系统内存信息"><a href="#获取Android-系统内存信息" class="headerlink" title="获取Android 系统内存信息"></a>获取Android 系统内存信息</h2><h4 id="process-Stats"><a href="#process-Stats" class="headerlink" title="process Stats"></a>process Stats</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys procstats</span><br></pre></td></tr></table></figure>
+<h4 id="Meminfo"><a href="#Meminfo" class="headerlink" title="Meminfo"></a>Meminfo</h4><p>使用系统上的内存监视器，在设置-APP-Running里面打开，或者 <code>adb shell dumpsys meminfo</code></p>
+<h2 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h2><h4 id="bitmap优化"><a href="#bitmap优化" class="headerlink" title="bitmap优化"></a>bitmap优化</h4><p>开发过Android都知道Bitmap是引起OOM最主要的原因之一<br>如何优化</p>
+<ul>
+<li>使用合适分辨率和大小的图片</li>
+<li>及时回收内存，使用bitmap。recycle()方法释放资源，在Android3.0以后，bitmap放到了堆中，由GC管理，就不用手动释放了</li>
+</ul>
+<h4 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h4><ul>
+<li>减少枚举和迭代器的使用</li>
+<li>避免使用IOC框架，反射会降低效率</li>
+<li>Cursor，Sensor，File，Receiver等及时释放和回收</li>
+<li>使用SurfaceView替代View进行大量绘图操作</li>
+<li>使用OpenGl和RenderScript进行绘图操作</li>
+<li>尽量缓存视图，而不是每次都执行infalte()</li>
+</ul>
+<h2 id="Lint工具"><a href="#Lint工具" class="headerlink" title="Lint工具"></a>Lint工具</h2><p>这个先不讲</p>
+<h1 id="使用Android-Studio的Memory-Monitor-工具"><a href="#使用Android-Studio的Memory-Monitor-工具" class="headerlink" title="使用Android Studio的Memory Monitor 工具"></a>使用Android Studio的Memory Monitor 工具</h1><h1 id="使用TraceView工具优化App性能"><a href="#使用TraceView工具优化App性能" class="headerlink" title="使用TraceView工具优化App性能"></a>使用TraceView工具优化App性能</h1><h2 id="生成TraceView日志的两种方法"><a href="#生成TraceView日志的两种方法" class="headerlink" title="生成TraceView日志的两种方法"></a>生成TraceView日志的两种方法</h2><ul>
+<li><p>使用Debug类辅助：Debug.startMethodTracing() 方法<br>在OnCreate中使用Debug.startMethodTracing() 在OnDestory中使用Debug.stopMethodTracing()，可以精确监听，然后在/sdcard/dmtrace.trace 保存文件，需要读写sd卡权限，当然可以自定义输出路径 <code>adb pull /sdcard/trace_log.trace     /local/LOG/</code></p>
+</li>
+<li><p>使用Android Device Monitor工具</p>
+</li>
+</ul>
+<p><img src="rrrrrrr.png" alt="Alt text" title="位置"></p>
+<h2 id="分析Trace-View日志"><a href="#分析Trace-View日志" class="headerlink" title="分析Trace View日志"></a>分析Trace View日志</h2><p>主要显示信息</p>
+<table>
+<thead>
+<tr>
+<th>英文</th>
+<th style="text-align:center">中文和含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Incl CPU Time</td>
+<td style="text-align:center">某个方法占用CPU的时间</td>
+</tr>
+<tr>
+<td>Excl CPU Time</td>
+<td style="text-align:center">某个方法本身（不包括字方法）占用CPU的时间</td>
+</tr>
+<tr>
+<td>Incl  Time</td>
+<td style="text-align:center">某个方法真正执行的时间</td>
+</tr>
+<tr>
+<td>Excl Real Time</td>
+<td style="text-align:center">某个方法本身（不包括字方法）真正执行的时间</td>
+</tr>
+<tr>
+<td>Calls +resurCalls</td>
+<td style="text-align:center">调用次数+递归回调的次数</td>
+</tr>
+</tbody>
+</table>
+<p>每个时间都包含两列。一个是实际时间，一个是百分比，分析的时候通常从Incl CPU Time 和Calls +resurCalls开始分析，对占用时间长的进行重点分析，如果占用时间长并且Calls +resurCalls少，就可以列为重点怀疑对象了</p>
+<h1 id="使用Mat工具进行分析"><a href="#使用Mat工具进行分析" class="headerlink" title="使用Mat工具进行分析"></a>使用Mat工具进行分析</h1><p>打开 Android Device Monitor工具 如图</p>
+<p><img src="图像1516802863.png" alt="Alt text" title="操作"></p>
+<p><img src="图像1516802989.png" alt="Alt text" title="操作"></p>
+<p>这里有一个小技巧，就是不停的点击Cause Gc按钮 如果data Object一栏中的Total Size 有明显变化，就代表有可能存在内存泄漏</p>
+<p><img src="图像1516803153.png" alt="Alt text" title="操作"></p>
+<p>在这里到处一个.hprof文件。这个就是我们要分析的文件，不过这个不能直接使用mat打开，要使用命令行转换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">D:\sdk\platform-tools\hprof-conv input.hprof out.hprof</span><br></pre></td></tr></table></figure>
+<p>将转换后的文件使用mat打开。打开mat工具，选择open a heap dump 选项<br><img src="图像1516803752.png" alt="Alt text" title="操作"></p>
+<ul>
+<li>Histogram 直方图 用于显示内存中每一个对象的数量，大小和名称。可以在最上面一样过滤关键字，在选择的对象上右击，选择List objects-with incoming references可以查看具体的对象</li>
+</ul>
+<p><img src="图像1516804054.png" alt="Alt text" title="操作"></p>
+<ul>
+<li>Dominator Tree 会对内存中的对象按照大小进行排序，并显示对象之间的引用结构，通过分析大对象找到内存消耗的原因</li>
+</ul>
+<p><img src="图像1516804298.png" alt="Alt text" title="操作"></p>
+<h1 id="Dumpsys-命令分析系统状态"><a href="#Dumpsys-命令分析系统状态" class="headerlink" title="Dumpsys 命令分析系统状态"></a>Dumpsys 命令分析系统状态</h1><p>在使用Dumpsys时，可以通过输入<code>adb shell dumpsys</code> 获取提示</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">中文和含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>activity</td>
+<td style="text-align:center">显示所有activity栈的信息</td>
+</tr>
+<tr>
+<td>meminfo</td>
+<td style="text-align:center">内存信息</td>
+</tr>
+<tr>
+<td>battery</td>
+<td style="text-align:center">电池信息</td>
+</tr>
+<tr>
+<td>package</td>
+<td style="text-align:center">包信息</td>
+</tr>
+<tr>
+<td>wifi</td>
+<td style="text-align:center">显示WIFI信息</td>
+</tr>
+<tr>
+<td>alarm</td>
+<td style="text-align:center">显示alarm信息</td>
+</tr>
+<tr>
+<td>procstats</td>
+<td style="text-align:center">显示内存状态</td>
+</tr>
+</tbody>
+</table>
+<p>性能优化这个是一个具有挑战的工作，这些只是入门的方式</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/Android群英传/" rel="tag"># Android群英传</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android群英传_第九章 Android 系统信息与安全机制简介/" rel="next" title="Android群英传 第九章 Android 系统信息与安全机制简介">
+                <i class="fa fa-chevron-left"></i> Android群英传 第九章 Android 系统信息与安全机制简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android群英传_第十一章 搭建云端服务器/" rel="prev" title="Android群英传 第十一章 搭建云端服务器">
+                Android群英传 第十一章 搭建云端服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#布局优化"><span class="nav-number">1.</span> <span class="nav-text">布局优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-UI渲染机制"><span class="nav-number">1.1.</span> <span class="nav-text">Android UI渲染机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免-OverDraw"><span class="nav-number">1.2.</span> <span class="nav-text">避免 OverDraw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化布局层级"><span class="nav-number">1.3.</span> <span class="nav-text">优化布局层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hierarchy-Viewer-这个应该在优化布局里面的，但是比较复杂和重要就拿出来了"><span class="nav-number">1.4.</span> <span class="nav-text">Hierarchy Viewer 这个应该在优化布局里面的，但是比较复杂和重要就拿出来了</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存优化"><span class="nav-number">2.</span> <span class="nav-text">内存优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是内存"><span class="nav-number">2.1.</span> <span class="nav-text">什么是内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取Android-系统内存信息"><span class="nav-number">2.2.</span> <span class="nav-text">获取Android 系统内存信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#process-Stats"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">process Stats</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Meminfo"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">Meminfo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存回收"><span class="nav-number">2.3.</span> <span class="nav-text">内存回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bitmap优化"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">bitmap优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码优化"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">代码优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lint工具"><span class="nav-number">2.4.</span> <span class="nav-text">Lint工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Android-Studio的Memory-Monitor-工具"><span class="nav-number">3.</span> <span class="nav-text">使用Android Studio的Memory Monitor 工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用TraceView工具优化App性能"><span class="nav-number">4.</span> <span class="nav-text">使用TraceView工具优化App性能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成TraceView日志的两种方法"><span class="nav-number">4.1.</span> <span class="nav-text">生成TraceView日志的两种方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析Trace-View日志"><span class="nav-number">4.2.</span> <span class="nav-text">分析Trace View日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Mat工具进行分析"><span class="nav-number">5.</span> <span class="nav-text">使用Mat工具进行分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dumpsys-命令分析系统状态"><span class="nav-number">6.</span> <span class="nav-text">Dumpsys 命令分析系统状态</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础,Android群英传," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Android View 动画框架 Android框架定义了透明度，旋转，缩放，位移等常见的几种动画，原理是每次绘制视图的时候哦获取View所在的ViewGroup中的drawChild函数，获取该View的Animation的Transformation值，然后调用canvas。concat（transformToApply。getMatrix()）,通过矩阵完成动画帧。如果动画没有完成，就调用">
+<meta name="keywords" content="基础,Android群英传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传 第七章 Android 动画机制与使用技巧">
+<meta property="og:url" content="http://yoursite.com/android/Android群英传_第七章 Android 动画机制与使用技巧/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="Android View 动画框架 Android框架定义了透明度，旋转，缩放，位移等常见的几种动画，原理是每次绘制视图的时候哦获取View所在的ViewGroup中的drawChild函数，获取该View的Animation的Transformation值，然后调用canvas。concat（transformToApply。getMatrix()）,通过矩阵完成动画帧。如果动画没有完成，就调用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/shuxing.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/dongdonghua.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/dongxiao.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/device-2018-01-20-235707.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/图像1516505303.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/图像1516505521.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/enenen.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/shuxingdonghua.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/jishi.gif">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/clickshow.gif">
+<meta property="og:updated_time" content="2018-07-26T13:02:17.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传 第七章 Android 动画机制与使用技巧">
+<meta name="twitter:description" content="Android View 动画框架 Android框架定义了透明度，旋转，缩放，位移等常见的几种动画，原理是每次绘制视图的时候哦获取View所在的ViewGroup中的drawChild函数，获取该View的Animation的Transformation值，然后调用canvas。concat（transformToApply。getMatrix()）,通过矩阵完成动画帧。如果动画没有完成，就调用">
+<meta name="twitter:image" content="http://yoursite.com/android/Android群英传_第七章%20Android%20动画机制与使用技巧/shuxing.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android群英传_第七章 Android 动画机制与使用技巧/"/>
+
+
+
+
+
+  <title>Android群英传 第七章 Android 动画机制与使用技巧 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android群英传_第七章 Android 动画机制与使用技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android群英传 第七章 Android 动画机制与使用技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T22:17:07+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Android-View-动画框架"><a href="#Android-View-动画框架" class="headerlink" title="Android View 动画框架"></a>Android View 动画框架</h1><blockquote>
+<p>Android框架定义了透明度，旋转，缩放，位移等常见的几种动画，原理是每次绘制视图的时候哦获取View所在的ViewGroup中的drawChild函数，获取该View的Animation的Transformation值，然后调用canvas。concat（transformToApply。getMatrix()）,通过矩阵完成动画帧。如果动画没有完成，就调用invalidate（），直到完成绘制。</p>
+<ul>
+<li>属性动画</li>
+<li>视图动画</li>
+</ul>
+</blockquote>
+<h1 id="视图动画"><a href="#视图动画" class="headerlink" title="视图动画"></a>视图动画</h1><h2 id="透明度动画"><a href="#透明度动画" class="headerlink" title="透明度动画"></a>透明度动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">AlphaAnimation aa=new AlphaAnimation(0,1);</span><br><span class="line">aa.setDuration(1000);</span><br><span class="line">view.startAnimation(aa);</span><br></pre></td></tr></table></figure>
+<h2 id="旋转动画"><a href="#旋转动画" class="headerlink" title="旋转动画"></a>旋转动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">RotateAnimation aa=new RotateAnimation(0,1);</span><br><span class="line">aa.setDuration(1000);</span><br><span class="line">view.startAnimation(aa);</span><br></pre></td></tr></table></figure>
+<h2 id="位移动画"><a href="#位移动画" class="headerlink" title="位移动画"></a>位移动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">TranslateAnimation aa=new TranslateAnimation(0,200,0,300);</span><br><span class="line">aa.setDuration(1000);</span><br><span class="line">view.startAnimation(aa);</span><br></pre></td></tr></table></figure>
+<h2 id="缩放动画"><a href="#缩放动画" class="headerlink" title="缩放动画"></a>缩放动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">ScaleAnimation aa=new ScaleAnimation(0,2,0,2);</span><br><span class="line">aa.setDuration(1000);</span><br><span class="line">view.startAnimation(aa);</span><br></pre></td></tr></table></figure>
+<h2 id="动画集合"><a href="#动画集合" class="headerlink" title="动画集合"></a>动画集合</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">ScaleAnimation aa = new ScaleAnimation(0, 2, 0, 2);</span><br><span class="line">aa.setDuration(1000);</span><br><span class="line">TranslateAnimation ab = new TranslateAnimation(0, 2, 0, 2);</span><br><span class="line">ab.setDuration(1000);</span><br><span class="line">AnimationSet as = new AnimationSet(true);</span><br><span class="line">as.setDuration(1000);</span><br><span class="line">as.addAnimation(aa);</span><br><span class="line">as.addAnimation(ab);</span><br><span class="line">//回调</span><br><span class="line">as.setAnimationListener(new Animation.AnimationListener() &#123;</span><br><span class="line">     @Override</span><br><span class="line">     public void onAnimationStart(Animation animation) &#123;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     @Override</span><br><span class="line">     public void onAnimationEnd(Animation animation) &#123;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     @Override</span><br><span class="line">     public void onAnimationRepeat(Animation animation) &#123;</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"> &#125;);</span><br><span class="line">view.startAnimation(as);</span><br></pre></td></tr></table></figure>
+<h1 id="属性动画的分析"><a href="#属性动画的分析" class="headerlink" title="属性动画的分析"></a>属性动画的分析</h1><h2 id="ObjecAnimator-这个是属性动画的基础"><a href="#ObjecAnimator-这个是属性动画的基础" class="headerlink" title="ObjecAnimator  这个是属性动画的基础"></a>ObjecAnimator  这个是属性动画的基础</h2><p>本质是通过反射获取属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">ObjectAnimator animator=ObjectAnimator.ofFloat(view,&quot;translationX&quot;,300);</span><br><span class="line">animator.setDuration(1300);</span><br><span class="line">animator.start();</span><br></pre></td></tr></table></figure></p>
+<p><img src="shuxing.gif" alt="Alt text" title="效果图"></p>
+<p>属性动画常用的属性</p>
+<ul>
+<li>translationX和translationY   控制View对象和他容器左上角的距离</li>
+<li>scaleX和scaleY  围绕他的支点进行缩放，缩放的倍数</li>
+<li>pivotX和pivotY 这两个属性控制着View对象的支点位置，围绕这个支点进行旋转和缩放变换处理，默认情况是这个对象的中心点   </li>
+<li>x和y 这两个对象是描述了VIew对象在他容器的最终位置，是translationX和translationY的对象中点</li>
+<li>alpha 表示透明度，默认值是1 不透明 0 完全透明</li>
+</ul>
+<p>如果一个属性没有get和set方法，那可以自己添加一个get和set方法来实现自定义的属性效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TeView &#123;</span><br><span class="line"></span><br><span class="line">    private View mTarget;</span><br><span class="line">    public View getmTarget() &#123;</span><br><span class="line">        return mTarget;</span><br><span class="line">    &#125;</span><br><span class="line">    public int getWidth() &#123;</span><br><span class="line">        return mTarget.getLayoutParams().width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWidth(int width) &#123;</span><br><span class="line">        mTarget.getLayoutParams().width = width;</span><br><span class="line">        mTarget.requestLayout();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public TeView(View mTarget) &#123;</span><br><span class="line">        this.mTarget = mTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setmTarget(View mTarget) &#123;</span><br><span class="line">        this.mTarget = mTarget;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">TeView teView=new TeView(view);</span><br><span class="line">ObjectAnimator animator=ObjectAnimator.ofInt(teView,&quot;width&quot;,500);</span><br><span class="line">animator.setDuration(6300);</span><br><span class="line">animator.start();</span><br></pre></td></tr></table></figure></p>
+<p><img src="dongdonghua.gif" alt="Alt text" title="效果图"></p>
+<h2 id="PropertyValuesHolder-属性动画集合"><a href="#PropertyValuesHolder-属性动画集合" class="headerlink" title="PropertyValuesHolder :属性动画集合"></a>PropertyValuesHolder :属性动画集合</h2><p>属性动画集合的使用,类似视图动画的AnimationSet</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PropertyValuesHolder pvh1 = PropertyValuesHolder.ofFloat(&quot;translationX&quot;, 300f);</span><br><span class="line">PropertyValuesHolder pvh2 = PropertyValuesHolder.ofFloat(&quot;scaleX&quot;, 1f, 0, 1f);</span><br><span class="line">PropertyValuesHolder pvh3 = PropertyValuesHolder.ofFloat(&quot;scaleY&quot;, 3000);</span><br><span class="line">ObjectAnimator.ofPropertyValuesHolder(view, pvh1, pvh2, pvh3).setDuration(3000).start();</span><br></pre></td></tr></table></figure>
+<h2 id="ValueAnimator"><a href="#ValueAnimator" class="headerlink" title="ValueAnimator"></a>ValueAnimator</h2><p>ValueAnimator是继承自ObjectAnimator，ValueAnimator本身不提供动画效果，他更像是一个数值发生器，我们定义一个区间，然后通过回调我们自己处理，知道区间行走完毕</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    ValueAnimator animator = ValueAnimator.ofFloat(0, 100);</span><br><span class="line">     animator.setTarget(view);</span><br><span class="line">     animator.setDuration(1000).start();</span><br><span class="line">     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">         @Override</span><br><span class="line">         public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">             float animatedValue = (float) animation.getAnimatedValue();</span><br><span class="line">             Log.i(&quot;区间进度：&quot;, animatedValue + &quot;&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">部分结果：</span><br><span class="line">12-06 10:02:29.438 19945-19945/? I/区间进度：: 11.175674</span><br><span class="line">12-06 10:02:29.454 19945-19945/? I/区间进度：: 12.912909</span><br><span class="line">12-06 10:02:29.471 19945-19945/? I/区间进度：: 14.644662</span><br><span class="line">12-06 10:02:29.487 19945-19945/? I/区间进度：: 16.582394</span><br><span class="line">12-06 10:02:29.504 19945-19945/? I/区间进度：: 18.615437</span><br><span class="line">12-06 10:02:29.521 19945-19945/? I/区间进度：: 20.610731</span><br><span class="line">12-06 10:02:29.538 19945-19945/? I/区间进度：: 22.81198</span><br><span class="line">12-06 10:02:29.555 19945-19945/? I/区间进度：: 25.090742</span><br></pre></td></tr></table></figure>
+<h2 id="动画事件的监听"><a href="#动画事件的监听" class="headerlink" title="动画事件的监听"></a>动画事件的监听</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">animator.addListener(new Animator.AnimatorListener() &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onAnimationStart(Animator animation) &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onAnimationEnd(Animator animation) &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onAnimationCancel(Animator animation) &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       @Override</span><br><span class="line">       public void onAnimationRepeat(Animator animation) &#123;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>或者 :只是监听部分事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> animator.addListener(new AnimatorListenerAdapter() &#123;</span><br><span class="line">    /**</span><br><span class="line">     * &#123;@inheritDoc&#125;</span><br><span class="line">     *</span><br><span class="line">     * @param animation</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void onAnimationEnd(Animator animation) &#123;</span><br><span class="line">        super.onAnimationEnd(animation);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="AnimatorSet"><a href="#AnimatorSet" class="headerlink" title="AnimatorSet"></a>AnimatorSet</h2><p>可以实现和PropertyValuesHolder 类似的效果，并且能控制顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ObjectAnimator animator1 = ObjectAnimator.ofFloat(view, &quot;translationX&quot;, 300);</span><br><span class="line"> ObjectAnimator animator2 = ObjectAnimator.ofFloat(view, &quot;scaleX&quot;, 1f, 0f, 1f);</span><br><span class="line"> ObjectAnimator animator3 = ObjectAnimator.ofFloat(view, &quot;scaleY&quot;, 1f, 0f, 1f);</span><br><span class="line"></span><br><span class="line"> AnimatorSet set = new AnimatorSet();</span><br><span class="line"> set.setDuration(1000);</span><br><span class="line"> set.playSequentially();//循环播放</span><br><span class="line"> set.play().with().before().after()//播放顺序</span><br><span class="line"> set.playTogether(animator1, animator2, animator3);</span><br><span class="line"> set.start();</span><br></pre></td></tr></table></figure>
+<h2 id="在XML中使用属性动画"><a href="#在XML中使用属性动画" class="headerlink" title="在XML中使用属性动画"></a>在XML中使用属性动画</h2><p>在res文件夹创建文件夹res/animator   然后将属性动画的xml文件放在这个文件夹里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;objectAnimator</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:duration=&quot;1000&quot;</span><br><span class="line">    android:propertyName=&quot;scaleX&quot;</span><br><span class="line">    android:valueTo=&quot;1.0&quot;</span><br><span class="line">    android:valueFrom=&quot;2.0&quot;</span><br><span class="line">    android:valueType=&quot;floatType&quot;&gt;</span><br><span class="line">&lt;/objectAnimator&gt;</span><br></pre></td></tr></table></figure>
+<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Animator anim = AnimatorInflater.loadAnimator(this, R.animator.xxxx);</span><br><span class="line">anim.setTarget(view);</span><br><span class="line">anim.start();</span><br></pre></td></tr></table></figure></p>
+<h2 id="属性动画的简写"><a href="#属性动画的简写" class="headerlink" title="属性动画的简写"></a>属性动画的简写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">view.animate().alpha(0).y(300).setDuration(300).withStartAction(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).withEndAction(new Runnable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+<h1 id="Android-布局动画"><a href="#Android-布局动画" class="headerlink" title="Android 布局动画"></a>Android 布局动画</h1><p>就是在指定的ViewGroup上给ViewGroup增加View的时候添加一个过渡的动画效果，最简单的是在ViewGroup的XML中，是增加的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">final TextView textView = new TextView(this);</span><br><span class="line"></span><br><span class="line">final ViewGroup test = findViewById(R.id.test);</span><br><span class="line"></span><br><span class="line">View view = findViewById(R.id.view);</span><br><span class="line">view.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onClick(View v) &#123;</span><br><span class="line">        test.addView(textView);</span><br><span class="line">        textView.setText(&quot;dfjkdssjfdksdsj&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="dongxiao.gif" alt="Alt text" title="效果图"></p>
+<p>可以通过LayoutAnimationController来自定义一个View的过渡效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">//两个imageview</span><br><span class="line">//        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">//        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line">         LinearLayout test = findViewById(R.id.test);</span><br><span class="line">        ScaleAnimation sa=new ScaleAnimation(0,1,0,1);</span><br><span class="line">        sa.setDuration(2000);</span><br><span class="line">        LayoutAnimationController lac=new LayoutAnimationController(sa,0.5f);</span><br><span class="line">        lac.setOrder(LayoutAnimationController.ORDER_NORMAL);//顺序</span><br><span class="line">        test.setLayoutAnimation(lac);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="插值器"><a href="#插值器" class="headerlink" title="插值器"></a>插值器</h1><p>就是动画进行的速率，例如先快后慢，加速运动，匀减速，…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">//两个imageview</span><br><span class="line">//        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">//        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         LinearLayout test = findViewById(R.id.test);</span><br><span class="line"></span><br><span class="line">        ScaleAnimation sa=new ScaleAnimation(0,1,0,1);</span><br><span class="line">        sa.setDuration(2000);</span><br><span class="line">        sa.setInterpolator();// 设置差值器</span><br><span class="line">        LayoutAnimationController lac=new LayoutAnimationController(sa,0.5f);</span><br><span class="line">        lac.setOrder(LayoutAnimationController.ORDER_NORMAL);</span><br><span class="line">        test.setLayoutAnimation(lac);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="自定义动画"><a href="#自定义动画" class="headerlink" title="自定义动画"></a>自定义动画</h1><p>原理：集成不同的动画比如：ScaleAnimation 然后重写applyTransformation的方法<br>ScaleAnimation的具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void applyTransformation(float interpolatedTime, Transformation t) &#123;</span><br><span class="line">  float sx = 1.0f;</span><br><span class="line"> float sy = 1.0f;</span><br><span class="line"> float scale = getScaleFactor();</span><br><span class="line"></span><br><span class="line"> if (mFromX != 1.0f || mToX != 1.0f) &#123;</span><br><span class="line">     sx = mFromX + ((mToX - mFromX) * interpolatedTime);</span><br><span class="line"> &#125;</span><br><span class="line"> if (mFromY != 1.0f || mToY != 1.0f) &#123;</span><br><span class="line">     sy = mFromY + ((mToY - mFromY) * interpolatedTime);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> if (mPivotX == 0 &amp;&amp; mPivotY == 0) &#123;</span><br><span class="line">     t.getMatrix().setScale(sx, sy);//获取矩阵，对矩阵处理 这个是处理缩放矩阵，所以是一个缩放动画</span><br><span class="line"> &#125; else &#123;</span><br><span class="line">     t.getMatrix().setScale(sx, sy, scale * mPivotX, scale * mPivotY);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例子<br>可以通过Camera来处理矩阵，这个是Android封装的一些信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//自定义动画</span><br><span class="line">public class XAnimation extends Animation &#123;</span><br><span class="line">  //使用Camera处理矩阵</span><br><span class="line">    private Camera mCamera;</span><br><span class="line">    @Override</span><br><span class="line">    protected void applyTransformation(float interpolatedTime, Transformation t) &#123;</span><br><span class="line">//        super.applyTransformation(interpolatedTime, t);</span><br><span class="line">        final Matrix matrix = t.getMatrix();</span><br><span class="line">        mCamera.save();</span><br><span class="line">        mCamera.rotateY(10 * interpolatedTime);</span><br><span class="line">        mCamera.getMatrix(matrix);</span><br><span class="line">        mCamera.restore();</span><br><span class="line">        matrix.preTranslate(x1, y1);</span><br><span class="line">        matrix.postTranslate(-x1, -y1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    int x1;</span><br><span class="line">    int y1;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void initialize(int width, int height, int parentWidth, int parentHeight) &#123;</span><br><span class="line">        super.initialize(width, height, parentWidth, parentHeight);</span><br><span class="line">        mCamera = new Camera();</span><br><span class="line">        setDuration(2000);</span><br><span class="line">        setFillAfter(true);</span><br><span class="line">        setInterpolator(new BounceInterpolator());</span><br><span class="line">        x1 = width / 2;</span><br><span class="line">        y1 = height / 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">//两个imageview</span><br><span class="line">//        iv_test = findViewById(R.id.iv_test);</span><br><span class="line">//        iv_test1 = findViewById(R.id.iv_test1);</span><br><span class="line">         LinearLayout test = findViewById(R.id.test);</span><br><span class="line">        XAnimation sa=new XAnimation();</span><br><span class="line">        sa.setDuration(2000);</span><br><span class="line">        LayoutAnimationController lac=new LayoutAnimationController(sa,0.5f);</span><br><span class="line">        lac.setOrder(LayoutAnimationController.ORDER_NORMAL);</span><br><span class="line">        test.setLayoutAnimation(lac);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="device-2018-01-20-235707.png" alt="Alt text" title="效果图"></p>
+<h1 id="Android-5-x-SVG矢量动画"><a href="#Android-5-x-SVG矢量动画" class="headerlink" title="Android 5.x SVG矢量动画"></a>Android 5.x SVG矢量动画</h1><p>通过xml绘制动画</p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><ul>
+<li>M =moveto(M X,Y) ：将画笔移动到指定的坐标位置，但未发生绘制</li>
+<li>L=lineto(L X,Y)  ：将直线移动到指定的位置</li>
+<li>H=horizontal lineto(H X): 画水平线到x坐标的位置</li>
+<li>V=vertical lineto(V,Y):画垂直线到指定Y坐标位置</li>
+<li>C=curveto(C X1,Y1,X2,Y2,ENDX,ENDY):三次贝塞尔曲线</li>
+<li>S=smooth curveto(S X2,Y2,ENDX,ENDY):三次贝塞尔曲线</li>
+<li>Q=quadratic Belzier curve(Q X,Y,ENDX,ENDY):二次贝塞尔曲线</li>
+<li>T=smooth quadratic Belzier curve(T ENDX,ENDY)：映射前面路径后的终点</li>
+<li>A=elliptical Arc(A RX,RY,XROTATION,FALG1,FALG2,X,Y): 弧线</li>
+<li>Z=closePath():关闭路径</li>
+</ul>
+<blockquote>
+<p>注意点</p>
+<ul>
+<li>坐标轴以(0,0)位中心，x向下，y像右</li>
+<li>所有指令大小写均可，大写是绝对定位，相对全局坐标系，小写是相对定位，参照父布局坐标系</li>
+<li>指令和数据间的空格可以省略</li>
+<li>同一个指令出现多次可以只用一个</li>
+</ul>
+</blockquote>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><ul>
+<li>L：L 200 400 从(0,0)到(200,400)的直线</li>
+<li>M：移动坐标点</li>
+<li>A：弧线 RX，RY是椭圆半轴的大小；XROTATION是椭圆的X轴与水平方向顺时针方向的夹角；FLAG1只有两个值 0表示小角弧线，1表示大角弧线；FLAF2只有两个值，确定起点和终点的方向，1为顺时针 2为逆时针；X，Y是终点坐标</li>
+</ul>
+<h2 id="一个SVG编辑器"><a href="#一个SVG编辑器" class="headerlink" title="一个SVG编辑器"></a>一个SVG编辑器</h2><p><a href="http://editor.method.ac/" target="_blank" rel="noopener">http://editor.method.ac/</a></p>
+<p>Inkscape</p>
+<h2 id="Android使用SVG"><a href="#Android使用SVG" class="headerlink" title="Android使用SVG"></a>Android使用SVG</h2><p>Google 在Android 5.x中提供了下面两个新的API来支持SVG</p>
+<ul>
+<li>VectorDrawable</li>
+<li>AnimatedVectorDrawable</li>
+</ul>
+<h4 id="VectorDrawable"><a href="#VectorDrawable" class="headerlink" title="VectorDrawable"></a>VectorDrawable</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:height=&quot;200dp&quot;</span><br><span class="line">    android:width=&quot;200dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;100&quot;   //将200dp分为100份</span><br><span class="line">    android:viewportWidth=&quot;100&quot;&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:width=&quot;200dp&quot;</span><br><span class="line">    android:height=&quot;200dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;100&quot;</span><br><span class="line">    android:viewportWidth=&quot;100&quot;&gt;</span><br><span class="line">    &lt;group</span><br><span class="line">        android:name=&quot;test&quot;</span><br><span class="line">        android:rotation=&quot;0&quot;&gt;</span><br><span class="line">        &lt;path</span><br><span class="line">            android:fillColor=&quot;#ff0000&quot;</span><br><span class="line">            android:pathData=&quot;M 25 50 a 25,25 ,0 1,0 ,50,0&quot;&gt;&lt;/path&gt;  //这个path就是SVG的路径</span><br><span class="line">    &lt;/group&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="图像1516505303.png" alt="Alt text" title="效果图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:width=&quot;200dp&quot;</span><br><span class="line">    android:height=&quot;200dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;100&quot;</span><br><span class="line">    android:viewportWidth=&quot;100&quot;&gt;</span><br><span class="line">    &lt;group</span><br><span class="line">        android:name=&quot;test&quot;</span><br><span class="line">        android:rotation=&quot;0&quot;&gt;</span><br><span class="line">        &lt;path</span><br><span class="line">            android:strokeColor=&quot;#ff0000&quot;</span><br><span class="line">            android:strokeWidth=&quot;2&quot;   //非填充</span><br><span class="line">            android:pathData=&quot;M 25 50 a 25,25 ,0 1,0 ,50,0&quot;&gt;&lt;/path&gt;</span><br><span class="line">    &lt;/group&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="图像1516505521.png" alt="Alt text" title="效果图"></p>
+<h4 id="AnimatedVectorDrawable-：这个是有动画的SVG"><a href="#AnimatedVectorDrawable-：这个是有动画的SVG" class="headerlink" title="AnimatedVectorDrawable ：这个是有动画的SVG"></a>AnimatedVectorDrawable ：这个是有动画的SVG</h4><p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        LinearLayout test = findViewById(R.id.test);</span><br><span class="line">        ImageView view = findViewById(R.id.view);</span><br><span class="line">        ((Animatable) view.getDrawable()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:id=&quot;@+id/test&quot;</span><br><span class="line">    android:animateLayoutChanges=&quot;true&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view&quot;</span><br><span class="line">        android:src=&quot;@drawable/hahaha&quot;</span><br><span class="line">        android:layout_width=&quot;100dp&quot;</span><br><span class="line">        android:layout_height=&quot;100dp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>动画:在res/animator文件夹下没有新建 xxxx.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;objectAnimator</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:duration=&quot;1000&quot;</span><br><span class="line">    android:propertyName=&quot;scaleX&quot;</span><br><span class="line">    android:valueTo=&quot;1.0&quot;</span><br><span class="line">    android:valueFrom=&quot;2.0&quot;</span><br><span class="line">    android:valueType=&quot;floatType&quot;&gt;</span><br><span class="line">&lt;/objectAnimator&gt;</span><br></pre></td></tr></table></figure></p>
+<p>hahaha.xml  关联SVG和动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;animated-vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:drawable=&quot;@drawable/wahaha&quot;&gt;</span><br><span class="line">&lt;target</span><br><span class="line">    android:animation=&quot;@animator/xxxx&quot;</span><br><span class="line">    android:name=&quot;test&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/target&gt;</span><br><span class="line">&lt;/animated-vector&gt;</span><br></pre></td></tr></table></figure></p>
+<p>背景<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:width=&quot;200dp&quot;</span><br><span class="line">    android:height=&quot;200dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;100&quot;</span><br><span class="line">    android:viewportWidth=&quot;100&quot;&gt;</span><br><span class="line">    &lt;group</span><br><span class="line">        android:name=&quot;test&quot;</span><br><span class="line">        android:rotation=&quot;0&quot;&gt;</span><br><span class="line">        &lt;path</span><br><span class="line">            android:strokeColor=&quot;#ff0000&quot;</span><br><span class="line">            android:strokeWidth=&quot;2&quot;</span><br><span class="line">            android:pathData=&quot;M 25 50 a 25,25 ,0 1,0 ,50,0&quot;&gt;&lt;/path&gt;</span><br><span class="line">    &lt;/group&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure></p>
+<p>SVG动画实例</p>
+<p>java代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        LinearLayout test = findViewById(R.id.test);</span><br><span class="line">        final ImageView view = findViewById(R.id.view);</span><br><span class="line">        view.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                ((Animatable) view.getDrawable()).start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:id=&quot;@+id/test&quot;</span><br><span class="line">    android:animateLayoutChanges=&quot;true&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view&quot;</span><br><span class="line">        android:src=&quot;@drawable/hahaha&quot;</span><br><span class="line">        android:layout_width=&quot;100dp&quot;</span><br><span class="line">        android:layout_height=&quot;100dp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>xxxx.xml 定义属性动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;objectAnimator</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:duration=&quot;1000&quot;</span><br><span class="line">    android:propertyName=&quot;pathData&quot;</span><br><span class="line">    android:valueTo=&quot;M 20,80 L 50,50,80,80&quot;</span><br><span class="line">    android:valueFrom=&quot;M 20,80 L 50,80,80,80&quot;   //属性动画</span><br><span class="line">    android:interpolator=&quot;@android:anim/bounce_interpolator&quot;</span><br><span class="line">    android:valueType=&quot;pathType&quot;&gt;</span><br><span class="line">&lt;/objectAnimator&gt;</span><br></pre></td></tr></table></figure></p>
+<p>hahaha.xml :定义动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;animated-vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:drawable=&quot;@drawable/wahaha&quot;&gt;</span><br><span class="line">    &lt;target</span><br><span class="line">        android:name=&quot;path1&quot;</span><br><span class="line">        android:animation=&quot;@animator/xxxx&quot; /&gt;</span><br><span class="line">    &lt;target</span><br><span class="line">        android:name=&quot;path2&quot;</span><br><span class="line">        android:animation=&quot;@animator/xxxx&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/target&gt;</span><br><span class="line">&lt;/animated-vector&gt;</span><br></pre></td></tr></table></figure></p>
+<p>定义路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:width=&quot;200dp&quot;</span><br><span class="line">    android:height=&quot;200dp&quot;</span><br><span class="line">    android:viewportHeight=&quot;100&quot;</span><br><span class="line">    android:viewportWidth=&quot;100&quot;&gt;</span><br><span class="line">    &lt;group</span><br><span class="line">       &gt;</span><br><span class="line">        &lt;path</span><br><span class="line">            android:name=&quot;path1&quot;</span><br><span class="line">            android:strokeColor=&quot;#ff0000&quot;</span><br><span class="line">            android:strokeWidth=&quot;5&quot;</span><br><span class="line">            android:strokeLineCap=&quot;round&quot;</span><br><span class="line">            android:pathData=&quot;M 20 80 L 50,80,80,20&quot;&gt;&lt;/path&gt;</span><br><span class="line"></span><br><span class="line">        &lt;path</span><br><span class="line">            android:name=&quot;path2&quot;</span><br><span class="line">            android:strokeColor=&quot;#ffff00&quot;</span><br><span class="line">            android:strokeWidth=&quot;5&quot;</span><br><span class="line">            android:strokeLineCap=&quot;round&quot;</span><br><span class="line">            android:pathData=&quot;M 20 20 L 50,20,80,20&quot;&gt;&lt;/path&gt;</span><br><span class="line">    &lt;/group&gt;</span><br><span class="line">&lt;/vector&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="enenen.gif" alt="Alt text" title="效果图"></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>这个一般是UI给的图，所以就不做非常详细的介绍了</p>
+<h1 id="Android-动画特效"><a href="#Android-动画特效" class="headerlink" title="Android 动画特效"></a>Android 动画特效</h1><h2 id="展开动画"><a href="#展开动画" class="headerlink" title="展开动画"></a>展开动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private ImageView iv_test;</span><br><span class="line">    private Bitmap bitmap;</span><br><span class="line">    private ImageView iv_test1;</span><br><span class="line">    private View view;</span><br><span class="line">    private View view1;</span><br><span class="line">    private View view3;</span><br><span class="line">    private View view2;</span><br><span class="line">    private View view4;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        view = findViewById(R.id.view);</span><br><span class="line">        view1 = findViewById(R.id.view1);</span><br><span class="line">        view2 = findViewById(R.id.view2);</span><br><span class="line">        view3 = findViewById(R.id.view3);</span><br><span class="line">        view4 = findViewById(R.id.view4);</span><br><span class="line">        view.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">                startAnim();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    boolean mFlag = false;</span><br><span class="line">    private void startAnim() &#123;</span><br><span class="line">        ObjectAnimator animator0 = ObjectAnimator.ofFloat(view, &quot;alpha&quot;, 1f, 0.5f);</span><br><span class="line">        ObjectAnimator animator1 = ObjectAnimator.ofFloat(view1, &quot;translationY&quot;, 200f);</span><br><span class="line">        ObjectAnimator animator2 = ObjectAnimator.ofFloat(view2, &quot;translationX&quot;, 200f);</span><br><span class="line">        ObjectAnimator animator3 = ObjectAnimator.ofFloat(view3, &quot;translationY&quot;, -200);</span><br><span class="line">        ObjectAnimator animator4 = ObjectAnimator.ofFloat(view4, &quot;translationX&quot;, -200);</span><br><span class="line">        AnimatorSet set = new AnimatorSet();</span><br><span class="line">        set.setDuration(500);</span><br><span class="line">        set.setInterpolator(new BounceInterpolator());</span><br><span class="line">        set.playTogether(animator0, animator1, animator2, animator3, animator4);</span><br><span class="line">        set.start();</span><br><span class="line">        mFlag = false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:id=&quot;@+id/test&quot;</span><br><span class="line">    android:gravity=&quot;center&quot;</span><br><span class="line">    android:layout_gravity=&quot;center&quot;</span><br><span class="line">    android:animateLayoutChanges=&quot;true&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view1&quot;</span><br><span class="line">        android:background=&quot;#0000ff&quot;</span><br><span class="line">        android:layout_width=&quot;50dp&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot; /&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view2&quot;</span><br><span class="line">        android:background=&quot;#ffff00&quot;</span><br><span class="line">        android:layout_width=&quot;50dp&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot; /&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view3&quot;</span><br><span class="line">        android:background=&quot;#00ffff&quot;</span><br><span class="line">        android:layout_width=&quot;50dp&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot; /&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view4&quot;</span><br><span class="line">        android:background=&quot;#00ff00&quot;</span><br><span class="line">        android:layout_width=&quot;50dp&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot; /&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/view&quot;</span><br><span class="line">        android:background=&quot;#ff0000&quot;</span><br><span class="line">        android:layout_width=&quot;50dp&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot; /&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="shuxingdonghua.gif" alt="Alt text" title="效果图"></p>
+<h2 id="计时器动画"><a href="#计时器动画" class="headerlink" title="计时器动画"></a>计时器动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private TextView view;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        view = findViewById(R.id.view);</span><br><span class="line">        ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 100);</span><br><span class="line">        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">                view.setText(&quot;$&quot; + (Integer) animation.getAnimatedValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        valueAnimator.setDuration(3000);</span><br><span class="line">        valueAnimator.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="jishi.gif" alt="Alt text" title="效果图"></p>
+<h2 id="下拉展开动画"><a href="#下拉展开动画" class="headerlink" title="下拉展开动画"></a>下拉展开动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line">    private View hide;</span><br><span class="line">    private float density;</span><br><span class="line">    private float mHidden;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        hide = findViewById(R.id.hide);</span><br><span class="line">        density = getResources().getDisplayMetrics().density;</span><br><span class="line">        mHidden = (float) (density*40+0.5);</span><br><span class="line">    &#125;</span><br><span class="line">    public void llClick(View view) &#123;</span><br><span class="line">        animateOpen(hide);</span><br><span class="line">    &#125;</span><br><span class="line">    private void animateOpen(View hide) &#123;</span><br><span class="line">        hide.setVisibility(View.VISIBLE);</span><br><span class="line">        ValueAnimator animator=CreateDropAnimator(hide,0, (int) mHidden);</span><br><span class="line">        animator.start();</span><br><span class="line">    &#125;</span><br><span class="line">    private ValueAnimator CreateDropAnimator(final View hide, int start, int end) &#123;</span><br><span class="line">        ValueAnimator animator=ValueAnimator.ofInt(start,end);</span><br><span class="line">        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">                Integer animatedValue = (Integer) animation.getAnimatedValue();</span><br><span class="line">                ViewGroup.LayoutParams layoutParams=hide.getLayoutParams();</span><br><span class="line">                layoutParams.height=animatedValue;</span><br><span class="line">                hide.setLayoutParams(layoutParams);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        return animator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:background=&quot;#ff0000&quot;</span><br><span class="line">        android:gravity=&quot;center_vertical&quot;</span><br><span class="line">        android:onClick=&quot;llClick&quot;</span><br><span class="line">        android:orientation=&quot;horizontal&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &lt;ImageView</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:src=&quot;@mipmap/ic_launcher&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:src=&quot;@mipmap/ic_launcher&quot;</span><br><span class="line">            android:text=&quot;ClickMe&quot;</span><br><span class="line">            android:textSize=&quot;30dp&quot; /&gt;</span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;400dp&quot;</span><br><span class="line">        android:gravity=&quot;center_vertical&quot;</span><br><span class="line">        android:id=&quot;@+id/hide&quot;</span><br><span class="line">        android:visibility=&quot;gone&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:text=&quot;I am hidden&quot;</span><br><span class="line">            android:textSize=&quot;20dp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="clickshow.gif" alt="Alt text" title="效果图"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/Android群英传/" rel="tag"># Android群英传</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android群英传_第六章 Android图形机制与处理技/" rel="next" title="Android群英传 第六章 Android图形机制与处理技">
+                <i class="fa fa-chevron-left"></i> Android群英传 第六章 Android图形机制与处理技
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android群英传_第八章Activity与Activity调用展分析/" rel="prev" title="Android群英传 第八章Activity与Activity调用展分析">
+                Android群英传 第八章Activity与Activity调用展分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-View-动画框架"><span class="nav-number">1.</span> <span class="nav-text">Android View 动画框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#视图动画"><span class="nav-number">2.</span> <span class="nav-text">视图动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#透明度动画"><span class="nav-number">2.1.</span> <span class="nav-text">透明度动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转动画"><span class="nav-number">2.2.</span> <span class="nav-text">旋转动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位移动画"><span class="nav-number">2.3.</span> <span class="nav-text">位移动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩放动画"><span class="nav-number">2.4.</span> <span class="nav-text">缩放动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画集合"><span class="nav-number">2.5.</span> <span class="nav-text">动画集合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性动画的分析"><span class="nav-number">3.</span> <span class="nav-text">属性动画的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ObjecAnimator-这个是属性动画的基础"><span class="nav-number">3.1.</span> <span class="nav-text">ObjecAnimator  这个是属性动画的基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PropertyValuesHolder-属性动画集合"><span class="nav-number">3.2.</span> <span class="nav-text">PropertyValuesHolder :属性动画集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ValueAnimator"><span class="nav-number">3.3.</span> <span class="nav-text">ValueAnimator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画事件的监听"><span class="nav-number">3.4.</span> <span class="nav-text">动画事件的监听</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AnimatorSet"><span class="nav-number">3.5.</span> <span class="nav-text">AnimatorSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在XML中使用属性动画"><span class="nav-number">3.6.</span> <span class="nav-text">在XML中使用属性动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性动画的简写"><span class="nav-number">3.7.</span> <span class="nav-text">属性动画的简写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-布局动画"><span class="nav-number">4.</span> <span class="nav-text">Android 布局动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插值器"><span class="nav-number">5.</span> <span class="nav-text">插值器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义动画"><span class="nav-number">6.</span> <span class="nav-text">自定义动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-5-x-SVG矢量动画"><span class="nav-number">7.</span> <span class="nav-text">Android 5.x SVG矢量动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签"><span class="nav-number">7.1.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用指令"><span class="nav-number">7.2.</span> <span class="nav-text">常用指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个SVG编辑器"><span class="nav-number">7.3.</span> <span class="nav-text">一个SVG编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android使用SVG"><span class="nav-number">7.4.</span> <span class="nav-text">Android使用SVG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VectorDrawable"><span class="nav-number">7.4.0.1.</span> <span class="nav-text">VectorDrawable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AnimatedVectorDrawable-：这个是有动画的SVG"><span class="nav-number">7.4.0.2.</span> <span class="nav-text">AnimatedVectorDrawable ：这个是有动画的SVG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">7.4.0.3.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-动画特效"><span class="nav-number">8.</span> <span class="nav-text">Android 动画特效</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#展开动画"><span class="nav-number">8.1.</span> <span class="nav-text">展开动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计时器动画"><span class="nav-number">8.2.</span> <span class="nav-text">计时器动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下拉展开动画"><span class="nav-number">8.3.</span> <span class="nav-text">下拉展开动画</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

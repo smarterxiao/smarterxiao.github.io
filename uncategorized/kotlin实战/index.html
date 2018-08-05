@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kotlin," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这个是kotlin的学习笔记，kotlin成为android开发第一语言快一年了，现在才看是学习，感觉有点晚。书名是kotlin实战  1. kotlin的定义和目的 这一章简单带过  1.1 kotlin初体验先来一个简单的例子 123456data class Person(val  name:String,val age:Int?=null)fun main(args: Array&amp;lt;">
+<meta name="keywords" content="kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin学习">
+<meta property="og:url" content="http://yoursite.com/uncategorized/kotlin实战/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="这个是kotlin的学习笔记，kotlin成为android开发第一语言快一年了，现在才看是学习，感觉有点晚。书名是kotlin实战  1. kotlin的定义和目的 这一章简单带过  1.1 kotlin初体验先来一个简单的例子 123456data class Person(val  name:String,val age:Int?=null)fun main(args: Array&amp;lt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-26T13:02:18.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin学习">
+<meta name="twitter:description" content="这个是kotlin的学习笔记，kotlin成为android开发第一语言快一年了，现在才看是学习，感觉有点晚。书名是kotlin实战  1. kotlin的定义和目的 这一章简单带过  1.1 kotlin初体验先来一个简单的例子 123456data class Person(val  name:String,val age:Int?=null)fun main(args: Array&amp;lt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/uncategorized/kotlin实战/"/>
+
+
+
+
+
+  <title>kotlin学习 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/uncategorized/kotlin实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kotlin学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T23:46:10+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这个是kotlin的学习笔记，kotlin成为android开发第一语言快一年了，现在才看是学习，感觉有点晚。书名是kotlin实战</p>
+</blockquote>
+<h1 id="1-kotlin的定义和目的"><a href="#1-kotlin的定义和目的" class="headerlink" title="1. kotlin的定义和目的"></a>1. kotlin的定义和目的</h1><blockquote>
+<p>这一章简单带过</p>
+</blockquote>
+<h2 id="1-1-kotlin初体验"><a href="#1-1-kotlin初体验" class="headerlink" title="1.1 kotlin初体验"></a>1.1 kotlin初体验</h2><p>先来一个简单的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data class Person(val  name:String,val age:Int?=null)</span><br><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    val persons= listOf&lt;Person&gt;(Person(&quot;alice&quot;),Person(&quot;Bob&quot;,age=29))</span><br><span class="line">    val oldest=persons.maxBy &#123; it.age?:0 &#125;</span><br><span class="line">    println(&quot;The oldest is: $oldest&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行的输出结果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The oldest is: Person(name=Bob, age=29)</span><br></pre></td></tr></table></figure>
+<p>来解释一下这段代码的意思。这里申明了简答的数据类，他包括了两个属性：name和age。age属性默认为null（如果没有指定），在创建person的列表时，省略了alice的年龄，所以这里的年龄使用的是默认值null，然后你调用了maxBy函数来查找列表中你年纪最大的那个的那个人，传递给这个函数的是一个lambda表达式需要一个参数，使用it作为这个参数的默认名称，如果age属性为null，elvis运算符（？：）会返回零，因为alice的年龄没有指定，elvis运算符使用0来替代他，所以bob就成了年龄最大的人<br>感觉不错</p>
+<h2 id="1-2-kotlin的主要特征"><a href="#1-2-kotlin的主要特征" class="headerlink" title="1.2 kotlin的主要特征"></a>1.2 kotlin的主要特征</h2><h3 id="1-2-1-目标平台：服务器端，android和任何java运行的地方"><a href="#1-2-1-目标平台：服务器端，android和任何java运行的地方" class="headerlink" title="1.2.1 目标平台：服务器端，android和任何java运行的地方"></a>1.2.1 目标平台：服务器端，android和任何java运行的地方</h3><p>kotlin的首要目标是提供一种更加简洁、高效、安全的替代java的语言，并适用于现在所有的java环境</p>
+<h3 id="1-2-2静态类型"><a href="#1-2-2静态类型" class="headerlink" title="1.2.2静态类型"></a>1.2.2静态类型</h3><p>kotlin和java一样是一种静态类型的编程语言，这意味着所有表达式的类型在编译期已经确定，而编译器就能验证对象是否包含了你想访问的方法或者字段<br>这个和动态类型语言形成了鲜明的对比，groovy是动态的。这些语言允许你定义可以存储任何数据类型的变量。<br>另外kotlin不需要你明确的申明每个变量的类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val x=1</span><br></pre></td></tr></table></figure></p>
+<p>在申明变量的时候，由于变量初始化为整形值，kotlin自动判断出他的类型是int，这个和java不同</p>
+<h3 id="1-2-3-函数式和面向对象"><a href="#1-2-3-函数式和面向对象" class="headerlink" title="1.2.3 函数式和面向对象"></a>1.2.3 函数式和面向对象</h3><p>支持lambda</p>
+<h1 id="2-kotlin基础"><a href="#2-kotlin基础" class="headerlink" title="2. kotlin基础"></a>2. kotlin基础</h1><h2 id="2-1-基本要素：函数和变量"><a href="#2-1-基本要素：函数和变量" class="headerlink" title="2.1 基本要素：函数和变量"></a>2.1 基本要素：函数和变量</h2><h3 id="2-1-1-Hello-World"><a href="#2-1-1-Hello-World" class="headerlink" title="2.1.1 Hello,World!"></a>2.1.1 Hello,World!</h3><p>我们从一个最经典的例子Hello,World讲解一下kotlin的用法，这个功能在kotlin中只需要一个函数就能够实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    println(&quot;Hello,world!&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以从这样简单的代码中看到一些kotlin的特性</p>
+<ul>
+<li>关键词fun用来声明一个函数，没错，kotlin编程有很多乐趣（fun）</li>
+<li>参数的类型卸载它的名称后面，稍后就可以看到，变量的声明也是这样的</li>
+<li>函数可以定义在文件的最外层，不需要把他放在类中</li>
+<li>数组就是类。和Java不同，Kotlin没有声明数组类型的特殊语法</li>
+<li>使用println替代了System.out.println。kotlin标准库给java标准库提供了很多语法简单的包装，而println就是其中一个</li>
+<li>和许多其他现代化语言一样，可以省略每行代码结尾的分号</li>
+</ul>
+<h3 id="2-1-2-函数"><a href="#2-1-2-函数" class="headerlink" title="2.1.2 函数"></a>2.1.2 函数</h3><p>你已经可以看到怎么样声明一个没有返回任何东西的函数，但是如果函数有一个有意义的结果，返回类型应该放在那里呢，你可能会猜到他对应位于参数列表之后的某处：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">fun main(args: Array&lt;String&gt;) &#123;</span><br><span class="line">    println(max(1,2))</span><br><span class="line">&#125;</span><br><span class="line">fun  max(a:Int,b:Int):Int&#123;</span><br><span class="line">    return if (a&gt;b)a else b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure></p>
+<p>函数的声明以fun关键字开始，函数名称紧随其后：这个例子中函数名称是max，接下来是括号起来的参数列表，参数列表的后面跟着返回类型，他们之间用一个冒号隔开</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//fun  函数名称(参数列表):返回值类型</span><br><span class="line">fun  max(a:Int,b:Int):Int&#123;</span><br><span class="line">    return if (a&gt;b)a else b//函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>语句和表达式：<br>在kotlin中，if是表达式，而不是语句。语句和表达式的区别在于，表达式有值，并能作为另外一个表达式的一部分使用；而语句总是包围着它的代码中顶层元素，并且没有自己的值。在java中，所有的控制结构都是语句。而在kotlin中，除了循环（for、do和do/while）以外大多数的控制结构都是表达式。这种结合控制结构和其他表达式的能力能让你可以简明扼要的表示许多常见的模式，稍后你会在本书中看到这些内容。<br>另一方面，java中的复制操作是表达式，在kotlin中反而变成了语句。这有助于避免比较和赋值之间的混淆，而这种混淆是常见的错误来源。</p>
+<p>表达式函数体<br>可以让前面的函数变得更简单。因为他的函数体是由单个表达式构成的，可以用这个表达式作为完整的函数体，并去掉花括号和return语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun  max(a:Int,b:Int):Int = if (a&gt;b)a else b</span><br></pre></td></tr></table></figure></p>
+<p>如果函数体写在花括号中，我们说这个函数有代码块体。如果他直接返回一个表达式，它就有表达式体<br>在kotlin代码中常常会看到表达式个体函数，这种风格不光用在一些简单的单行函数中，也会用在对更加复杂的单个表达式就只的函数中，比如if，when，try。这个可以在后面看到<br>当然还可以对max函数进一步简化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun  max(a:Int,b:Int) = if (a&gt;b)a else b</span><br></pre></td></tr></table></figure>
+<p>为什么有些函数可以不声明返回类型？作为一门静态类型语言，kotlin不是要求每一个表达式都应该在编译器有返回类型吗？事实上，每一个变量和表达式都有类型，每一个函数都有返回类型。但是作为对表达式体函数来说，编译器会分析作为函数体的表达式，并把他的类型作为函数的返回类型，即使没有显示的写出来。这就是 <em>类型推导</em><br>kotlin中只有表达式体函数的返回类型可以省略，队友有返回值的代码块体函数，必须显示地写出返回类型和return语句。这个是可以的选择。真实项目中的函数一般很长且可以包含多个return语句，显示地写出返回类型和return语句能帮助你快速的理解函数能返回什么。</p>
+<h3 id="2-1-3-变量"><a href="#2-1-3-变量" class="headerlink" title="2.1.3 变量"></a>2.1.3 变量</h3><p>在java中声明变量的时候回从类型开始，在kotlin中这样是不行的，应为许多变量声明的类型都是可以省略。所以在kotlin中以关键字开始，然后是变量名称，最后可以加上类型（不加也可以）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val question=&quot;红烧鸡翅膀，我最喜欢吃&quot;</span><br><span class="line">val answer=250</span><br></pre></td></tr></table></figure></p>
+<p>这个例子省略了类型声明，但是如果需要也可以显示的指明变量的类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val question:String=&quot;红烧鸡翅膀，我最喜欢吃&quot;</span><br></pre></td></tr></table></figure></p>
+<p>和表达式体函数一样，如果不指定类型，编译器会分析初始化器表达式的值，并把它的类型作为变量的类型，在前面这个例子中，变量的初始化器是Int类型，那么变量就是这个类型<br>如果你使用浮点数常量，那么变量就是double类型：<br>···<br>val yearsToCompute=3.4e6<br>···<br>后面更加深入的介绍算数类型<br>如果变量没有初始化器，就需要显示的指定他的类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val answer:Int</span><br><span class="line">answer=100</span><br></pre></td></tr></table></figure>
+<p>但是这个只能在方法内部有效<br>如果不能提供付给这个变量值得信息，编译器就无法推断出它的类型<br>可变变量和不可变变量</p>
+<ul>
+<li>val(value)不可变，对应java的final</li>
+<li>var(variable)可变</li>
+</ul>
+<p>默然情况下，应该尽可能的使用val关键词来修饰kotlin变量，仅在必要的时候换成var，使用不可变引用、不可变对象以及无副作用函数让代码更接近函数式编程风格。<br>在定义了val变量的代码执行期间，val只能进行唯一一次初始化。但是，如果编译器能确保只有唯一一条初始化语句会被执行，可以根据条件使用不同的值来初始化它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">val message:String</span><br><span class="line">if(true)&#123;</span><br><span class="line">    message=&quot;Success&quot;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    message=&quot;fail&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，尽管val引用自身是不可变的，但是他指向的对象是可变的，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val language= arrayListOf(&quot;java&quot;)</span><br><span class="line">language.add(&quot;kotlin&quot;)</span><br></pre></td></tr></table></figure>
+<p>即使var关键字允许改变自己的值，但是他的类型确实改变不了的，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var answer=43</span><br><span class="line">answer=&quot;no answer&quot;</span><br></pre></td></tr></table></figure>
+<p>使用字符串字面值会发生错误，因为他的类型是String不是期望的类型(Int)，编译器只会根据初始化器来推断变量的类型，在决定类型的时候不会考虑后续复赋值操作。<br>如果需要在变量中存储不匹配类型的值，必须手动把值转换或强转到正确的类型。后面会讨论基本数据类型之间的转换</p>
+<h3 id="2-1-4-更简单的字符串格式化：字符串模板"><a href="#2-1-4-更简单的字符串格式化：字符串模板" class="headerlink" title="2.1.4 更简单的字符串格式化：字符串模板"></a>2.1.4 更简单的字符串格式化：字符串模板</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/window10-常用快捷键/" rel="next" title="window10_常用快捷键">
+                <i class="fa fa-chevron-left"></i> window10_常用快捷键
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/android-常用第三方源码分析-okhttp/" rel="prev" title="android_常用第三方源码分析_okhttp">
+                android_常用第三方源码分析_okhttp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-kotlin的定义和目的"><span class="nav-number">1.</span> <span class="nav-text">1. kotlin的定义和目的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-kotlin初体验"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 kotlin初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-kotlin的主要特征"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 kotlin的主要特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-目标平台：服务器端，android和任何java运行的地方"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 目标平台：服务器端，android和任何java运行的地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2静态类型"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2静态类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-函数式和面向对象"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 函数式和面向对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-kotlin基础"><span class="nav-number">2.</span> <span class="nav-text">2. kotlin基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-基本要素：函数和变量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基本要素：函数和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-Hello-World"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 Hello,World!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-函数"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-变量"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-更简单的字符串格式化：字符串模板"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 更简单的字符串格式化：字符串模板</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

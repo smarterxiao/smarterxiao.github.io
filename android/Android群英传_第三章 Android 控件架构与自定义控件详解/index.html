@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础,Android群英传," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Android 控件架构   抛开平常偷懒使用的butterknife。平常使用最多的的就是setContentView 然后findViewById。里面具体发生了那些事情，在这里做一个简单的介绍。       findViewById是深度遍历的 在setContentView之后 ActivityManagerService 会回调OnResume()方法 这个时候系统才会将DecorVie">
+<meta name="keywords" content="基础,Android群英传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传 第三章 Android 控件架构与自定义控件详解">
+<meta property="og:url" content="http://yoursite.com/android/Android群英传_第三章 Android 控件架构与自定义控件详解/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="Android 控件架构   抛开平常偷懒使用的butterknife。平常使用最多的的就是setContentView 然后findViewById。里面具体发生了那些事情，在这里做一个简单的介绍。       findViewById是深度遍历的 在setContentView之后 ActivityManagerService 会回调OnResume()方法 这个时候系统才会将DecorVie">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1509633530.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1509634201.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/tuceng.jpg">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1509980950.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1510154184.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/1510156396552.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/1510156433278.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1510154576.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1510154812.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1510416628.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1510417038.png">
+<meta property="og:updated_time" content="2018-07-26T13:02:17.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传 第三章 Android 控件架构与自定义控件详解">
+<meta name="twitter:description" content="Android 控件架构   抛开平常偷懒使用的butterknife。平常使用最多的的就是setContentView 然后findViewById。里面具体发生了那些事情，在这里做一个简单的介绍。       findViewById是深度遍历的 在setContentView之后 ActivityManagerService 会回调OnResume()方法 这个时候系统才会将DecorVie">
+<meta name="twitter:image" content="http://yoursite.com/android/Android群英传_第三章%20Android%20控件架构与自定义控件详解/图像1509633530.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android群英传_第三章 Android 控件架构与自定义控件详解/"/>
+
+
+
+
+
+  <title>Android群英传 第三章 Android 控件架构与自定义控件详解 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android群英传_第三章 Android 控件架构与自定义控件详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android群英传 第三章 Android 控件架构与自定义控件详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T22:17:03+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Android-控件架构"><a href="#Android-控件架构" class="headerlink" title="Android 控件架构"></a>Android 控件架构</h1><p>   抛开平常偷懒使用的butterknife。平常使用最多的的就是<code>setContentView</code> 然后<code>findViewById</code>。里面具体发生了那些事情，在这里做一个简单的介绍。</p>
+<p> <img src="图像1509633530.png" alt="Alt text" title="AndroidUI架构"></p>
+<p> <img src="图像1509634201.png" alt="Alt text" title="简陋的视图树"></p>
+<p> <strong> findViewById是深度遍历的</strong> 在<code>setContentView</code>之后 ActivityManagerService 会回调OnResume()方法 这个时候系统才会将DecorView添加到PhoneWindow中让他显示出来，完成界面的绘制</p>
+<h1 id="View的测量和绘制"><a href="#View的测量和绘制" class="headerlink" title="View的测量和绘制"></a>View的测量和绘制</h1><h2 id="View的测量"><a href="#View的测量" class="headerlink" title="View的测量"></a>View的测量</h2><p>测量主要在<code>onMeasure</code>方法中进行，主要是有一个类来测量：MeasureSpec,这是一个32位的int值，高2位是测量模式，低30位用来测量大小，内部使用的都是位运算，提高效率，但是我从来没有过位运算。</p>
+<ul>
+<li>测量模式<ul>
+<li>EXACTLY<br>这个是精确值模式，当我们将控件设置为<code>layout_width</code>或者<code>layout_height</code>属性指定为具体数值的时候使用。e：<code>android：layout_width=100dp</code> 这个时候系统使用的就是EXACTLY模式</li>
+<li>AT_MOST<br>即最大值模式，当控件的属性<code>layout_width</code>为<code>wrap_content</code>的时候就是使用这种模式，要求控件的大小不超过父控件大小就可以</li>
+<li>UNSPEXIFIED<br>这个是不测量模式，用于自定义控件</li>
+</ul>
+</li>
+<li><p>使用</p>
+<ul>
+<li><p>一</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int specMode=MeasureSpec.getMode(measureSpec)</span><br><span class="line">int specSize=MeasureSpec.getSize(measureSpec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//  如果不知道控件的大小，可以使用这个方法就可以知道控件的大小了</span><br><span class="line">int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);</span><br><span class="line">int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);</span><br><span class="line">view.measure(w, h);</span><br><span class="line">view.layout();</span><br><span class="line">addView(view);  //就可以将控件添加到副布局中了</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="View布局"><a href="#View布局" class="headerlink" title="View布局"></a>View布局</h2><p>就是<code>onLayout()</code>的过程</p>
+<h2 id="View绘制"><a href="#View绘制" class="headerlink" title="View绘制"></a>View绘制</h2><p> 绘制主要需要在<code>onDraw()</code>方法中进行，有一个画布，所有的绘制操作都和画布有关，后面会详细解释的，最好理解一下ps的图层，图像是一层一层叠加起来的</p>
+<p><img src="tuceng.jpg" alt="Alt text" title="图层的理解"></p>
+<h2 id="ViewGroup的测量"><a href="#ViewGroup的测量" class="headerlink" title="ViewGroup的测量"></a>ViewGroup的测量</h2><blockquote>
+<p>ViewGroup在测量的时候回遍历所有子View的measure方法，然后会调用layout方法进行布局，最后在绘制</p>
+</blockquote>
+<h2 id="红包布局实战"><a href="#红包布局实战" class="headerlink" title="红包布局实战"></a>红包布局实战</h2><blockquote>
+<p>最近抢红包这个东西比较火，就用它来实现一次简单的ViewGroup实战</p>
+</blockquote>
+<p><img src="图像1509980950.png" alt="Alt text" title="自定义ViewGroup效果图"></p>
+<ul>
+<li>MainActivity</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   RedPacketLayout</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class RedPacketLayout extends ViewGroup &#123;</span><br><span class="line">    public RedPacketLayout(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public RedPacketLayout(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public RedPacketLayout(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    RedPacketView big=new BigRedPacketView(getContext());</span><br><span class="line">    RedPacketView small=new SmallRedPacketView(getContext());</span><br><span class="line"></span><br><span class="line">    //ViewGroup要重写的方法 这个是一个抽象方法</span><br><span class="line">    @Override</span><br><span class="line">    protected void onLayout(boolean b, int i, int i1, int i2, int i3) &#123;</span><br><span class="line">        //测量模式</span><br><span class="line">        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);</span><br><span class="line">        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);</span><br><span class="line">        //测量</span><br><span class="line">        big.measure(w, h);</span><br><span class="line">        small.measure(w, h);</span><br><span class="line">         //layout 布局 位置先写死</span><br><span class="line">        big.layout(100,100,100+big.getMeasuredWidth(),big.getMeasuredHeight()+100);</span><br><span class="line">        small.layout(200,200,200+small.getMeasuredWidth(),small.getMeasuredHeight()+200);</span><br><span class="line">        addView(big);</span><br><span class="line">        addView(small);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   RedPacketView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public abstract class RedPacketView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    public RedPacketView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public RedPacketView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public RedPacketView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   public abstract void init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   BigRedPacketView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class BigRedPacketView extends RedPacketView &#123;</span><br><span class="line">    public BigRedPacketView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BigRedPacketView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public BigRedPacketView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void init() &#123;</span><br><span class="line">        setText(&quot;大红包&quot;);</span><br><span class="line">        setTextColor(Color.GREEN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  SmallRedPacketView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class SmallRedPacketView extends RedPacketView &#123;</span><br><span class="line">    public SmallRedPacketView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SmallRedPacketView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SmallRedPacketView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void init() &#123;</span><br><span class="line">        setText(&quot;小红包&quot;);</span><br><span class="line">        setTextColor(Color.RED);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  activity_main</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    tools:context=&quot;com.smart.qun.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;com.smart.qun.RedPacketLayout</span><br><span class="line">      android:layout_width=&quot;match_parent&quot;</span><br><span class="line">      android:layout_height=&quot;match_parent&quot;&gt;&lt;/com.smart.qun.RedPacketLayout&gt;</span><br><span class="line"></span><br><span class="line">&lt;/android.support.constraint.ConstraintLayout&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="自定义View"><a href="#自定义View" class="headerlink" title="自定义View"></a>自定义View</h1><h2 id="一些重要的回调方法"><a href="#一些重要的回调方法" class="headerlink" title="一些重要的回调方法"></a>一些重要的回调方法</h2><ul>
+<li><code>onFinishInfalte</code> 从XML加载完组件回调</li>
+<li><code>onSizeChanged</code> 组件大小改变时回调</li>
+<li><code>onMeasure</code> 回调该方法来进行测量</li>
+<li><code>onLayout</code> 回掉该方法确定显示位置</li>
+<li><code>onTouchEvent</code> 监听到触摸事件是回调</li>
+</ul>
+<h2 id="对textView的自定义"><a href="#对textView的自定义" class="headerlink" title="对textView的自定义"></a>对textView的自定义</h2><h4 id="有边框的TextView"><a href="#有边框的TextView" class="headerlink" title="有边框的TextView"></a>有边框的TextView</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">· @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line"></span><br><span class="line">        //在回调父类方法前，实现自己的逻辑，放在textView文字下方</span><br><span class="line">        //三明治上层的面包</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Paint mPaint = new Paint();</span><br><span class="line">        mPaint.setColor(getResources().getColor(android.R.color.holo_blue_bright));</span><br><span class="line">        mPaint.setStyle(Paint.Style.FILL);</span><br><span class="line"></span><br><span class="line">        Paint mPaint2 = new Paint();</span><br><span class="line">        mPaint2.setColor((Color.YELLOW));</span><br><span class="line">        mPaint2.setStyle(Paint.Style.FILL);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        canvas.drawRect(0,0,getMeasuredWidth(),getMeasuredHeight(),mPaint);</span><br><span class="line">        canvas.drawRect(10,10,getMeasuredWidth()+10,getMeasuredHeight()+10,mPaint2);</span><br><span class="line">        canvas.save();</span><br><span class="line">        canvas.translate(10,0);</span><br><span class="line">        //中间的肉</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line"></span><br><span class="line">        canvas.restore();</span><br><span class="line">        //下层的面包</span><br><span class="line">        //在回调父类方法后，实现自己的逻辑，放在textView文字上方</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="图像1510154184.png" alt="Alt text" title="自定义TextView效果图,有一个边框"></p>
+<h4 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h4><p>之前看第一遍的时候对<code>canvas.save()</code>和<code>canvas.restore()</code>这两个方法有一点不理解，第二遍的时候明白了很多，给大家演示一下就明白了。</p>
+<p>先来两张图</p>
+<p><img src="1510156396552.png" alt="Alt text" title="头像小王300*300"></p>
+<p><img src="1510156433278.png" alt="Alt text" title="头像小李300*300"></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onDraw(Canvas canvas) &#123;</span><br><span class="line"></span><br><span class="line">    mPaint = new Paint();</span><br><span class="line">    bitmap1 = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line">    bitmap2 = BitmapFactory.decodeResource(getResources(), R.mipmap.test2);</span><br><span class="line"></span><br><span class="line">    canvas.drawBitmap(bitmap1, 0, 0, mPaint);</span><br><span class="line">    canvas.scale(5f, 5f);//对画布进行放大</span><br><span class="line">    canvas.drawBitmap(bitmap2, 30, 30, mPaint);</span><br><span class="line">    super.onDraw(canvas);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="图像1510154576.png" alt="Alt text" title="先放大300*300"></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void onDraw(Canvas canvas) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    mPaint = new Paint();</span><br><span class="line">    bitmap1 = BitmapFactory.decodeResource(getResources(), R.mipmap.test1);</span><br><span class="line">    bitmap2 = BitmapFactory.decodeResource(getResources(), R.mipmap.test2);</span><br><span class="line">    canvas.drawBitmap(bitmap1, 0, 0, mPaint);</span><br><span class="line">    canvas.save();//保存</span><br><span class="line">    canvas.scale(5f, 5f);//对画布进行放大</span><br><span class="line">    canvas.restore();//恢复</span><br><span class="line">    canvas.drawBitmap(bitmap2, 30, 30, mPaint);</span><br><span class="line">    super.onDraw(canvas);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>  <img src="图像1510154812.png" alt="Alt text" title="执行save和restore"></p>
+<p><code>canvas.save()</code>和<code>canvas.restore()</code>的意义是在某一个时间节点保存当前画布的状态，在对画布进行操作之后还原画布的状态</p>
+<h2 id="闪动的TextView"><a href="#闪动的TextView" class="headerlink" title="闪动的TextView"></a>闪动的TextView</h2><blockquote>
+<p>主要使用Shade来渲染</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Paint paint;</span><br><span class="line">  int mViewWidth = 0;</span><br><span class="line">  private LinearGradient lin;</span><br><span class="line">  int mTranslate = 0;</span><br><span class="line">  private Matrix matrix;</span><br><span class="line">  @Override</span><br><span class="line">  protected void onSizeChanged(int w, int h, int oldw, int oldh) &#123;</span><br><span class="line">      super.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">      Log.i(&quot;test&quot;,&quot;onSizeChanged&quot;);</span><br><span class="line">      if (mViewWidth == 0) &#123;</span><br><span class="line">          mViewWidth = getMeasuredWidth();</span><br><span class="line">          if (mViewWidth &gt; 0) &#123;</span><br><span class="line">              paint = getPaint();</span><br><span class="line">              lin = new LinearGradient(0, 0, mViewWidth, 0, new int[]&#123;Color.BLUE, 0xffffffff, Color.BLUE&#125;, null, Shader.TileMode.CLAMP);</span><br><span class="line">              paint.setShader(lin);</span><br><span class="line">              matrix = new Matrix();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  @Override</span><br><span class="line">  protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">      super.onDraw(canvas);</span><br><span class="line">      Log.i(&quot;test&quot;,&quot;onDraw&quot;);</span><br><span class="line">      if (matrix != null) &#123;</span><br><span class="line"></span><br><span class="line">          mTranslate += mViewWidth / 5;</span><br><span class="line">          if (mTranslate &gt; 2 * mViewWidth) &#123;</span><br><span class="line">              mTranslate = -mViewWidth;</span><br><span class="line">          &#125;</span><br><span class="line">          matrix.setTranslate(mTranslate, 0);</span><br><span class="line">          lin.setLocalMatrix(matrix);</span><br><span class="line">          postInvalidate();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>###复合控件<br>这个是通过自定义属性来自定义控件：比如<code>android:layout_height=&quot;match_parent&quot;</code> 这个是Android系统给我们提供的属性，我们可以自己定义这种属性。</p>
+<ol>
+<li>自定义属性资源<br>在<code>res/value</code>目录创建<code>attrs.xml</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line"></span><br><span class="line">    &lt;declare-styleable name=&quot;test&quot;&gt;</span><br><span class="line">        &lt;attr name=&quot;title&quot; format=&quot;string&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;titleTextSize&quot; format=&quot;dimension&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;titleTextColor&quot; format=&quot;color&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;leftTextColor&quot; format=&quot;color&quot; /&gt;</span><br><span class="line">        //不同的属性使用|隔开</span><br><span class="line">        &lt;attr name=&quot;leftBackGround&quot; format=&quot;reference|color&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;leftText&quot; format=&quot;string&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;rightTextColor&quot; format=&quot;color&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;rightBackGround&quot; format=&quot;reference|color&quot; /&gt;</span><br><span class="line">        &lt;attr name=&quot;rightText&quot; format=&quot;string&quot; /&gt;</span><br><span class="line">    &lt;/declare-styleable&gt;</span><br><span class="line"></span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class SmarterLin extends LinearLayout &#123;</span><br><span class="line">    private String string;</span><br><span class="line">    public SmarterLin(Context context) &#123;</span><br><span class="line">        this(context,null);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    //第二种构造方法的作用就是用于自定义属性</span><br><span class="line">    public SmarterLin(Context context, @Nullable AttributeSet attrs) &#123;</span><br><span class="line">        this(context, attrs,0);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public SmarterLin(Context context, @Nullable AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        if(attrs!=null)&#123;</span><br><span class="line">            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.test);</span><br><span class="line">            typedArray.getColor(R.styleable.test_leftTextColor,0);</span><br><span class="line">            typedArray.getDrawable(R.styleable.test_leftBackGround);</span><br><span class="line">            string = typedArray.getString(R.styleable.test_leftText);</span><br><span class="line">            typedArray.getDimension(R.styleable.test_titleTextSize,0);</span><br><span class="line">            //避免再次创建错误</span><br><span class="line">            typedArray.recycle();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private void init() &#123;</span><br><span class="line">      //在这里设置自定属性，并添加控件</span><br><span class="line">        Button bt=new Button(getContext());</span><br><span class="line">        bt.setText(string);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.smart.myapplication.SmarterLin</span><br><span class="line">      android:text=&quot;Hello World!&quot;</span><br><span class="line">      xmlns:custom=&quot;http://schemas.android.com/apk/res-auto&quot;   //定义自己的命名空间  xmlns:custom=&quot;http://schemas.android.com/apk/res-auto&quot;   custom是自定义空间的名字</span><br><span class="line">      custom:rightText=&quot;test&quot;  //使用自定义空间</span><br><span class="line">      android:layout_width=&quot;match_parent&quot;</span><br><span class="line">      android:layout_height=&quot;match_parent&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>###重写View来实现全新的自定义控件<br>就是上面闪动的textview</p>
+<h1 id="自定义ViewGroup"><a href="#自定义ViewGroup" class="headerlink" title="自定义ViewGroup"></a>自定义ViewGroup</h1><h2 id="一个弹性scrollView"><a href="#一个弹性scrollView" class="headerlink" title="一个弹性scrollView"></a>一个弹性scrollView</h2><p>不是那么流畅，只是大概理解他的原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.smart.myapplication.SpringScrollLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:background=&quot;#00ffff&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:background=&quot;#00ff00&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:background=&quot;#ff0000&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line">&lt;/com.smart.myapplication.SpringScrollLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class SpringScrollLayout extends ViewGroup &#123;</span><br><span class="line"></span><br><span class="line">    private float mLasty;</span><br><span class="line">    private int mStart;</span><br><span class="line">    private DisplayMetrics dm;</span><br><span class="line">    private float mEnd;</span><br><span class="line"></span><br><span class="line">    public SpringScrollLayout(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SpringScrollLayout(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public SpringScrollLayout(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onLayout(boolean change, int l, int t, int r, int b) &#123;</span><br><span class="line">        WindowManager wm = (WindowManager) getContext()</span><br><span class="line">                .getSystemService(Context.WINDOW_SERVICE);</span><br><span class="line">        dm = new DisplayMetrics();</span><br><span class="line">        wm.getDefaultDisplay().getMetrics(dm);</span><br><span class="line">        LayoutParams mlp = getLayoutParams();</span><br><span class="line">        mlp.height = dm.heightPixels * getChildCount();</span><br><span class="line">        setLayoutParams(mlp);</span><br><span class="line">        for (int i4 = 0; i4 &lt; getChildCount(); i4++) &#123;</span><br><span class="line">            View child = getChildAt(i4);</span><br><span class="line">            child.layout(l, i4 * dm.heightPixels, r, (i4 + 1) * dm.heightPixels);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</span><br><span class="line">        super.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        int count = getChildCount();</span><br><span class="line">        for (int i = 0; i &lt; count; ++i) &#123;</span><br><span class="line">            View child = getChildAt(i);</span><br><span class="line">            measureChild(child, widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Scroller scroller = new Scroller(getContext());</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        float y = event.getY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                mLasty = y;</span><br><span class="line">                mStart = getScrollY();</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                if (!scroller.isFinished()) &#123;</span><br><span class="line">                    scroller.abortAnimation();</span><br><span class="line">                &#125;</span><br><span class="line">                float dy = mLasty - y;</span><br><span class="line">                if (getScaleY() &lt; 0) &#123;</span><br><span class="line">                    dy = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                if (getScaleY() &gt; getHeight() - dm.heightPixels) &#123;</span><br><span class="line"></span><br><span class="line">                    dy = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                scrollBy(0, (int) dy);</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line"></span><br><span class="line">                mEnd = getScaleY();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                float dScrollY = mEnd - mStart;</span><br><span class="line"></span><br><span class="line">                if (dScrollY &gt; 0) &#123;</span><br><span class="line"></span><br><span class="line">                    if (dScrollY &lt; dm.heightPixels / 3) &#123;</span><br><span class="line">                        scroller.startScroll(0, getScrollY(), 0, (int)- dScrollY);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        scroller.startScroll(0, getScrollY(), 0, (int) (dm.heightPixels - dScrollY));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line"></span><br><span class="line">                    if (-dScrollY &lt; dm.heightPixels / 3) &#123;</span><br><span class="line">                        scroller.startScroll(0, getScrollY(), 0, (int) -dScrollY);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        scroller.startScroll(0, getScrollY(), 0, (int) (-dm.heightPixels - dScrollY));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        postInvalidate();</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void computeScroll() &#123;</span><br><span class="line">        super.computeScroll();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        if (scroller.computeScrollOffset()) &#123;</span><br><span class="line">            scrollTo(0, scroller.getCurrY());</span><br><span class="line">            postInvalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Android-事件拦截机制分析"><a href="#Android-事件拦截机制分析" class="headerlink" title="Android 事件拦截机制分析"></a>Android 事件拦截机制分析</h1><p>ViewGroup主要是这三个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> public boolean dispatchTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">     return super.dispatchTouchEvent(ev);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> @Override</span><br><span class="line">   public boolean onInterceptTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">       return super.onInterceptTouchEvent(ev);</span><br><span class="line">   &#125;</span><br><span class="line"> @Override</span><br><span class="line"> public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">     return super.onTouchEvent(event);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>View主要是这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">    return super.onTouchEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <img src="图像1510416628.png" alt="Alt text" title="触摸事件完整流程"></p>
+<p>一般不会操作<code>dispatchTouchEvent</code>这个方法，所以这里就不讨论这个方法 ，如果在ViewGroup中截断事件<code>onInterceptTouchEvent</code> 那么View是收不到事件的，如果在子View中处理了事件<code>onTouchEvent</code>，就是<code>onTouchEvent</code>返回值是<code>true</code>,ViewGroup是收不到事件的<br>  <img src="图像1510417038.png" alt="Alt text" title="触摸事件完整流程2"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/Android群英传/" rel="tag"># Android群英传</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android群英传_第二章 Android 开发工具新接触/" rel="next" title="Android群英传 第二章 Android 开发工具新接触">
+                <i class="fa fa-chevron-left"></i> Android群英传 第二章 Android 开发工具新接触
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android群英传_第四章 List使用/" rel="prev" title="Android群英传 第四章 List使用">
+                Android群英传 第四章 List使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-控件架构"><span class="nav-number">1.</span> <span class="nav-text">Android 控件架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#View的测量和绘制"><span class="nav-number">2.</span> <span class="nav-text">View的测量和绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#View的测量"><span class="nav-number">2.1.</span> <span class="nav-text">View的测量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View布局"><span class="nav-number">2.2.</span> <span class="nav-text">View布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View绘制"><span class="nav-number">2.3.</span> <span class="nav-text">View绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewGroup的测量"><span class="nav-number">2.4.</span> <span class="nav-text">ViewGroup的测量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红包布局实战"><span class="nav-number">2.5.</span> <span class="nav-text">红包布局实战</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义View"><span class="nav-number">3.</span> <span class="nav-text">自定义View</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些重要的回调方法"><span class="nav-number">3.1.</span> <span class="nav-text">一些重要的回调方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对textView的自定义"><span class="nav-number">3.2.</span> <span class="nav-text">对textView的自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有边框的TextView"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">有边框的TextView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#心得"><span class="nav-number">3.2.0.2.</span> <span class="nav-text">心得</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闪动的TextView"><span class="nav-number">3.3.</span> <span class="nav-text">闪动的TextView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义ViewGroup"><span class="nav-number">4.</span> <span class="nav-text">自定义ViewGroup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个弹性scrollView"><span class="nav-number">4.1.</span> <span class="nav-text">一个弹性scrollView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-事件拦截机制分析"><span class="nav-number">5.</span> <span class="nav-text">Android 事件拦截机制分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

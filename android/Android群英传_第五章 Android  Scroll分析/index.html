@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础,Android群英传," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="坐标系这个是滚动的基础，所有的移动都是在这个坐标系内进行滚动有两种坐标系，一个是以屏幕左上角位原点，一个是以父控件左上角为原点,获取的(X，Y)的值是不一向的 MotionEvent  getX() getY() getRawX() getRawY()  View  getLeft() getRight() getBottom() getTop() getLocationOnScreen()  获">
+<meta name="keywords" content="基础,Android群英传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android群英传 第五章 Android  Scroll分析">
+<meta property="og:url" content="http://yoursite.com/android/Android群英传_第五章 Android  Scroll分析/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="坐标系这个是滚动的基础，所有的移动都是在这个坐标系内进行滚动有两种坐标系，一个是以屏幕左上角位原点，一个是以父控件左上角为原点,获取的(X，Y)的值是不一向的 MotionEvent  getX() getY() getRawX() getRawY()  View  getLeft() getRight() getBottom() getTop() getLocationOnScreen()  获">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第五章%20Android%20%20Scroll分析/图像1510671624.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第五章%20Android%20%20Scroll分析/图像1510759310.png">
+<meta property="og:image" content="http://yoursite.com/android/Android群英传_第五章%20Android%20%20Scroll分析/qq.gif">
+<meta property="og:updated_time" content="2018-07-26T13:02:17.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android群英传 第五章 Android  Scroll分析">
+<meta name="twitter:description" content="坐标系这个是滚动的基础，所有的移动都是在这个坐标系内进行滚动有两种坐标系，一个是以屏幕左上角位原点，一个是以父控件左上角为原点,获取的(X，Y)的值是不一向的 MotionEvent  getX() getY() getRawX() getRawY()  View  getLeft() getRight() getBottom() getTop() getLocationOnScreen()  获">
+<meta name="twitter:image" content="http://yoursite.com/android/Android群英传_第五章%20Android%20%20Scroll分析/图像1510671624.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/android/Android群英传_第五章 Android  Scroll分析/"/>
+
+
+
+
+
+  <title>Android群英传 第五章 Android  Scroll分析 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/android/Android群英传_第五章 Android  Scroll分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android群英传 第五章 Android  Scroll分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T22:17:05+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h1><p>这个是滚动的基础，所有的移动都是在这个坐标系内进行滚动<br>有两种坐标系，一个是以屏幕左上角位原点，一个是以父控件左上角为原点,获取的(X，Y)的值是不一向的<br><img src="图像1510671624.png" alt="Alt text" title="Android坐标系"></p>
+<p>MotionEvent</p>
+<ul>
+<li>getX()</li>
+<li>getY()</li>
+<li>getRawX()</li>
+<li>getRawY()</li>
+</ul>
+<p>View</p>
+<ul>
+<li>getLeft()</li>
+<li>getRight()</li>
+<li>getBottom()</li>
+<li>getTop()</li>
+<li>getLocationOnScreen()  获取View到屏幕的距离<h1 id="滑动的七种方法"><a href="#滑动的七种方法" class="headerlink" title="滑动的七种方法"></a>滑动的七种方法</h1></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">xml:</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line"></span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;com.smart.myapplication.TestView</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_margin=&quot;50dp&quot;</span><br><span class="line">        android:text=&quot;dddd&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br><span class="line"></span><br><span class="line">TestView: 重写onTouchEvent</span><br><span class="line">@Override</span><br><span class="line">public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">   switch (event.getAction()) &#123;</span><br><span class="line">      case MotionEvent.ACTION_DOWN:</span><br><span class="line">            Log.i(&quot;event x: &quot;,event.getX()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;event y: &quot;,event.getY()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;view x: &quot;,event.getRawX()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;view y: &quot;,event.getRawY()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;event getRawX: &quot;, getX()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;event getRawY: &quot;, getY()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;left: &quot;,getLeft()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;right: &quot;,getRight()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;bottom: &quot;,getBottom()+&quot;&quot;);</span><br><span class="line">            Log.i(&quot;top: &quot;,getTop()+&quot;&quot;);</span><br><span class="line">            break;</span><br><span class="line">      case MotionEvent.ACTION_UP:</span><br><span class="line">          break;</span><br><span class="line">      case MotionEvent.ACTION_CANCEL:</span><br><span class="line">          break;</span><br><span class="line">      case MotionEvent.ACTION_HOVER_MOVE:</span><br><span class="line">          break;</span><br><span class="line">          &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">点击结果:</span><br><span class="line">        I/event x:: 54.0</span><br><span class="line">        I/event y:: 23.0</span><br><span class="line">        I/view x:: 175.0</span><br><span class="line">        I/view y:: 175.0</span><br><span class="line">        I/event getRawX:: 229.0</span><br><span class="line">        I/event getRawY:: 478.0</span><br><span class="line">        I/left:: 175</span><br><span class="line">        I/right:: 287</span><br><span class="line">        I/bottom:: 241</span><br><span class="line">        I/top:: 175</span><br></pre></td></tr></table></figure>
+<h2 id="Layout方法"><a href="#Layout方法" class="headerlink" title="Layout方法"></a>Layout方法</h2><ul>
+<li>第一种写法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getX();</span><br><span class="line">        y = event.getY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                layout(getLeft() + dx, getTop() + dy, getRight() + dx, getBottom() + dy);</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种写法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                layout(getLeft() + dx, getTop() + dy, getRight() + dx, getBottom() + dy);</span><br><span class="line">                lastX=x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY=y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="offsetLeftAndRight-与offsetTopAndBottom"><a href="#offsetLeftAndRight-与offsetTopAndBottom" class="headerlink" title="offsetLeftAndRight()与offsetTopAndBottom()"></a>offsetLeftAndRight()与offsetTopAndBottom()</h2><ul>
+<li>第一种写法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getX();</span><br><span class="line">        y = event.getY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                offsetLeftAndRight(dx);</span><br><span class="line">                offsetTopAndBottom(dy); //  这两个方法和这个是一个意思    layout(getLeft() + dx, getTop() + dy, getRight() + dx, getBottom() + dy);</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种写法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line"></span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line"></span><br><span class="line">             offsetLeftAndRight(dx);</span><br><span class="line">             offsetTopAndBottom(dy); //  这两个方法和这个是一个意思    layout(getLeft() + dx, getTop() + dy, getRight() + dx, getBottom() + dy);</span><br><span class="line">                lastX=x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY=y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="LayoutParams"><a href="#LayoutParams" class="headerlink" title="LayoutParams"></a>LayoutParams</h2><p><code>LayoutParams</code>保存了View的布局参数,所以可以获取<code>LayoutParams</code>之后改变布局参数来改变View的位置。获取<code>dx</code>和<code>dy</code>两种方式下面就写一种<br>使用这种方式要注意父布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) getLayoutParams(); //父布局是LinearLayout</span><br><span class="line">                layoutParams.leftMargin=getLeft()+dx;</span><br><span class="line">                layoutParams.topMargin=getTop()+dy;</span><br><span class="line">                setLayoutParams(layoutParams);</span><br><span class="line">                lastX=x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY=y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用<code>ViewGroup.MarginLayoutParams layoutParams</code>，这样就不用区分父布局的类型，<code>ViewGroup</code>是所有包含控件的基类，一般改变位置是改变这个控件的<code>Margin</code>属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;,&quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                ViewGroup.MarginLayoutParams layoutParams= (ViewGroup.MarginLayoutParams) getLayoutParams();</span><br><span class="line">                layoutParams.leftMargin=getLeft()+dx;</span><br><span class="line">                layoutParams.topMargin=getTop()+dy;</span><br><span class="line">                setLayoutParams(layoutParams);</span><br><span class="line">                lastX=x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY=y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="scrollTo和scrollBy"><a href="#scrollTo和scrollBy" class="headerlink" title="scrollTo和scrollBy"></a>scrollTo和scrollBy</h2><p>使用<code>scrollBy(dx, dy)</code>替换移动布局的操作，发现有问题，是布局的内容移动，就是如果是<code>TextView</code>,那么移动的是<code>TextView</code>的文字，不是<code>TextView</code>,而且<font color="RED">内容的移动方向是和手移动的方向相反</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line"></span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;, &quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                scrollBy(dx, dy);  //就是这个东西，移动的是内容</span><br><span class="line">                lastX = x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里要补充一下视图移动的知识，使用<code>scrollTo</code>和<code>scrollBy</code>的时候移动的是盖板。从一个小孔看外面的世界，你把孔向左移动，但是孔里面的画面相对孔是向左移动。<br><img src="图像1510759310.png" alt="Alt text" title="图解"><br>最上面的是原始状态，屏幕和圆圈的关系，当使用<code>scrollTo</code>和<code>scrollBy</code>移动的时候，手指向右移动，这个时候移动的屏幕，导致图二的显示，但是实际上屏幕是不会移动的，所以就可以理解为图三的效果，内容向左移动了，所以<code>scrollTo</code>和<code>scrollBy</code>使用<code>dx</code>和<code>dy</code>的时候要取反，这个时候手指移动的方向就是内容移动的方向，然后屏幕是不动的 ，就是<code>textView</code>是不动的，动的是内容,就是<code>textView</code>是不动的，动的是内容，就是<code>textView</code>是不动的，动的是内容 。重要的话说三遍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends android.support.v7.widget.AppCompatTextView &#123;</span><br><span class="line"></span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                lastX = x;</span><br><span class="line">                Log.i(&quot;test&quot;, &quot;test&quot;);</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                scrollBy(-dx, -dy);  //取反</span><br><span class="line">                lastX = x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Scroller"><a href="#Scroller" class="headerlink" title="Scroller"></a>Scroller</h2><blockquote>
+<p>感觉群英传对这一部分讲的不太清楚，就自己写一下自己的理解，先上代码。实现一个功能，不管怎么拖动中间的控件，就是那个大王叫我来巡山的TextView，最后在当前位置在滚动到(100,100)的距离</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.smart.myapplication.MainActivity&quot;&gt;</span><br><span class="line">    &lt;com.smart.myapplication.TestView</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">         &gt;</span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:background=&quot;#ff0000&quot;</span><br><span class="line">            android:text=&quot;大王叫我来巡山&quot;</span><br><span class="line">            android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot; /&gt;</span><br><span class="line">    &lt;/com.smart.myapplication.TestView&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TestView extends LinearLayout &#123;</span><br><span class="line">    private float x;</span><br><span class="line">    private float y;</span><br><span class="line">    private float lastX;</span><br><span class="line">    private float lastY;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">    &#125;</span><br><span class="line">    Scroller scroller=new Scroller(getContext());</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        x = event.getRawX();</span><br><span class="line">        y = event.getRawY();</span><br><span class="line">        switch (event.getAction()) &#123;</span><br><span class="line">            case MotionEvent.ACTION_DOWN:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_UP:</span><br><span class="line">                scroller.startScroll((int)- event.getX(), (int) -event.getY(),-100,-100,10000);</span><br><span class="line">                invalidate();</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                break;</span><br><span class="line">            case MotionEvent.ACTION_MOVE:</span><br><span class="line">                int dx = (int) (x - lastX);</span><br><span class="line">                int dy = (int) (y - lastY);</span><br><span class="line">                scrollBy(-dx, -dy);  //取反</span><br><span class="line">                lastX = x;//加这个东西，不然会越跑越快</span><br><span class="line">                lastY = y;</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void computeScroll() &#123;</span><br><span class="line">        super.computeScroll();</span><br><span class="line">        if(scroller.computeScrollOffset())&#123;//判断是否执行完毕</span><br><span class="line">            scrollTo(scroller.getCurrX(),scroller.getCurrY());</span><br><span class="line">            invalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>scroller.startScroll((int)- event.getX(), (int) -event.getY(),-100,-100,10000);</code> 第一个参数是开始的x、第二个是开始的y、第三个参数是移动的变化量dx、第四个是移动的变化量dy，第五个是时间可以弄长一点<br>记住这个坐标和我们的坐标系是相反的，因为scroller底层使用的是scrollTo，移动的是里面的内容，所以从屏幕的方向看过去是相反的。<code>startScroll</code>开始之后会调用<code>computeScroll()</code>。如果想要移动到指定的位置，dx和dy这个要用当前位置和指定位置的差值</p>
+<h2 id="属性动画-这个后面讲"><a href="#属性动画-这个后面讲" class="headerlink" title="属性动画 这个后面讲"></a>属性动画 这个后面讲</h2><h2 id="ViewDragHelper"><a href="#ViewDragHelper" class="headerlink" title="ViewDragHelper"></a>ViewDragHelper</h2><blockquote>
+<p>drawerLayout和SlidingPaneLayout背后的男人<br>drawerLayout:侧边栏拖出<br>SlidingPaneLayout：可以实现IOS侧滑关闭的功能</p>
+</blockquote>
+<ul>
+<li>最简单的版本，实现LinearLayout内部控件的移动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends LinearLayout &#123;</span><br><span class="line">    private ViewDragHelper viewDragHelper;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    private void init() &#123;</span><br><span class="line">        viewDragHelper = ViewDragHelper.create(this, new ViewDragHelper.Callback() &#123;</span><br><span class="line">            //判断View是不是你想要移动的 是就是true，不是就是false  </span><br><span class="line">            @Override</span><br><span class="line">            public boolean tryCaptureView(View child, int pointerId) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewDragStateChanged(int state) &#123;</span><br><span class="line">                super.onViewDragStateChanged(state);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //水平滑动</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionHorizontal(View child, int left, int dx) &#123;</span><br><span class="line">                return left;</span><br><span class="line">            &#125;</span><br><span class="line">            //垂直滑动</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionVertical(View child, int top, int dy) &#123;</span><br><span class="line">                return top;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onInterceptTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">        return viewDragHelper.shouldInterceptTouchEvent(ev);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        viewDragHelper.processTouchEvent(event);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void computeScroll() &#123;</span><br><span class="line">        super.computeScroll();</span><br><span class="line">        if (viewDragHelper.continueSettling(true)) &#123;//判断是否执行完毕</span><br><span class="line">            ViewCompat.postInvalidateOnAnimation(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>最简单版本的布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.smart.myapplication.TestView</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:background=&quot;#ff0000&quot;</span><br><span class="line">        android:text=&quot;dddd&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:background=&quot;#ffff00&quot;</span><br><span class="line">        android:text=&quot;dddd&quot; /&gt;</span><br><span class="line">&lt;/com.smart.myapplication.TestView&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二个版本，可以回归原位</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">public class TestView extends LinearLayout &#123;</span><br><span class="line">    private ViewDragHelper viewDragHelper;</span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line">    private void init() &#123;</span><br><span class="line">        viewDragHelper = ViewDragHelper.create(this, new ViewDragHelper.Callback() &#123;</span><br><span class="line">            //判断View是不是你想要移动的 是就是true，不是就是false  </span><br><span class="line">            @Override</span><br><span class="line">            public boolean tryCaptureView(View child, int pointerId) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewDragStateChanged(int state) &#123;</span><br><span class="line">                super.onViewDragStateChanged(state);</span><br><span class="line">            &#125;</span><br><span class="line">            //释放之后的回调，就是手指抬起的回调</span><br><span class="line">           @Override</span><br><span class="line">           public void onViewReleased(View releasedChild, float xvel, float yvel) &#123;</span><br><span class="line">               //如果有第一个孩子，这里偷懒没做判断 如果移动超过500 就到300的位置，如果小于500 就回归原位</span><br><span class="line">               if (getChildAt(0).getLeft() &lt; 500) &#123;</span><br><span class="line">                   viewDragHelper.smoothSlideViewTo(getChildAt(0), 0, 0);</span><br><span class="line">                   ViewCompat.postInvalidateOnAnimation(TestView.this);</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                   viewDragHelper.smoothSlideViewTo(getChildAt(0), 300, 0);</span><br><span class="line">                   ViewCompat.postInvalidateOnAnimation(TestView.this);</span><br><span class="line"></span><br><span class="line">               &#125;</span><br><span class="line">               super.onViewReleased(releasedChild, xvel, yvel);</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">            //水平滑动</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionHorizontal(View child, int left, int dx) &#123;</span><br><span class="line">                return left;</span><br><span class="line">            &#125;</span><br><span class="line">            //垂直滑动</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionVertical(View child, int top, int dy) &#123;</span><br><span class="line">                return top;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onInterceptTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">        return viewDragHelper.shouldInterceptTouchEvent(ev);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        viewDragHelper.processTouchEvent(event);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void computeScroll() &#123;</span><br><span class="line">        super.computeScroll();</span><br><span class="line">        if (viewDragHelper.continueSettling(true)) &#123;//判断是否执行完毕</span><br><span class="line">            ViewCompat.postInvalidateOnAnimation(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>终极效果</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class TestView extends FrameLayout &#123;</span><br><span class="line"></span><br><span class="line">    private ViewDragHelper viewDragHelper;</span><br><span class="line">    private View menu;</span><br><span class="line">    private View mainView;</span><br><span class="line">    private int measuredWidth;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TestView(Context context, AttributeSet attrs, int defStyleAttr) &#123;</span><br><span class="line">        super(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void init() &#123;</span><br><span class="line">        viewDragHelper = ViewDragHelper.create(this, new ViewDragHelper.Callback() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean tryCaptureView(View child, int pointerId) &#123;</span><br><span class="line">                return mainView==child;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onViewDragStateChanged(int state) &#123;</span><br><span class="line">                super.onViewDragStateChanged(state);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //view位置改变调用</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) &#123;</span><br><span class="line">                super.onViewPositionChanged(changedView, left, top, dx, dy);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //view被用户触摸回调</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewCaptured(View capturedChild, int activePointerId) &#123;</span><br><span class="line">                super.onViewCaptured(capturedChild, activePointerId);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //view拖动状态改变回调</span><br><span class="line">            @Override</span><br><span class="line">            public void onEdgeDragStarted(int edgeFlags, int pointerId) &#123;</span><br><span class="line">                super.onEdgeDragStarted(edgeFlags, pointerId);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //释放之后的回调，就是手指抬起的回调</span><br><span class="line">            @Override</span><br><span class="line">            public void onViewReleased(View releasedChild, float xvel, float yvel) &#123;</span><br><span class="line"></span><br><span class="line">                //如果有第一个孩子，这里偷懒没做判断 如果移动超过500 就到300的位置，如果小于500 就回归原位</span><br><span class="line">                if (mainView.getLeft() &lt; 500) &#123;</span><br><span class="line">                    viewDragHelper.smoothSlideViewTo(mainView, 0, 0);</span><br><span class="line">                    ViewCompat.postInvalidateOnAnimation(TestView.this);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    viewDragHelper.smoothSlideViewTo(mainView, measuredWidth, 0);</span><br><span class="line">                    ViewCompat.postInvalidateOnAnimation(TestView.this);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                super.onViewReleased(releasedChild, xvel, yvel);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //水平滑动</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionHorizontal(View child, int left, int dx) &#123;</span><br><span class="line">                return left;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //垂直滑动的变化量</span><br><span class="line">            @Override</span><br><span class="line">            public int clampViewPositionVertical(View child, int top, int dy) &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean onInterceptTouchEvent(MotionEvent ev) &#123;</span><br><span class="line">        return viewDragHelper.shouldInterceptTouchEvent(ev);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        viewDragHelper.processTouchEvent(event);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void computeScroll() &#123;</span><br><span class="line">        super.computeScroll();</span><br><span class="line">        if (viewDragHelper.continueSettling(true)) &#123;//判断是否执行完毕</span><br><span class="line">            ViewCompat.postInvalidateOnAnimation(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onSizeChanged(int w, int h, int oldw, int oldh) &#123;</span><br><span class="line">        super.onSizeChanged(w, h, oldw, oldh);</span><br><span class="line">        measuredWidth = menu.getMeasuredWidth();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onLayout(boolean changed, int l, int t, int r, int b) &#123;</span><br><span class="line">        super.onLayout(changed, l, t, r, b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onFinishInflate() &#123;</span><br><span class="line">        super.onFinishInflate();</span><br><span class="line">        menu = getChildAt(0);</span><br><span class="line">        mainView = getChildAt(1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="qq.gif" alt="Alt text" title="模拟qq的侧滑效果"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/tags/Android群英传/" rel="tag"># Android群英传</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/android/Android群英传_第四章 List使用/" rel="next" title="Android群英传 第四章 List使用">
+                <i class="fa fa-chevron-left"></i> Android群英传 第四章 List使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android群英传_第六章 Android图形机制与处理技/" rel="prev" title="Android群英传 第六章 Android图形机制与处理技">
+                Android群英传 第六章 Android图形机制与处理技 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#坐标系"><span class="nav-number">1.</span> <span class="nav-text">坐标系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#滑动的七种方法"><span class="nav-number">2.</span> <span class="nav-text">滑动的七种方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Layout方法"><span class="nav-number">2.1.</span> <span class="nav-text">Layout方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#offsetLeftAndRight-与offsetTopAndBottom"><span class="nav-number">2.2.</span> <span class="nav-text">offsetLeftAndRight()与offsetTopAndBottom()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LayoutParams"><span class="nav-number">2.3.</span> <span class="nav-text">LayoutParams</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrollTo和scrollBy"><span class="nav-number">2.4.</span> <span class="nav-text">scrollTo和scrollBy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scroller"><span class="nav-number">2.5.</span> <span class="nav-text">Scroller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性动画-这个后面讲"><span class="nav-number">2.6.</span> <span class="nav-text">属性动画 这个后面讲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewDragHelper"><span class="nav-number">2.7.</span> <span class="nav-text">ViewDragHelper</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

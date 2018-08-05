@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="gradle," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介AndroidGradle权威指南的读书笔记 第一章 gradle入门1. 安装方法下载 https://downloads.gradle.org/distributions/gradle-2.14-all.zip 然后解压 接着到bin目录 和java环境变量的配置方法一致  gradle版本号：2.14.1gradle -v查看版本信息  1234567891011gradle -v---">
+<meta name="keywords" content="gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android_gradle_学习">
+<meta property="og:url" content="http://yoursite.com/uncategorized/Android-gradle-学习/index.html">
+<meta property="og:site_name" content="个人网站">
+<meta property="og:description" content="简介AndroidGradle权威指南的读书笔记 第一章 gradle入门1. 安装方法下载 https://downloads.gradle.org/distributions/gradle-2.14-all.zip 然后解压 接着到bin目录 和java环境变量的配置方法一致  gradle版本号：2.14.1gradle -v查看版本信息  1234567891011gradle -v---">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/uncategorized/Android-gradle-学习/图像1514385779.png">
+<meta property="og:updated_time" content="2018-07-26T13:02:16.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android_gradle_学习">
+<meta name="twitter:description" content="简介AndroidGradle权威指南的读书笔记 第一章 gradle入门1. 安装方法下载 https://downloads.gradle.org/distributions/gradle-2.14-all.zip 然后解压 接着到bin目录 和java环境变量的配置方法一致  gradle版本号：2.14.1gradle -v查看版本信息  1234567891011gradle -v---">
+<meta name="twitter:image" content="http://yoursite.com/uncategorized/Android-gradle-学习/图像1514385779.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/uncategorized/Android-gradle-学习/"/>
+
+
+
+
+
+  <title>Android_gradle_学习 | 个人网站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/uncategorized/Android-gradle-学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Groot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android_gradle_学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-25T20:53:30+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>AndroidGradle权威指南的读书笔记</p>
+<h1 id="第一章-gradle入门"><a href="#第一章-gradle入门" class="headerlink" title="第一章 gradle入门"></a>第一章 gradle入门</h1><h2 id="1-安装方法"><a href="#1-安装方法" class="headerlink" title="1. 安装方法"></a>1. 安装方法</h2><p>下载 <a href="https://downloads.gradle.org/distributions/gradle-2.14-all.zip" target="_blank" rel="noopener">https://downloads.gradle.org/distributions/gradle-2.14-all.zip</a> 然后解压 接着到<code>bin</code>目录 和java环境变量的配置方法一致</p>
+<ul>
+<li>gradle版本号：2.14.1<br><code>gradle -v</code>查看版本信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Gradle 2.14.1</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">Build time:   2016-07-18 06:38:37 UTC</span><br><span class="line">Revision:     d9e2113d9fb05a5caabba61798bdb8dfdca83719</span><br><span class="line"></span><br><span class="line">Groovy:       2.4.4</span><br><span class="line">Ant:          Apache Ant(TM) version 1.9.6 compiled on June 29 2015</span><br><span class="line">JVM:          1.8.0_152 (Oracle Corporation 25.152-b16)</span><br><span class="line">OS:           Windows 10 10.0 amd64</span><br></pre></td></tr></table></figure>
+<h2 id="2-gradle版本的Hello-World"><a href="#2-gradle版本的Hello-World" class="headerlink" title="2. gradle版本的Hello World"></a>2. gradle版本的Hello World</h2><p>创建一个<code>build.gradle</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task hello&#123;</span><br><span class="line">  doLast&#123;</span><br><span class="line">    println &apos;hello World&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后切换到<code>build.gradle</code>所在的目录,执行 <code>gradle -q hello</code><br>这个脚本定义了一个Task，Task名字叫做hello，并且给hello任务添加了一个动作Action</p>
+<h2 id="3-Gradle-Wrapper"><a href="#3-Gradle-Wrapper" class="headerlink" title="3. Gradle Wrapper"></a>3. Gradle Wrapper</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>是gradle的一个包装，用来统一Gradle的构建版本<br>生成Wrapper版本<br><code>gradle wrapper</code></p>
+<p>wrapper配置<br>|参数名|说明|<br>|:—-:|:—-:|<br>|–gradle-version|用于指定gradle的版本|<br>|–gradle-distribution-url|用于下载gradle发行版的地址|<br>使用方法是：<code>gradle wrapper --gradle-version 2.4</code></p>
+<h3 id="2-gradle-wrapper-properties"><a href="#2-gradle-wrapper-properties" class="headerlink" title="2 gradle-wrapper.properties"></a>2 gradle-wrapper.properties</h3><p> gradle-wrapper.properties 配置字段<br>wrapper配置</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段名</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">distributionBase</td>
+<td style="text-align:center">下载gradle压缩包解压后的主目录</td>
+</tr>
+<tr>
+<td style="text-align:center">distributionPath</td>
+<td style="text-align:center">相对于distributionBase的解压后的Gradle压缩包的路径</td>
+</tr>
+<tr>
+<td style="text-align:center">zipStoreBase</td>
+<td style="text-align:center">distributionBase  用于存放Zip压缩包的</td>
+</tr>
+<tr>
+<td style="text-align:center">zipStorePath</td>
+<td style="text-align:center">同distributionPath  用于存放Zip压缩包的</td>
+</tr>
+<tr>
+<td style="text-align:center">distributionUrl</td>
+<td style="text-align:center">用于下载gradle发行版的地址</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-bin.zip</span><br></pre></td></tr></table></figure>
+<h3 id="自定义-Wrapper-Task"><a href="#自定义-Wrapper-Task" class="headerlink" title="自定义 Wrapper Task"></a>自定义 Wrapper Task</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">task wrapper(type:wrapper)&#123;</span><br><span class="line">gradleVersion=&apos;2.4&apos;</span><br><span class="line">distributionBase=&apos;GRADLE_USER_HOME&apos;</span><br><span class="line">distributionPath=&apos;wrapper/dists&apos;</span><br><span class="line">zipStoreBase=&apos;GRADLE_USER_HOME&apos;</span><br><span class="line">zipStorePath=&apos;wrapper/dists&apos;</span><br><span class="line">distributionUrl=&apos;https\://services.gradle.org/distributions/gradle-2.14.1-bin.zip&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###Gradle 日志</p>
+<p>####<br><code>gradle -q tasks</code>   //重要级别的日志<br><code>gradle -i tasks</code>  //info级别的日志<br><code>gradle -s tasks</code>  //输出关键性的堆栈信息<br><code>gradle -S tasks</code>  //输出全部的堆栈信息</p>
+<h4 id="日志："><a href="#日志：" class="headerlink" title="日志："></a>日志：</h4><p><code>logger.quite(&#39;quiet 日志&#39;)</code><br><code>logger.error(&#39;error 日志&#39;)</code><br><code>logger.warn(&#39;warn 日志&#39;)</code><br><code>logger.lifecycle(&#39;lifecycle 日志&#39;)</code><br><code>logger.info(&#39;info 日志&#39;)</code><br><code>logger.debug(&#39;debug 日志&#39;)</code></p>
+<h4 id="命令行："><a href="#命令行：" class="headerlink" title="命令行："></a>命令行：</h4><p>帮助<br><code>gradlew -h</code><br>查看所有的<code>tasks</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">:tasks</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">All tasks runnable from root project</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build Setup tasks</span><br><span class="line">-----------------</span><br><span class="line">init - Initializes a new Gradle build. [incubating]</span><br><span class="line">wrapper - Generates Gradle wrapper files. [incubating]</span><br><span class="line"></span><br><span class="line">Help tasks</span><br><span class="line">----------</span><br><span class="line">buildEnvironment - Displays all buildscript dependencies declared in root project &apos;&apos;.</span><br><span class="line">components - Displays the components produced by root project &apos;&apos;. [incubating]</span><br><span class="line">dependencies - Displays all dependencies declared in root project &apos;&apos;.</span><br><span class="line">dependencyInsight - Displays the insight into a specific dependency in root project &apos;&apos;.</span><br><span class="line">help - Displays a help message.</span><br><span class="line">model - Displays the configuration model of root project &apos;&apos;. [incubating]</span><br><span class="line">projects - Displays the sub-projects of root project &apos;&apos;.</span><br><span class="line">properties - Displays the properties of root project &apos;&apos;.</span><br><span class="line">tasks - Displays the tasks runnable from root project &apos;&apos;.</span><br><span class="line"></span><br><span class="line">To see all tasks and more detail, run gradle tasks --all</span><br><span class="line"></span><br><span class="line">To see more detail about a task, run gradle help --task &lt;task&gt;</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br></pre></td></tr></table></figure>
+<p>gradle 和gradlew 的区别：<br>gradle使用本地版本<br>gradlew 是gradle wrapper的结合体，用的是wrapper中的版本</p>
+<ul>
+<li>强制刷新依赖</li>
+</ul>
+<p>gradle –refresh-dependencies assemble</p>
+<ul>
+<li>多个任务调用<br>gradle clean jar 先clean 在jar</li>
+</ul>
+<ul>
+<li>动态任务和定义任务链</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">task startSession &lt;&lt;&#123;</span><br><span class="line">  chant()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def chant()&#123;</span><br><span class="line">println &apos;Gradle chant&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3.times&#123;</span><br><span class="line">  task &quot;yayGradle$it&quot;&lt;&lt;&#123; //动态定义任务</span><br><span class="line">    println &apos;Gradle rocks&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">yayGradle0.dependsOn startSession</span><br><span class="line">yayGradle2.dependsOn yayGradle1， yayGradle0</span><br><span class="line">task groupTherapy(dependsOn:yayGradle2)</span><br></pre></td></tr></table></figure>
+<p>运行任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gradle groupTherapy</span><br><span class="line">结果：</span><br><span class="line">：startSession    //任务</span><br><span class="line">Gradle chant</span><br><span class="line">：yayGradle0    //任务</span><br><span class="line">Gradle rocks</span><br><span class="line">：yayGradle1    //任务</span><br><span class="line">Gradle rocks</span><br><span class="line">：yayGradle2    //任务</span><br><span class="line">Gradle rocks</span><br><span class="line">：groupTherapy    //任务</span><br></pre></td></tr></table></figure></p>
+<p> <img src="图像1514385779.png" alt="Alt text" title="任务依赖图"></p>
+<ul>
+<li><p>通过任务名字缩写执行<br>gradle connectCheck ==》 gradle cc</p>
+</li>
+<li><p>运行的时候排除任务:运行A任务，并排除B相关的依赖</p>
+</li>
+</ul>
+<p>gradle A -x b<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gradle ：groupTherapy -x yayGradle0</span><br><span class="line">结果</span><br><span class="line">：yayGradle1    //任务</span><br><span class="line">Gradle rocks</span><br><span class="line">：yayGradle2    //任务</span><br><span class="line">Gradle rocks</span><br><span class="line">：groupTherapy    //任务</span><br></pre></td></tr></table></figure></p>
+<h1 id="第二章-groovy基础"><a href="#第二章-groovy基础" class="headerlink" title="第二章 groovy基础"></a>第二章 groovy基础</h1><p><code>Gradle</code>是基于<code>Groovy</code>的语法，<code>groovy</code>是运行在<code>java</code>虚拟机上面的，所以和java可以完全兼容<br>这里先使用官网的教程，熟悉<code>groovy</code>的用法</p>
+<h2 id="Groovy和Java的不同"><a href="#Groovy和Java的不同" class="headerlink" title="Groovy和Java的不同"></a>Groovy和Java的不同</h2><h3 id="Default-imports：默认导入的包"><a href="#Default-imports：默认导入的包" class="headerlink" title="Default imports：默认导入的包"></a>Default imports：默认导入的包</h3><blockquote>
+<p><code>Groovy</code>会默认导入下面的包，不管你是否用到这些东西</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">java.io.*</span><br><span class="line">java.lang.*</span><br><span class="line">java.math.BigDecimal</span><br><span class="line">java.math.BigInteger</span><br><span class="line">java.net.*</span><br><span class="line">java.util.*</span><br><span class="line">groovy.lang.*</span><br><span class="line">groovy.util.*</span><br></pre></td></tr></table></figure>
+<h3 id="Multi-methods：重载方法"><a href="#Multi-methods：重载方法" class="headerlink" title="Multi-methods：重载方法"></a>Multi-methods：重载方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int method(String arg) &#123;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line">int method(Object arg) &#123;</span><br><span class="line">    return 2;</span><br><span class="line">&#125;</span><br><span class="line">Object o = &quot;Object&quot;;</span><br><span class="line">int result = method(o);</span><br></pre></td></tr></table></figure>
+<p>在<code>java</code>中结果是：2<br>在<code>Groovy</code>中结果是：1<br><code>java</code>在编译的的时候进行重载<br><code>Groovy</code>在真正运行的的的时候进行重载，所以知道确定的类型</p>
+<h3 id="Array-initializers：数组的定义"><a href="#Array-initializers：数组的定义" class="headerlink" title="Array initializers：数组的定义"></a>Array initializers：数组的定义</h3><p>在<code>Groovy</code>中<code>{}</code>是闭包，所以使用这种方式<code>int[] array = [1,2,3]</code>给数组赋值，而不是<code>int[] array = { 1, 2, 3}</code></p>
+<h3 id="Package-scope-visibility-私有变量"><a href="#Package-scope-visibility-私有变量" class="headerlink" title="Package scope visibility:私有变量"></a>Package scope visibility:私有变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    @PackageScope String name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">    String name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="ARM-Automatic-Resource-Management-blocks"><a href="#ARM-Automatic-Resource-Management-blocks" class="headerlink" title="ARM(Automatic Resource Management) blocks:"></a>ARM(Automatic Resource Management) blocks:</h3><p>这个是<code>java7</code>的新特性<br>之前的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream in = null;</span><br><span class="line">FileOutputStream out = null;</span><br><span class="line">try &#123;</span><br><span class="line">  in = new FileInputStream(&quot;xanadu.txt&quot;);</span><br><span class="line">  out = new FileOutputStream(&quot;outagain.txt&quot;);</span><br><span class="line">  int c;</span><br><span class="line">  while ((c = in.read()) != -1)</span><br><span class="line">    out.write(c);</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  if (in != null)</span><br><span class="line">    in.close();</span><br><span class="line">  if (out != null)</span><br><span class="line">    out.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个是<code>java7</code>之后的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try (</span><br><span class="line">  FileInputStream in = new FileInputStream(&quot;xanadu.txt&quot;);</span><br><span class="line">  FileOutputStream out = new FileOutputStream(&quot;outagain.txt&quot;)</span><br><span class="line">) &#123;</span><br><span class="line">  int c;</span><br><span class="line">  while((c=in.read()) != -1 )</span><br><span class="line">    out.write();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<p>就是在<code>try{}</code>里面如果是流操作，可以不用关闭流，<code>java会自动关闭流操作</code></p>
+</blockquote>
+</blockquote>
+<p>这个是<code>java</code>代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Path file = Paths.get(&quot;/path/to/file&quot;);</span><br><span class="line">Charset charset = Charset.forName(&quot;UTF-8&quot;);</span><br><span class="line">try (BufferedReader reader = Files.newBufferedReader(file, charset)) &#123;</span><br><span class="line">    String line;</span><br><span class="line">    while ((line = reader.readLine()) != null) &#123;</span><br><span class="line">        System.out.println(line);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个是<code>groovy</code>代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new File(&apos;/path/to/file&apos;).eachLine(&apos;UTF-8&apos;) &#123;</span><br><span class="line">   println it</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不能理解可以看一下这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new File(&apos;/path/to/file&apos;).withReader(&apos;UTF-8&apos;) &#123; reader -&gt;</span><br><span class="line">   reader.eachLine &#123;</span><br><span class="line">       println it</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Inner-classes：内部类的写法"><a href="#Inner-classes：内部类的写法" class="headerlink" title="Inner classes：内部类的写法"></a>Inner classes：内部类的写法</h3><h4 id="Static-inner-classes-：静态内部类的写法"><a href="#Static-inner-classes-：静态内部类的写法" class="headerlink" title="Static inner classes ：静态内部类的写法"></a>Static inner classes ：静态内部类的写法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">    static class B &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">new A.B()</span><br></pre></td></tr></table></figure>
+<h4 id="Anonymous-Inner-Classes-：匿名内部类的写法"><a href="#Anonymous-Inner-Classes-：匿名内部类的写法" class="headerlink" title="Anonymous Inner Classes ：匿名内部类的写法"></a>Anonymous Inner Classes ：匿名内部类的写法</h4><p>这个没有多大的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import java.util.concurrent.CountDownLatch</span><br><span class="line">import java.util.concurrent.TimeUnit</span><br><span class="line"></span><br><span class="line">CountDownLatch called = new CountDownLatch(1)</span><br><span class="line"></span><br><span class="line">Timer timer = new Timer()</span><br><span class="line">timer.schedule(new TimerTask() &#123;</span><br><span class="line">    void run() &#123;</span><br><span class="line">        called.countDown()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">assert called.await(10, TimeUnit.SECONDS)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Creating-Instances-of-Non-Static-Inner-Classes-创建非静态内部类"><a href="#Creating-Instances-of-Non-Static-Inner-Classes-创建非静态内部类" class="headerlink" title="Creating Instances of Non-Static Inner Classes:创建非静态内部类"></a>Creating Instances of Non-Static Inner Classes:创建非静态内部类</h4><p><code>java</code>中的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Y &#123;</span><br><span class="line">    public class X &#123;&#125;</span><br><span class="line">    public X foo() &#123;</span><br><span class="line">        return new X();</span><br><span class="line">    &#125;</span><br><span class="line">    public static X createX(Y y) &#123;</span><br><span class="line">        return y.new X();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>groovy</code>中的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Y &#123;</span><br><span class="line">    public class X &#123;&#125;</span><br><span class="line">    public X foo() &#123;</span><br><span class="line">        return new X()</span><br><span class="line">    &#125;</span><br><span class="line">    public static X createX(Y y) &#123;</span><br><span class="line">        return new X(y)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Lambdas"><a href="#Lambdas" class="headerlink" title="Lambdas"></a>Lambdas</h3><p><code>groovy</code>不支持<code>Lambdas</code>，使用闭包替代</p>
+<h3 id="GStrings"><a href="#GStrings" class="headerlink" title="GStrings"></a>GStrings</h3><p><code>groovy</code>在String的基础上对String进行了拓展，后面会详细讲述</p>
+<h2 id="Closures-闭包"><a href="#Closures-闭包" class="headerlink" title="Closures:闭包"></a>Closures:闭包</h2><p>之前对闭包这个一直不是很理解，然后看了一下官方的文档，清晰了很多:<a href="http://groovy-lang.org/closures.html" target="_blank" rel="noopener">http://groovy-lang.org/closures.html</a></p>
+<h3 id="Syntax-语法"><a href="#Syntax-语法" class="headerlink" title="Syntax:语法"></a>Syntax:语法</h3><p>####Defining a closure：定义<br><code>{ [closureParameters -&gt; ] statements }</code> []里面的内容是可选的<br>闭包常见的几种形式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123; item++ &#125;                                        </span><br><span class="line"></span><br><span class="line">&#123; -&gt; item++ &#125;                                       </span><br><span class="line"></span><br><span class="line">&#123; println it &#125;       //使用了隐式参数it                               </span><br><span class="line"></span><br><span class="line">&#123; it -&gt; println it &#125; //明确声明了参数it                     </span><br><span class="line"></span><br><span class="line">&#123; name -&gt; println name &#125;                            </span><br><span class="line"></span><br><span class="line">&#123; String x, int y -&gt;                                </span><br><span class="line">    println &quot;hey $&#123;x&#125; the value is $&#123;y&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123; reader -&gt;                                         </span><br><span class="line">    def line = reader.readLine()</span><br><span class="line">    line.trim()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Closures-as-an-object：闭包是可以作为一个对象的"><a href="#Closures-as-an-object：闭包是可以作为一个对象的" class="headerlink" title="Closures as an object：闭包是可以作为一个对象的"></a>Closures as an object：闭包是可以作为一个对象的</h4><p>闭包在<code>groovy</code>中是一个类<code>groovy.lang.Closure</code>，这样理解对后面会有很多的帮助<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def listener = &#123; e -&gt; println &quot;Clicked on $e.source&quot; &#125;   //def 是Object类型，Closure是Object的子类     </span><br><span class="line">assert listener instanceof Closure</span><br><span class="line">Closure callback = &#123; println &apos;Done!&apos; &#125;                      </span><br><span class="line">Closure&lt;Boolean&gt; isTextFile = &#123;</span><br><span class="line">    File it -&gt; it.name.endsWith(&apos;.txt&apos;)                     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Calling-a-closure：调用闭包"><a href="#Calling-a-closure：调用闭包" class="headerlink" title="Calling a closure：调用闭包"></a>Calling a closure：调用闭包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def code = &#123; 123 &#125;  //这里有一点：groovy闭包和方法如果没有return，就默认使用最后面的那个参数作为返回值</span><br><span class="line">assert code() == 123 //所以这里是相等的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def isOdd = &#123; int i -&gt; i%2 != 0 &#125;                           </span><br><span class="line">assert isOdd(3) == true   //上方定义一个闭包：isOdd，有一个参数，这里调用闭包                                  </span><br><span class="line">assert isOdd.call(2) == false      //闭包另外一种调用方式     </span><br><span class="line"></span><br><span class="line">def isEven = &#123; it%2 == 0 &#125;                                  </span><br><span class="line">assert isEven(3) == false                                   </span><br><span class="line">assert isEven.call(2) == true</span><br></pre></td></tr></table></figure>
+<h3 id="Parameters-：-闭包的参数"><a href="#Parameters-：-闭包的参数" class="headerlink" title="Parameters ： 闭包的参数"></a>Parameters ： 闭包的参数</h3><h4 id="Normal-parameters：默认参数"><a href="#Normal-parameters：默认参数" class="headerlink" title="Normal parameters：默认参数"></a>Normal parameters：默认参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">def closureWithOneArg = &#123; str -&gt; str.toUpperCase() &#125;   //这个有一个参数</span><br><span class="line">assert closureWithOneArg(&apos;groovy&apos;) == &apos;GROOVY&apos;</span><br><span class="line"></span><br><span class="line">def closureWithOneArgAndExplicitType = &#123; String str -&gt; str.toUpperCase() &#125;</span><br><span class="line">assert closureWithOneArgAndExplicitType(&apos;groovy&apos;) == &apos;GROOVY&apos;</span><br><span class="line"></span><br><span class="line">def closureWithTwoArgs = &#123; a,b -&gt; a+b &#125;</span><br><span class="line">assert closureWithTwoArgs(1,2) == 3</span><br><span class="line"></span><br><span class="line">def closureWithTwoArgsAndExplicitTypes = &#123; int a, int b -&gt; a+b &#125;</span><br><span class="line">assert closureWithTwoArgsAndExplicitTypes(1,2) == 3</span><br><span class="line"></span><br><span class="line">def closureWithTwoArgsAndOptionalTypes = &#123; a, int b -&gt; a+b &#125;  //这个有两个参数</span><br><span class="line">assert closureWithTwoArgsAndOptionalTypes(1,2) == 3</span><br><span class="line"></span><br><span class="line">def closureWithTwoArgAndDefaultValue = &#123; int a, int b=2 -&gt; a+b &#125;  //这个有两个参数，一个参数有默认值，所以可以传递一个或者两个参数</span><br><span class="line">assert closureWithTwoArgAndDefaultValue(1) == 3</span><br></pre></td></tr></table></figure>
+<h4 id="Implicit-parameter：隐式参数"><a href="#Implicit-parameter：隐式参数" class="headerlink" title="Implicit parameter：隐式参数"></a>Implicit parameter：隐式参数</h4><h4 id="Varargs-可变参数"><a href="#Varargs-可变参数" class="headerlink" title="Varargs:可变参数"></a>Varargs:可变参数</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gradle/" rel="tag"># gradle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/Android-sql/" rel="next" title="Android_sql">
+                <i class="fa fa-chevron-left"></i> Android_sql
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/android/Android开发艺术探索导读/" rel="prev" title="Android开发艺术探索导读">
+                Android开发艺术探索导读 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Groot</p>
+              <p class="site-description motion-element" itemprop="description">尽信书则不如无书</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章-gradle入门"><span class="nav-number">2.</span> <span class="nav-text">第一章 gradle入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装方法"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-gradle版本的Hello-World"><span class="nav-number">2.2.</span> <span class="nav-text">2. gradle版本的Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Gradle-Wrapper"><span class="nav-number">2.3.</span> <span class="nav-text">3. Gradle Wrapper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1"><span class="nav-number">2.3.1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-gradle-wrapper-properties"><span class="nav-number">2.3.2.</span> <span class="nav-text">2 gradle-wrapper.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义-Wrapper-Task"><span class="nav-number">2.3.3.</span> <span class="nav-text">自定义 Wrapper Task</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#日志："><span class="nav-number">2.3.3.1.</span> <span class="nav-text">日志：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行："><span class="nav-number">2.3.3.2.</span> <span class="nav-text">命令行：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-groovy基础"><span class="nav-number">3.</span> <span class="nav-text">第二章 groovy基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy和Java的不同"><span class="nav-number">3.1.</span> <span class="nav-text">Groovy和Java的不同</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Default-imports：默认导入的包"><span class="nav-number">3.1.1.</span> <span class="nav-text">Default imports：默认导入的包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-methods：重载方法"><span class="nav-number">3.1.2.</span> <span class="nav-text">Multi-methods：重载方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-initializers：数组的定义"><span class="nav-number">3.1.3.</span> <span class="nav-text">Array initializers：数组的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Package-scope-visibility-私有变量"><span class="nav-number">3.1.4.</span> <span class="nav-text">Package scope visibility:私有变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARM-Automatic-Resource-Management-blocks"><span class="nav-number">3.1.5.</span> <span class="nav-text">ARM(Automatic Resource Management) blocks:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inner-classes：内部类的写法"><span class="nav-number">3.1.6.</span> <span class="nav-text">Inner classes：内部类的写法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Static-inner-classes-：静态内部类的写法"><span class="nav-number">3.1.6.1.</span> <span class="nav-text">Static inner classes ：静态内部类的写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anonymous-Inner-Classes-：匿名内部类的写法"><span class="nav-number">3.1.6.2.</span> <span class="nav-text">Anonymous Inner Classes ：匿名内部类的写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Creating-Instances-of-Non-Static-Inner-Classes-创建非静态内部类"><span class="nav-number">3.1.6.3.</span> <span class="nav-text">Creating Instances of Non-Static Inner Classes:创建非静态内部类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lambdas"><span class="nav-number">3.1.7.</span> <span class="nav-text">Lambdas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GStrings"><span class="nav-number">3.1.8.</span> <span class="nav-text">GStrings</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Closures-闭包"><span class="nav-number">3.2.</span> <span class="nav-text">Closures:闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Syntax-语法"><span class="nav-number">3.2.1.</span> <span class="nav-text">Syntax:语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Closures-as-an-object：闭包是可以作为一个对象的"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">Closures as an object：闭包是可以作为一个对象的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Calling-a-closure：调用闭包"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">Calling a closure：调用闭包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parameters-：-闭包的参数"><span class="nav-number">3.2.2.</span> <span class="nav-text">Parameters ： 闭包的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-parameters：默认参数"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">Normal parameters：默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Implicit-parameter：隐式参数"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">Implicit parameter：隐式参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Varargs-可变参数"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">Varargs:可变参数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Groot</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
